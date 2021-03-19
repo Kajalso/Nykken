@@ -8,18 +8,17 @@ function DataFetching() {
 
   const handleClick = () => {
     setIdFromButtonClick(id);
-    console.log(dataInfo);
   };
 
   useEffect(() => {
     axios
       .get(`http://ibmrisvol.ibm.ntnu.no/data/info?id=${idFromButtonClick}`)
-      .then((res) => {
-        console.log(res);
-        setDataInfo(res.data);
+      .then((response) => {
+        console.log(response.data);
+        setDataInfo(response.data);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch((error) => {
+        console.log(error);
       });
   }, [idFromButtonClick]);
 
@@ -27,9 +26,11 @@ function DataFetching() {
     <div>
       <input type="text" value={id} onChange={(e) => setId(e.target.value)} />
       <button type="button" onClick={handleClick}>
-        Fetch post
+        Fetch data info
       </button>
-      <div>{dataInfo.description}</div>
+      <div>Sensor ID: {dataInfo.sensor_id}</div>
+      <div>Description: {dataInfo.description}</div>
+      <div>Unit: {dataInfo.unit}</div>
     </div>
   );
 }
