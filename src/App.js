@@ -1,7 +1,8 @@
 import "./App.css";
 import { Header } from "./components/Header";
-import DataInfoFetching from "./api/DataInfoFetching";
+import { DataInfoFetching } from "./api/DataInfoFetching";
 import DataFetching from "./api/DataFetching";
+import { RenderData } from "./components/RenderData";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <Header />
       <DataInfoFetching />
       <DataFetching />
+      <RenderData />
     </div>
   );
 }
