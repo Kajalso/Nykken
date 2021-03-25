@@ -59,6 +59,7 @@ export const SensorData = () => {
           type="time"
           value={startTimeFromInput}
           onChange={(e) => setStartTimeFromInput(e.target.value)}
+          step="1"
         />
         <label>Until:</label>
         <input
@@ -70,6 +71,7 @@ export const SensorData = () => {
           type="time"
           value={endTimeFromInput}
           onChange={(e) => setEndTimeFromInput(e.target.value)}
+          step="1"
         />
       </div>
       <button type="button" onClick={handleClick}>
