@@ -1,0 +1,40 @@
+$colorBlue: rgb(156, 204, 248);
+$colorRed: rgb(250, 143, 143);
+
+/* Marks styling */
+.mark-circle {
+  fill: $colorBlue;
+}
+
+.mark-temp-line {
+  fill: none;
+  stroke: $colorRed;
+  stroke-width: 3;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.axis-label {
+  text-anchor: middle;
+  font-size: smaller;
+  font-weight: bold;
+  fill: #635f5d;
+}
+
+/* Axes styling */
+
+.tick-line {
+  stroke: #c0c0bb;
+}
+
+.tick-text-x {
+  text-anchor: middle;
+  font-size: x-small;
+  fill: #635f5d;
+}
+
+.tick-text-y {
+  text-anchor: end;
+  font-size: x-small;
+  fill: #635f5d;
+}
