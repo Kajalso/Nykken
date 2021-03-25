@@ -3,6 +3,8 @@ import React, { useState, useEffect } from "react";
 import { LineChart } from "../components/LineChart/LineChart";
 
 import { useSensorData } from "../api/useSensorData";
+import { useDataInfo } from "../api/useDataInfo";
+
 import "./sensorData.css";
 
 export const SensorData = () => {
@@ -23,11 +25,13 @@ export const SensorData = () => {
   const startDateTime = startDate + startTime;
   const endDateTime = endDate + endTime;
 
+  // Fetch sensor data and data info
   const [sensorData, setSensorData] = useSensorData(
     id,
     startDateTime,
     endDateTime
   );
+  const [dataInfo, setDataInfo] = useDataInfo(id);
 
   const handleClick = () => {
     setId(idFromInput);
@@ -93,7 +97,7 @@ export const SensorData = () => {
               ))}
             </div>
           </div>
-          {/*<LineChart data={sensorData} />*/}
+          <LineChart data={sensorData} dataInfo={dataInfo} />
         </>
       )}
     </div>

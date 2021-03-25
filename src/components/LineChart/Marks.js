@@ -6,8 +6,9 @@ export const Marks = ({
   yScale,
   xValue,
   yValue,
-  tooltipFormat,
+  xFormat,
   circleRadius = 7,
+  curveStyle = curveNatural,
 }) => (
   <>
     <path
@@ -15,9 +16,8 @@ export const Marks = ({
       d={line()
         .x((d) => xScale(xValue(d)))
         .y((d) => yScale(yValue(d)))
-        .curve(curveNatural)(data)}
+        .curve(curveStyle)(data)}
     />
-    {/*
     {data.map((d, i) => (
       <circle
         className="mark-circle"
@@ -26,9 +26,8 @@ export const Marks = ({
         cy={yScale(yValue(d))}
         r={circleRadius}
       >
-        <title>{tooltipFormat(yValue(d))}</title>
+        <title>{xFormat(xValue(d)) + ": " + yValue(d)}</title>
       </circle>
     ))}
-    /** */}
   </>
 );

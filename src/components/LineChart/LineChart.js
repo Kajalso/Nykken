@@ -1,7 +1,5 @@
 import React from "react";
-import { scaleTime, scaleLinear, extent, timeFormat } from "d3";
-import { useData } from "./useData";
-import { useSensorData } from "../../api/useSensorData_old";
+import { scaleTime, scaleLinear, extent, timeFormat, curveMonotoneX } from "d3";
 
 import { AxisBottom } from "./AxisBottom";
 import { AxisLeft } from "./AxisLeft";
@@ -12,29 +10,27 @@ import "./chart.scss";
 const width = 700;
 const height = 400;
 const margin = { top: 10, right: 50, bottom: 50, left: 70 };
-const circleRadius = 2;
+const circleRadius = 3;
 
 const innerHeight = height - margin.top - margin.bottom;
 const innerWidth = width - margin.right - margin.left;
 
 // X values
-const xValue = (d) => d.time_stamp_utc;
-const xAxisLabel = "Time";
+const xValue = (d) => new Date(d.time_stamp_utc);
+let xAxisLabel = "Time";
 const xAxisLabelOffset = 40;
 
 // Y values
-const yValue = (d) => d.measurement;
-const yAxisLabel = "Measurement";
+const yValue = (d) => +d.measurement;
+let yAxisLabel = "Measurement";
 const yAxisLabelOffset = 45;
 
 // Axis formats
-const xAxisTickFormat = timeFormat("%a");
+const xAxisTickFormat = timeFormat("%I:%M");
 
-export const LineChart = ({ data = [] }) => {
-  console.log(data);
-
-  if (!data) {
-    return <pre></pre>;
+export const LineChart = ({ data = [], dataInfo = {} }) => {
+  if (!data || !dataInfo) {
+    return <pre>Loading chart...</pre>;
   }
 
   // Linear scale for x values
@@ -50,8 +46,8 @@ export const LineChart = ({ data = [] }) => {
     .nice();
 
   return (
-    <div className="big-chart-section">
-      <h4 className="section-title">Line chart</h4>
+    <div className="chart">
+      <h4 className="section-title">{dataInfo.description}</h4>
       <div className="data">
         <svg width={width} height={height}>
           <g transform={`translate(${margin.left}, ${margin.top})`}>
@@ -68,22 +64,23 @@ export const LineChart = ({ data = [] }) => {
               yScale={yScale}
               xValue={xValue}
               yValue={yValue}
-              tooltipFormat={xAxisTickFormat}
+              xFormat={xAxisTickFormat}
               circleRadius={circleRadius}
+              curveStyle={curveMonotoneX}
             />
             <text
               x={innerWidth / 2}
               y={innerHeight + xAxisLabelOffset}
               className={"axis-label"}
             >
-              {xAxisLabel}
+              {xAxisLabel + " (min)"}
             </text>
             <text
               className={"axis-label"}
               transform={`translate(${-yAxisLabelOffset},
                 ${innerHeight / 2}) rotate(-90)`}
             >
-              {yAxisLabel}
+              {yAxisLabel + " (" + dataInfo.unit + ")"}
             </text>
           </g>
         </svg>

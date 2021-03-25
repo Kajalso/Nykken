@@ -1,5 +1,13 @@
 $colorBlue: rgb(156, 204, 248);
 $colorRed: rgb(250, 143, 143);
+$colorPurple: rgb(214, 106, 241);
+
+/* Chart styling */
+.chart {
+  svg {
+    overflow: visible;
+  }
+}
 
 /* Marks styling */
 .mark-circle {
@@ -8,7 +16,7 @@ $colorRed: rgb(250, 143, 143);
 
 .mark-temp-line {
   fill: none;
-  stroke: $colorRed;
+  stroke: $colorPurple;
   stroke-width: 3;
   stroke-linejoin: round;
   stroke-linecap: round;
@@ -17,7 +25,7 @@ $colorRed: rgb(250, 143, 143);
 .axis-label {
   text-anchor: middle;
   font-size: smaller;
-  font-weight: bold;
+  font-weight: 600;
   fill: #635f5d;
 }
 

@@ -27,8 +27,6 @@ export const useSensorData = (id, startDateTime, endDateTime) => {
       )
       .then((response) => {
         let measurements = response.data.data[0].measurements;
-        console.log("Response: ");
-        console.log(measurements);
         setSensorData(measurements);
         console.log("Data fetched.");
       })
