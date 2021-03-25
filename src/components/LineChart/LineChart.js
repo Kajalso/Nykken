@@ -1,5 +1,12 @@
 import React from "react";
-import { scaleTime, scaleLinear, extent, timeFormat, curveMonotoneX } from "d3";
+import {
+  scaleTime,
+  scaleLinear,
+  extent,
+  timeFormat,
+  utcFormat,
+  curveMonotoneX,
+} from "d3";
 
 import { AxisBottom } from "./AxisBottom";
 import { AxisLeft } from "./AxisLeft";
@@ -26,7 +33,7 @@ let yAxisLabel = "Measurement";
 const yAxisLabelOffset = 45;
 
 // Axis formats
-const xAxisTickFormat = timeFormat("%H:%M");
+const xAxisTickFormat = utcFormat("%H:%M");
 const dateFormat = (d) => timeFormat("%A %d %B %Y")(new Date(d.time_stamp_utc));
 
 export const LineChart = ({ data = [], dataInfo = {} }) => {
