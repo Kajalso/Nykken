@@ -2,7 +2,10 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export const useSensorData = (id, startDateTime, endDateTime) => {
-  const [sensorData, setSensorData] = useState(null);
+  const [sensorData, setSensorData] = useState({
+    loading: true,
+    measurements: [],
+  });
 
   const startDate = startDateTime.slice(0, 10);
   const startTime = startDateTime.slice(10, -1);
@@ -12,6 +15,10 @@ export const useSensorData = (id, startDateTime, endDateTime) => {
 
   useEffect(() => {
     console.log("Data with ID " + id + " is fetching...");
+    setSensorData({
+      loading: true,
+      measurements: [],
+    });
     axios
       .get(
         `http://ibmrisvol.ibm.ntnu.no/data?from=${startDate}T${startTime.slice(
@@ -26,14 +33,26 @@ export const useSensorData = (id, startDateTime, endDateTime) => {
         )}%3A${endTime.slice(6, 8)}Z&identifier=${id}`
       )
       .then((response) => {
+        console.log("Resonse:");
+        console.log(response.data.data[0].measurements);
         let measurements = response.data.data[0].measurements;
-        console.log("Response: ");
-        console.log(measurements);
-        setSensorData(measurements);
+        setSensorData({
+          loading: false,
+          measurements: measurements.map((data) => Number(data.measurement)),
+          timestamps: measurements.map((data) => {
+            let date = new Date(data.time_stamp_utc);
+            return date.toString();
+          }),
+        });
         console.log("Data fetched.");
       })
       .catch((error) => {
         console.log(error);
+        setSensorData({
+          loading: false,
+          measurements: [],
+          timestamps: [],
+        });
       });
   }, [startDate, startTime, endDate, endTime, id]);
 

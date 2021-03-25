@@ -1,10 +1,10 @@
 import React from "react";
 import { scaleTime, scaleLinear, extent, timeFormat } from "d3";
 import { useData } from "./useData";
+import { useSensorData } from "../../api/useSensorData_old";
 
 import { AxisBottom } from "./AxisBottom";
 import { AxisLeft } from "./AxisLeft";
-import { AxisRight } from "./AxisRight";
 import { Marks } from "./Marks";
 
 import "./chart.scss";
@@ -18,20 +18,20 @@ const innerHeight = height - margin.top - margin.bottom;
 const innerWidth = width - margin.right - margin.left;
 
 // X values
-const xValue = (d) => d.timestamp;
+const xValue = (d) => d.time_stamp_utc;
 const xAxisLabel = "Time";
 const xAxisLabelOffset = 40;
 
 // Y values
-const yValue = (d) => d.temperature;
-const yAxisLabel = "Temperature";
+const yValue = (d) => d.measurement;
+const yAxisLabel = "Measurement";
 const yAxisLabelOffset = 45;
 
 // Axis formats
 const xAxisTickFormat = timeFormat("%a");
 
-export const LineChart = () => {
-  const data = useData();
+export const LineChart = ({ data = [] }) => {
+  console.log(data);
 
   if (!data) {
     return <pre></pre>;
@@ -51,7 +51,7 @@ export const LineChart = () => {
 
   return (
     <div className="big-chart-section">
-      <h4 className="section-title">Line Chart (Temperature)</h4>
+      <h4 className="section-title">Line chart</h4>
       <div className="data">
         <svg width={width} height={height}>
           <g transform={`translate(${margin.left}, ${margin.top})`}>
