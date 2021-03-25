@@ -21,6 +21,16 @@ export const SensorData = () => {
   const startDateTime = startDate + startTime;
   const endDateTime = endDate + endTime;
 
+  /*
+  setSensorData({
+    loading: false,
+    measurements: apiData.map((data) => Number(data.measurement)),
+    timestamps: apiData.map((data) => {
+      let date = new Date(data.time_stamp_utc);
+      return date.toString();
+    }),
+  });*/
+
   const [sensorData, setSensorData] = useSensorData(
     id,
     startDateTime,
@@ -33,14 +43,11 @@ export const SensorData = () => {
     setStartDate(startDateFromInput);
     setEndTime(endTimeFromInput);
     setEndDate(endDateFromInput);
-
-    console.log("Showing data with ID " + idFromInput);
-    console.log("From: " + startDateFromInput + " " + startTimeFromInput);
-    console.log("Until: " + endDateFromInput + " " + endTimeFromInput);
   };
 
   useEffect(() => {
     setSensorData(id, startDateTime, endDateTime);
+    console.log("Data from sensor " + id + " is being fetched.");
   }, [id, startDateTime, endDateTime, setSensorData]);
 
   return (
@@ -92,6 +99,7 @@ export const SensorData = () => {
                 </div>
               ))}
             </div>
+
             <div className="timestamps">
               {sensorData.timestamps.map((timestamp, i) => (
                 <div key={i} className="timestamp">

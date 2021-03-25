@@ -25,7 +25,7 @@ export const DataInfo = () => {
       <button type="button" onClick={handleClick}>
         Fetch data info
       </button>
-      <div>Sensor ID: {dataInfo.data_identifier}</div>
+      <div>Sensor ID: {dataInfo.sensor_id}</div>
       <div>Description: {dataInfo.description}</div>
       <div>Unit: {dataInfo.unit}</div>
     </div>
