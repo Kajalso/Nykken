@@ -11,8 +11,7 @@ function DataFetching() {
 
   const [measurementsData, setMeasurementsData] = useState([]);
   const [measurements, setMeasurements] = useState([]);
-
-  const [timestamps, setTimestamps] = useState({});
+  const [timestamps, setTimestamps] = useState([]);
 
   const [fromTime, setFromTime] = useState("00:00:00");
   const [untilTime, setUntilTime] = useState("00:11:00");
@@ -100,21 +99,21 @@ function DataFetching() {
       {!loading && (
         <div className="measurementsdata">
           <div className="measurements">
-            {measurements.map((measurement) => (
-              <div className="measurement">Measurement: {measurement}</div>
+            {measurements.map((measurement, i) => (
+              <div key={i} className="measurement">
+                Measurement: {measurement}
+              </div>
             ))}
           </div>
           <div className="timestamps">
-            {timestamps.map((timestamp) => (
-              <div className="timestamp">Timestamp: {timestamp}</div>
+            {timestamps.map((timestamp, i) => (
+              <div key={i} className="timestamp">
+                Timestamp: {timestamp}
+              </div>
             ))}
           </div>
         </div>
       )}
-
-      {/*dataMeasurements.map((measurement) => (
-        <div>{measurement.data}</div>
-      ))*/}
     </div>
   );
 }

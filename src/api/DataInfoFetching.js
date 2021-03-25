@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-function DataInfoFetching() {
+export const DataInfoFetching = () => {
   const [dataInfo, setDataInfo] = useState({});
   const [id, setId] = useState(1);
   const [idFromButtonClick, setIdFromButtonClick] = useState(1);
@@ -29,11 +29,9 @@ function DataInfoFetching() {
       <button type="button" onClick={handleClick}>
         Fetch data info
       </button>
-      <div>Sensor ID: {dataInfo.sensor_id}</div>
+      <div>Sensor ID: {dataInfo.data_identifier}</div>
       <div>Description: {dataInfo.description}</div>
       <div>Unit: {dataInfo.unit}</div>
     </div>
   );
-}
-
-export default DataInfoFetching;
+};
