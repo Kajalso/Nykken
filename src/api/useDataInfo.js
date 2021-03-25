@@ -9,7 +9,6 @@ export const useDataInfo = (id) => {
       .get(`http://ibmrisvol.ibm.ntnu.no/data/info?id=${id}`)
       .then((response) => {
         setDataInfo(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);

@@ -2,6 +2,7 @@ import { line, curveNatural } from "d3";
 
 export const Marks = ({
   data,
+  dataInfo,
   xScale,
   yScale,
   xValue,
@@ -26,7 +27,9 @@ export const Marks = ({
         cy={yScale(yValue(d))}
         r={circleRadius}
       >
-        <title>{xFormat(xValue(d)) + ": " + yValue(d)}</title>
+        <title>
+          {xFormat(xValue(d)) + ": " + yValue(d) + " " + dataInfo.unit}
+        </title>
       </circle>
     ))}
   </>

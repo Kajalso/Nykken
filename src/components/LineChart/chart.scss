@@ -11,7 +11,7 @@ $colorPurple: rgb(214, 106, 241);
 
 /* Marks styling */
 .mark-circle {
-  fill: $colorBlue;
+  fill: $colorPurple;
 }
 
 .mark-temp-line {
@@ -23,6 +23,13 @@ $colorPurple: rgb(214, 106, 241);
 }
 
 .axis-label {
+  text-anchor: middle;
+  font-size: small;
+  font-weight: 600;
+  fill: #635f5d;
+}
+
+.axis-date {
   text-anchor: middle;
   font-size: smaller;
   font-weight: 600;

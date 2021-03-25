@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { LineChart } from "../components/LineChart/LineChart";
 
@@ -26,12 +26,8 @@ export const SensorData = () => {
   const endDateTime = endDate + endTime;
 
   // Fetch sensor data and data info
-  const [sensorData, setSensorData] = useSensorData(
-    id,
-    startDateTime,
-    endDateTime
-  );
-  const [dataInfo, setDataInfo] = useDataInfo(id);
+  const [sensorData] = useSensorData(id, startDateTime, endDateTime);
+  const [dataInfo] = useDataInfo(id);
 
   const handleClick = () => {
     setId(idFromInput);
@@ -41,20 +37,16 @@ export const SensorData = () => {
     setEndDate(endDateFromInput);
   };
 
-  /*
-  useEffect(() => {
-    //setSensorData(id, startDateTime, endDateTime);
-    console.log("Data from sensor " + id + " is being fetched.");
-  }, [id, startDateTime, endDateTime, setSensorData]);
-*/
-
   return (
     <div>
-      <h4>Data fetching</h4>
+      <h4>Fetch data from Risvollan API</h4>
+      <label>Sensor ID:</label>
       <input
-        type="text"
+        type="number"
         value={idFromInput}
         onChange={(e) => setIdFromInput(e.target.value)}
+        min="1"
+        max="13"
       />
       <div className="date-picker">
         <label>From:</label>
@@ -86,15 +78,14 @@ export const SensorData = () => {
       {(!sensorData || !sensorData[0]) && <div>Loading ...</div>}
       {sensorData && sensorData[0] && (
         <>
-          <div className="info-text">ID: {id}</div>
           <div className="measurementsdata">
             <div className="measurements">
-              {sensorData.map((data, i) => (
+              {/*sensorData.map((data, i) => (
                 <div key={i}>
                   Timestamp: {data.time_stamp_utc}, Measurement:
                   {data.measurement}
                 </div>
-              ))}
+              ))*/}
             </div>
           </div>
           <LineChart data={sensorData} dataInfo={dataInfo} />
