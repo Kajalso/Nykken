@@ -1,0 +1,48 @@
+$colorBlue: rgb(156, 204, 248);
+$colorRed: rgb(250, 143, 143);
+$colorPurple: rgb(214, 106, 241);
+
+/* Chart styling */
+.chart {
+  svg {
+    overflow: visible;
+  }
+}
+
+/* Marks styling */
+.mark-circle {
+  fill: $colorBlue;
+}
+
+.mark-temp-line {
+  fill: none;
+  stroke: $colorPurple;
+  stroke-width: 3;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.axis-label {
+  text-anchor: middle;
+  font-size: smaller;
+  font-weight: 600;
+  fill: #635f5d;
+}
+
+/* Axes styling */
+
+.tick-line {
+  stroke: #c0c0bb;
+}
+
+.tick-text-x {
+  text-anchor: middle;
+  font-size: x-small;
+  fill: #635f5d;
+}
+
+.tick-text-y {
+  text-anchor: end;
+  font-size: x-small;
+  fill: #635f5d;
+}

@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 
+import { LineChart } from "../components/LineChart/LineChart";
+
 import { useSensorData } from "../api/useSensorData";
+import { useDataInfo } from "../api/useDataInfo";
+
 import "./sensorData.css";
 
 export const SensorData = () => {
@@ -12,30 +16,22 @@ export const SensorData = () => {
   const [startDateFromInput, setStartDateFromInput] = useState("2020-08-08");
   const [endDateFromInput, setEndDateFromInput] = useState("2020-08-08");
 
-  const [startTime, setStartTime] = useState("00:00:00");
-  const [endTime, setEndTime] = useState("00:11:00");
-
   const [startDate, setStartDate] = useState("2020-08-08");
   const [endDate, setEndDate] = useState("2020-08-08");
+
+  const [startTime, setStartTime] = useState("00:00:00");
+  const [endTime, setEndTime] = useState("00:11:00");
 
   const startDateTime = startDate + startTime;
   const endDateTime = endDate + endTime;
 
-  /*
-  setSensorData({
-    loading: false,
-    measurements: apiData.map((data) => Number(data.measurement)),
-    timestamps: apiData.map((data) => {
-      let date = new Date(data.time_stamp_utc);
-      return date.toString();
-    }),
-  });*/
-
+  // Fetch sensor data and data info
   const [sensorData, setSensorData] = useSensorData(
     id,
     startDateTime,
     endDateTime
   );
+  const [dataInfo, setDataInfo] = useDataInfo(id);
 
   const handleClick = () => {
     setId(idFromInput);
@@ -45,10 +41,12 @@ export const SensorData = () => {
     setEndDate(endDateFromInput);
   };
 
+  /*
   useEffect(() => {
-    setSensorData(id, startDateTime, endDateTime);
+    //setSensorData(id, startDateTime, endDateTime);
     console.log("Data from sensor " + id + " is being fetched.");
   }, [id, startDateTime, endDateTime, setSensorData]);
+*/
 
   return (
     <div>
@@ -85,29 +83,21 @@ export const SensorData = () => {
       <button type="button" onClick={handleClick}>
         Fetch data
       </button>
-      {(!sensorData.measurements || !sensorData.timestamps) && (
-        <div>Loading ...</div>
-      )}
-      {sensorData.measurements && sensorData.timestamps && (
+      {(!sensorData || !sensorData[0]) && <div>Loading ...</div>}
+      {sensorData && sensorData[0] && (
         <>
           <div className="info-text">ID: {id}</div>
           <div className="measurementsdata">
             <div className="measurements">
-              {sensorData.measurements.map((measurement, i) => (
-                <div key={i} className="measurement">
-                  Measurement: {measurement}
-                </div>
-              ))}
-            </div>
-
-            <div className="timestamps">
-              {sensorData.timestamps.map((timestamp, i) => (
-                <div key={i} className="timestamp">
-                  Timestamp: {timestamp}
+              {sensorData.map((data, i) => (
+                <div key={i}>
+                  Timestamp: {data.time_stamp_utc}, Measurement:
+                  {data.measurement}
                 </div>
               ))}
             </div>
           </div>
+          <LineChart data={sensorData} dataInfo={dataInfo} />
         </>
       )}
     </div>
