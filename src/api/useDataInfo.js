@@ -8,7 +8,6 @@ export const useDataInfo = (id) => {
     axios
       .get(`http://ibmrisvol.ibm.ntnu.no/data/info?id=${id}`)
       .then((response) => {
-        console.log(response.data);
         setDataInfo(response.data);
       })
       .catch((error) => {

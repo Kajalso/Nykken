@@ -1,16 +1,14 @@
 import "./App.css";
 import { Header } from "./components/Header";
-import { DataInfoFetching } from "./api/DataInfoFetching";
-import DataFetching from "./api/DataFetching";
-import { RenderData } from "./components/RenderData";
+import { SensorData } from "./components/SensorData";
+import { DataInfo } from "./components/DataInfo";
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <DataInfoFetching />
-      <DataFetching />
-      <RenderData />
+      <DataInfo />
+      <SensorData />
     </div>
   );
 }

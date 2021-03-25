@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDataInfo } from "../api/useDataInfo";
 
-export const RenderData = () => {
+export const DataInfo = () => {
   const [idFromInput, setIdFromInput] = useState(1);
   const [id, setId] = useState(1);
   const [dataInfo, setDataInfo] = useDataInfo(id);
@@ -12,7 +12,7 @@ export const RenderData = () => {
 
   useEffect(() => {
     setDataInfo(id);
-  }, [id]);
+  }, [id, setDataInfo]);
 
   return (
     <div>
@@ -25,7 +25,7 @@ export const RenderData = () => {
       <button type="button" onClick={handleClick}>
         Fetch data info
       </button>
-      <div>Sensor ID: {dataInfo.sensor_id}</div>
+      <div>Sensor ID: {dataInfo.data_identifier}</div>
       <div>Description: {dataInfo.description}</div>
       <div>Unit: {dataInfo.unit}</div>
     </div>
