@@ -13,7 +13,7 @@ export const useAllDataInfo = () => {
           setAllDataInfo([...allDataInfo, response.data]);
           setId(id + 1);
         } else if (id === 13) {
-          console.log("All data info retrieved.");
+          console.log("All data info successfully retrieved.");
         }
       })
       .catch((error) => {
