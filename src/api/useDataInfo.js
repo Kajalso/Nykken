@@ -15,5 +15,5 @@ export const useDataInfo = (id) => {
       });
   }, [id]);
 
-  return [dataInfo, setDataInfo];
+  return dataInfo;
 };
