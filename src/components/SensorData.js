@@ -22,8 +22,8 @@ export const SensorData = () => {
   const [startTime, setStartTime] = useState("00:00:00");
   const [endTime, setEndTime] = useState("00:11:00");
 
-  const startDateTime = startDate + startTime;
-  const endDateTime = endDate + endTime;
+  const [startDateTime, setStartDateTime] = useState(startDate + startTime);
+  const [endDateTime, setEndDateTime] = useState(endDate + endTime);
 
   // Fetch sensor data and data info
   const [sensorData] = useSensorData(id, startDateTime, endDateTime);
@@ -31,10 +31,19 @@ export const SensorData = () => {
 
   const handleClick = () => {
     setId(idFromInput);
+
     setStartTime(startTimeFromInput);
-    setStartDate(startDateFromInput);
     setEndTime(endTimeFromInput);
+    setStartDate(startDateFromInput);
     setEndDate(endDateFromInput);
+
+    // Check for correct time format when using Chrome
+    if (startTimeFromInput.length < 6) {
+      setStartDateTime(startDateFromInput + startTimeFromInput + ":00");
+    }
+    if (endTimeFromInput.length < 6) {
+      setEndDateTime(endDateFromInput + endTimeFromInput + ":00");
+    }
   };
 
   return (
@@ -60,7 +69,6 @@ export const SensorData = () => {
           value={startTimeFromInput}
           onChange={(e) => setStartTimeFromInput(e.target.value)}
           step="1"
-          onKeyDown={(e) => e.preventDefault()}
         />
         <label>Until:</label>
         <input
@@ -73,7 +81,6 @@ export const SensorData = () => {
           value={endTimeFromInput}
           onChange={(e) => setEndTimeFromInput(e.target.value)}
           step="1"
-          onKeyDown={(e) => e.preventDefault()}
         />
       </div>
       <button type="button" onClick={handleClick}>
