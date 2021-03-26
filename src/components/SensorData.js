@@ -4,6 +4,7 @@ import { LineChart } from "../components/LineChart/LineChart";
 
 import { useSensorData } from "../api/useSensorData";
 import { useDataInfo } from "../api/useDataInfo";
+import { useAllDataInfo } from "../api/useAllDataInfo";
 
 import "./sensorData.css";
 
@@ -22,32 +23,55 @@ export const SensorData = () => {
   const [startTime, setStartTime] = useState("00:00:00");
   const [endTime, setEndTime] = useState("00:11:00");
 
-  const startDateTime = startDate + startTime;
-  const endDateTime = endDate + endTime;
+  const [startDateTime, setStartDateTime] = useState(startDate + startTime);
+  const [endDateTime, setEndDateTime] = useState(endDate + endTime);
 
   // Fetch sensor data and data info
-  const [sensorData] = useSensorData(id, startDateTime, endDateTime);
-  const [dataInfo] = useDataInfo(id);
+  const sensorData = useSensorData(id, startDateTime, endDateTime);
+  const dataInfo = useDataInfo(id);
+  const allDataInfo = useAllDataInfo();
 
   const handleClick = () => {
     setId(idFromInput);
+
     setStartTime(startTimeFromInput);
-    setStartDate(startDateFromInput);
     setEndTime(endTimeFromInput);
+    setStartDate(startDateFromInput);
     setEndDate(endDateFromInput);
+
+    // Check for correct time format when using Chrome
+    if (startTimeFromInput.length < 6) {
+      setStartDateTime(startDateFromInput + startTimeFromInput + ":00");
+    } else {
+      setStartDateTime(startDateFromInput + startTimeFromInput);
+    }
+    if (endTimeFromInput.length < 6) {
+      setEndDateTime(endDateFromInput + endTimeFromInput + ":00");
+    } else {
+      setEndDateTime(endDateFromInput + endTimeFromInput);
+    }
   };
 
   return (
     <div>
       <h4>Fetch data from Risvollan API</h4>
-      <label>Sensor ID:</label>
+      <label>Sensor:</label>
+      {/** 
       <input
         type="number"
         value={idFromInput}
-        onChange={(e) => setIdFromInput(e.target.value)}
         min="1"
         max="13"
-      />
+        onChange={(e) => setIdFromInput(e.target.value)}
+      />*/}
+
+      <select onChange={(e) => setIdFromInput(e.target.selectedIndex + 1)}>
+        {allDataInfo.map((sensor, i) => (
+          <option key={i} value={sensor.sensor_id}>
+            {sensor.description}
+          </option>
+        ))}
+      </select>
       <div className="date-picker">
         <label>From:</label>
         <input
@@ -60,7 +84,6 @@ export const SensorData = () => {
           value={startTimeFromInput}
           onChange={(e) => setStartTimeFromInput(e.target.value)}
           step="1"
-          onKeyDown={(e) => e.preventDefault()}
         />
         <label>Until:</label>
         <input
@@ -73,7 +96,6 @@ export const SensorData = () => {
           value={endTimeFromInput}
           onChange={(e) => setEndTimeFromInput(e.target.value)}
           step="1"
-          onKeyDown={(e) => e.preventDefault()}
         />
       </div>
       <button type="button" onClick={handleClick}>
