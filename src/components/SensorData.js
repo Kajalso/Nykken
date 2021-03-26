@@ -40,9 +40,13 @@ export const SensorData = () => {
     // Check for correct time format when using Chrome
     if (startTimeFromInput.length < 6) {
       setStartDateTime(startDateFromInput + startTimeFromInput + ":00");
+    } else {
+      setStartDateTime(startDateFromInput + startTimeFromInput);
     }
     if (endTimeFromInput.length < 6) {
       setEndDateTime(endDateFromInput + endTimeFromInput + ":00");
+    } else {
+      setEndDateTime(endDateFromInput + endTimeFromInput);
     }
   };
 
