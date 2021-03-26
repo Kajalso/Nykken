@@ -35,5 +35,5 @@ export const useSensorData = (id, startDateTime, endDateTime) => {
       });
   }, [startDate, startTime, endDate, endTime, id]);
 
-  return sensorData;
+  return [sensorData, setSensorData];
 };
