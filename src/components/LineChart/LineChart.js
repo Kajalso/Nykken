@@ -43,7 +43,7 @@ export const LineChart = ({ data = [], dataInfo = {} }) => {
 
   // Linear scale for x values
   const xScale = scaleTime()
-    .domain(extent(data, xValue)) // Extent-function replaces min, max
+    .domain(extent(data, xValue)) // extent-function replaces min, max
     .range([0, innerWidth])
     .nice(); // Adjusts the axis to prevent overlap
 
