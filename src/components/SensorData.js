@@ -4,10 +4,9 @@ import { LineChart } from "../components/LineChart/LineChart";
 
 import { useSensorData } from "../api/useSensorData";
 import { useDataInfo } from "../api/useDataInfo";
+import { useAllDataInfo } from "../api/useAllDataInfo";
 
 import "./sensorData.css";
-
-//const sensorOptions = [];
 
 export const SensorData = () => {
   const [idFromInput, setIdFromInput] = useState(1);
@@ -30,16 +29,7 @@ export const SensorData = () => {
   // Fetch sensor data and data info
   const sensorData = useSensorData(id, startDateTime, endDateTime);
   const dataInfo = useDataInfo(id);
-
-  /*
-  const getSensorOptions = () => {
-    // Retrieve info about all sensors
-    for (let i = 0; i < 13; i++) {
-      let sensorInfo = useDataInfo(i);
-      sensorOptions.push(sensorInfo);
-      console.log(sensorOptions);
-    }
-  };*/
+  const allDataInfo = useAllDataInfo();
 
   const handleClick = () => {
     setId(idFromInput);
@@ -66,19 +56,22 @@ export const SensorData = () => {
     <div>
       <h4>Fetch data from Risvollan API</h4>
       <label>Sensor:</label>
+      {/** 
       <input
         type="number"
         value={idFromInput}
-        onChange={(e) => setIdFromInput(e.target.value)}
         min="1"
         max="13"
-      />
-      {/** 
-      <select>
-        {sensorOptions.map((sensor) => (
-          <option value={sensor.sensor_id}>{sensor.description}</option>
+        onChange={(e) => setIdFromInput(e.target.value)}
+      />*/}
+
+      <select onChange={(e) => setIdFromInput(e.target.selectedIndex + 1)}>
+        {allDataInfo.map((sensor, i) => (
+          <option key={i} value={sensor.sensor_id}>
+            {sensor.description}
+          </option>
         ))}
-      </select>*/}
+      </select>
       <div className="date-picker">
         <label>From:</label>
         <input
