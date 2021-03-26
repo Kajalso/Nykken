@@ -7,6 +7,8 @@ import { useDataInfo } from "../api/useDataInfo";
 
 import "./sensorData.css";
 
+//const sensorOptions = [];
+
 export const SensorData = () => {
   const [idFromInput, setIdFromInput] = useState(1);
   const [id, setId] = useState(1);
@@ -26,8 +28,18 @@ export const SensorData = () => {
   const [endDateTime, setEndDateTime] = useState(endDate + endTime);
 
   // Fetch sensor data and data info
-  const [sensorData] = useSensorData(id, startDateTime, endDateTime);
-  const [dataInfo] = useDataInfo(id);
+  const sensorData = useSensorData(id, startDateTime, endDateTime);
+  const dataInfo = useDataInfo(id);
+
+  /*
+  const getSensorOptions = () => {
+    // Retrieve info about all sensors
+    for (let i = 0; i < 13; i++) {
+      let sensorInfo = useDataInfo(i);
+      sensorOptions.push(sensorInfo);
+      console.log(sensorOptions);
+    }
+  };*/
 
   const handleClick = () => {
     setId(idFromInput);
@@ -53,7 +65,7 @@ export const SensorData = () => {
   return (
     <div>
       <h4>Fetch data from Risvollan API</h4>
-      <label>Sensor ID:</label>
+      <label>Sensor:</label>
       <input
         type="number"
         value={idFromInput}
@@ -61,6 +73,12 @@ export const SensorData = () => {
         min="1"
         max="13"
       />
+      {/** 
+      <select>
+        {sensorOptions.map((sensor) => (
+          <option value={sensor.sensor_id}>{sensor.description}</option>
+        ))}
+      </select>*/}
       <div className="date-picker">
         <label>From:</label>
         <input
