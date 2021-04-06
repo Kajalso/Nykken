@@ -6,7 +6,12 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <SensorData />
+      <div className="sensor-grid">
+        <SensorData />
+        <SensorData />
+        <SensorData />
+        <SensorData />
+      </div>
     </div>
   );
 }

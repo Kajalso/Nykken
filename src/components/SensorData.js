@@ -54,17 +54,7 @@ export const SensorData = () => {
 
   return (
     <div>
-      <h4>Fetch data from Risvollan API</h4>
       <label>Sensor:</label>
-      {/** 
-      <input
-        type="number"
-        value={idFromInput}
-        min="1"
-        max="13"
-        onChange={(e) => setIdFromInput(e.target.value)}
-      />*/}
-
       <select onChange={(e) => setIdFromInput(e.target.selectedIndex + 1)}>
         {allDataInfo.map((sensor, i) => (
           <option key={i} value={sensor.sensor_id}>
@@ -104,16 +94,6 @@ export const SensorData = () => {
       {(!sensorData || !sensorData[0]) && <div>Loading ...</div>}
       {sensorData && sensorData[0] && (
         <>
-          <div className="measurementsdata">
-            <div className="measurements">
-              {/*sensorData.map((data, i) => (
-                <div key={i}>
-                  Timestamp: {data.time_stamp_utc}, Measurement:
-                  {data.measurement}
-                </div>
-              ))*/}
-            </div>
-          </div>
           <LineChart data={sensorData} dataInfo={dataInfo} />
         </>
       )}

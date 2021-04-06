@@ -2,6 +2,14 @@
   padding: 0 1em;
 }
 
+.sensor-grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  justify-content: start;
+  column-gap: 5em;
+  row-gap: 2em;
+}
+
 h2 {
   font-weight: 400;
 }
