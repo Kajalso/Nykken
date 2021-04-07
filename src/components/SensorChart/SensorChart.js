@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
 import { LineChart } from "../LineChart/LineChart";
+import { SensorSelect } from "./SensorSelect";
 
 import { useSensorData } from "../../api/useSensorData";
 import { useDataInfo } from "../../api/useDataInfo";
-import { useAllDataInfo } from "../../api/useAllDataInfo";
 
 import "./sensorChart.css";
 
@@ -29,7 +29,6 @@ export const SensorChart = () => {
   // Fetch sensor data and data info
   const sensorData = useSensorData(id, startDateTime, endDateTime);
   const dataInfo = useDataInfo(id);
-  const allDataInfo = useAllDataInfo();
 
   const handleClick = () => {
     setId(idFromInput);
@@ -55,13 +54,9 @@ export const SensorChart = () => {
   return (
     <div>
       <label>Sensor:</label>
-      <select onChange={(e) => setIdFromInput(e.target.selectedIndex + 1)}>
-        {allDataInfo.map((sensor, i) => (
-          <option key={i} value={sensor.sensor_id}>
-            {sensor.description}
-          </option>
-        ))}
-      </select>
+      <SensorSelect
+        onChange={(e) => setIdFromInput(e.target.selectedIndex + 1)}
+      />
       <div className="date-picker">
         <label>From:</label>
         <input
