@@ -1,16 +1,13 @@
 import "./App.css";
 import { Header } from "./components/Header";
-import { SensorData } from "./components/SensorData";
+import { SensorChart } from "./components/SensorChart/SensorChart";
 
 function App() {
   return (
     <div className="App">
       <Header />
       <div className="sensor-grid">
-        <SensorData />
-        <SensorData />
-        <SensorData />
-        <SensorData />
+        <SensorChart />
       </div>
     </div>
   );

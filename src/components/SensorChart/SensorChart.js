@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 
-import { LineChart } from "../components/LineChart/LineChart";
+import { LineChart } from "../LineChart/LineChart";
 
-import { useSensorData } from "../api/useSensorData";
-import { useDataInfo } from "../api/useDataInfo";
-import { useAllDataInfo } from "../api/useAllDataInfo";
+import { useSensorData } from "../../api/useSensorData";
+import { useDataInfo } from "../../api/useDataInfo";
+import { useAllDataInfo } from "../../api/useAllDataInfo";
 
-import "./sensorData.css";
+import "./sensorChart.css";
 
-export const SensorData = () => {
+export const SensorChart = () => {
   const [idFromInput, setIdFromInput] = useState(1);
   const [id, setId] = useState(1);
 
