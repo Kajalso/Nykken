@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-import { LineChart } from "../LineChart/LineChart";
+import { LineChart } from "./LineChart/LineChart";
 import { SensorSelect } from "./SensorSelect";
 
-import { useSensorData } from "../../api/useSensorData";
-import { useDataInfo } from "../../api/useDataInfo";
+import { useSensorData } from "../../../api/useSensorData";
+import { useDataInfo } from "../../../api/useDataInfo";
 
 import "./sensorChart.css";
 
