@@ -20,8 +20,9 @@ export const EditDashboard = () => {
         <div className="sensor-select">
           {allDataInfo.map((sensor, i) => (
             <div key={i} className="sensor-option">
-              <input type="checkbox" />
-              <label>{sensor.description}</label>
+              <input id={i} type="checkbox" />
+              <div className="checkbox-icon" />
+              <label for={i}>{sensor.description}</label>
             </div>
           ))}
         </div>
