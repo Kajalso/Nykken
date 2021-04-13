@@ -6,7 +6,7 @@ import { useAllDataInfo } from "../../api/useAllDataInfo";
 
 import "./modals.scss";
 
-export const EditDashboard = () => {
+export const EditDashboardModal = () => {
   const allDataInfo = useAllDataInfo();
 
   return (
@@ -17,15 +17,16 @@ export const EditDashboard = () => {
       </div>
 
       <div className="sensor-select">
-        {allDataInfo.map((sensor, i) => (
-          <div key={i} className="sensor-option">
-            <input id={i} type="checkbox" />
-            <label for={i} className="checkbox-icon" />
-            <label for={i} className="label">
-              {sensor.description}
-            </label>
-          </div>
-        ))}
+        {allDataInfo &&
+          allDataInfo.map((sensor, i) => (
+            <div key={i} className="sensor-option">
+              <input id={i} type="checkbox" />
+              <label for={i} className="checkbox-icon" />
+              <label for={i} className="label">
+                {sensor.description}
+              </label>
+            </div>
+          ))}
       </div>
       <Button text="Save changes" />
     </>

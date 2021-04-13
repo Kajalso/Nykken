@@ -4,7 +4,8 @@ import { SensorChart } from "../SensorChart/SensorChart";
 import { Button } from "../Button/Button";
 import Modal from "react-modal";
 
-import { EditDashboard } from "../ModalContent/EditDashboard";
+import { EditDashboardModal } from "../ModalContent/EditDashboardModal";
+import { CreateGroupModal } from "../ModalContent/CreateGroupModal";
 
 import "./dashboard.scss";
 
@@ -16,7 +17,6 @@ Modal.setAppElement("#root");
 export const Dashboard = () => {
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
   const [groupModalIsOpen, setGroupModalIsOpen] = useState(false);
-  const [customChartModalIsOpen, setCustomChartModalIsOpen] = useState(false);
 
   const EditModal = ({ isOpen }) => {
     return (
@@ -27,7 +27,7 @@ export const Dashboard = () => {
       >
         <div className="modal">
           <div className="modal-content">
-            <EditDashboard />
+            <EditDashboardModal />
           </div>
           <Button
             className="close"
@@ -41,31 +41,21 @@ export const Dashboard = () => {
 
   const GroupModal = ({ isOpen }) => {
     return (
-      <Modal isOpen={isOpen} onRequestClose={() => setGroupModalIsOpen(false)}>
-        <h4>Edit dashboard</h4>
-        <p>Select which sensors you want to see on the dashboard</p>
-        <Button
-          className="close"
-          icon={plusIcon}
-          onClick={() => setGroupModalIsOpen(false)}
-        />
-      </Modal>
-    );
-  };
-
-  const CustomChartModal = ({ isOpen }) => {
-    return (
       <Modal
+        className="modal-background"
         isOpen={isOpen}
-        onRequestClose={() => setCustomChartModalIsOpen(false)}
+        onRequestClose={() => setGroupModalIsOpen(false)}
       >
-        <h4>Edit dashboard</h4>
-        <p>Select which sensors you want to see on the dashboard</p>
-        <Button
-          className="close"
-          icon={plusIcon}
-          onClick={() => setCustomChartModalIsOpen(false)}
-        />
+        <div className="modal">
+          <div className="modal-content">
+            <CreateGroupModal />
+          </div>
+          <Button
+            className="close"
+            icon={plusIcon}
+            onClick={() => setGroupModalIsOpen(false)}
+          />
+        </div>
       </Modal>
     );
   };
@@ -82,18 +72,13 @@ export const Dashboard = () => {
           />
           <Button
             icon={plusIcon}
-            text="Create section"
+            text="Create group"
             onClick={() => setGroupModalIsOpen(true)}
           />
-          <Button
-            icon={plusIcon}
-            text="Create custom chart"
-            onClick={() => setCustomChartModalIsOpen(true)}
-          />
+          <Button icon={plusIcon} text="Create custom chart" />
         </div>
         <EditModal isOpen={editModalIsOpen} />
         <GroupModal isOpen={groupModalIsOpen} />
-        <CustomChartModal isOpen={customChartModalIsOpen} />
       </div>
 
       <div className="sensor-grid">
