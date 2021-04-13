@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { SensorChart } from "./SensorChart/SensorChart";
+import { SensorChart } from "../SensorChart/SensorChart";
 import { Button } from "../Button/Button";
 import Modal from "react-modal";
 
@@ -25,8 +25,16 @@ export const Dashboard = () => {
         isOpen={isOpen}
         onRequestClose={() => setEditModalIsOpen(false)}
       >
-        <EditDashboard />
-        <button onClick={() => setEditModalIsOpen(false)}>Close</button>
+        <div className="modal">
+          <div className="modal-content">
+            <EditDashboard />
+          </div>
+          <Button
+            className="close"
+            icon={plusIcon}
+            onClick={() => setEditModalIsOpen(false)}
+          />
+        </div>
       </Modal>
     );
   };
@@ -36,7 +44,11 @@ export const Dashboard = () => {
       <Modal isOpen={isOpen} onRequestClose={() => setGroupModalIsOpen(false)}>
         <h4>Edit dashboard</h4>
         <p>Select which sensors you want to see on the dashboard</p>
-        <button onClick={() => setGroupModalIsOpen(false)}>Close</button>
+        <Button
+          className="close"
+          icon={plusIcon}
+          onClick={() => setGroupModalIsOpen(false)}
+        />
       </Modal>
     );
   };
@@ -49,7 +61,11 @@ export const Dashboard = () => {
       >
         <h4>Edit dashboard</h4>
         <p>Select which sensors you want to see on the dashboard</p>
-        <button onClick={() => setCustomChartModalIsOpen(false)}>Close</button>
+        <Button
+          className="close"
+          icon={plusIcon}
+          onClick={() => setCustomChartModalIsOpen(false)}
+        />
       </Modal>
     );
   };

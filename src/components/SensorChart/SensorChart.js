@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import { LineChart } from "./LineChart/LineChart";
 import { SensorSelect } from "./SensorSelect";
 
-import { useSensorData } from "../../../api/useSensorData";
-import { useDataInfo } from "../../../api/useDataInfo";
+import { useSensorData } from "../../api/useSensorData";
+import { useDataInfo } from "../../api/useDataInfo";
 
-import "./sensorChart.css";
+import "./sensorChart.scss";
 
 export const SensorChart = () => {
   const [idFromInput, setIdFromInput] = useState(1);
@@ -52,7 +52,7 @@ export const SensorChart = () => {
   };
 
   return (
-    <div>
+    <div className="sensor-chart">
       <label>Sensor:</label>
       <SensorSelect
         onChange={(e) => setIdFromInput(e.target.selectedIndex + 1)}

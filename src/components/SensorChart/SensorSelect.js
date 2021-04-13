@@ -1,5 +1,5 @@
 import React from "react";
-import { useAllDataInfo } from "../../../api/useAllDataInfo";
+import { useAllDataInfo } from "../../api/useAllDataInfo";
 
 export const SensorSelect = ({ onChange }) => {
   const allDataInfo = useAllDataInfo();
