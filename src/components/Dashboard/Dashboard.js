@@ -6,6 +6,8 @@ import Modal from "react-modal";
 
 import "./dashboard.scss";
 
+Modal.setAppElement("#root");
+
 export const Dashboard = () => {
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
   const [groupModalIsOpen, setGroupModalIsOpen] = useState(false);
