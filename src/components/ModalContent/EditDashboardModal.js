@@ -21,8 +21,8 @@ export const EditDashboardModal = () => {
           allDataInfo.map((sensor, i) => (
             <div key={i} className="sensor-option">
               <input id={i} type="checkbox" />
-              <label for={i} className="checkbox-icon" />
-              <label for={i} className="label">
+              <label htmlFor={i} className="checkbox-icon" />
+              <label htmlFor={i} className="label">
                 {sensor.description}
               </label>
             </div>

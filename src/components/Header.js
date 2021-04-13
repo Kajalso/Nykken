@@ -1,5 +1,5 @@
 import React from "react";
 
 export const Header = () => {
-  return <h2>Risvollan wastewater station</h2>;
+  return <h2>Risvollan measurement station</h2>;
 };
