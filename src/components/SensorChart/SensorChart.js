@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 
-import { LineChart } from "../components/LineChart/LineChart";
+import { LineChart } from "./LineChart/LineChart";
+import { SensorSelect } from "./SensorSelect";
 
-import { useSensorData } from "../api/useSensorData";
-import { useDataInfo } from "../api/useDataInfo";
-import { useAllDataInfo } from "../api/useAllDataInfo";
+import { useSensorData } from "../../api/useSensorData";
+import { useDataInfo } from "../../api/useDataInfo";
 
-import "./sensorData.css";
+import "./sensorChart.scss";
 
-export const SensorData = () => {
+export const SensorChart = () => {
   const [idFromInput, setIdFromInput] = useState(1);
   const [id, setId] = useState(1);
 
@@ -29,7 +29,6 @@ export const SensorData = () => {
   // Fetch sensor data and data info
   const sensorData = useSensorData(id, startDateTime, endDateTime);
   const dataInfo = useDataInfo(id);
-  const allDataInfo = useAllDataInfo();
 
   const handleClick = () => {
     setId(idFromInput);
@@ -53,25 +52,11 @@ export const SensorData = () => {
   };
 
   return (
-    <div>
-      <h4>Fetch data from Risvollan API</h4>
+    <div className="sensor-chart">
       <label>Sensor:</label>
-      {/** 
-      <input
-        type="number"
-        value={idFromInput}
-        min="1"
-        max="13"
-        onChange={(e) => setIdFromInput(e.target.value)}
-      />*/}
-
-      <select onChange={(e) => setIdFromInput(e.target.selectedIndex + 1)}>
-        {allDataInfo.map((sensor, i) => (
-          <option key={i} value={sensor.sensor_id}>
-            {sensor.description}
-          </option>
-        ))}
-      </select>
+      <SensorSelect
+        onChange={(e) => setIdFromInput(e.target.selectedIndex + 1)}
+      />
       <div className="date-picker">
         <label>From:</label>
         <input
@@ -104,16 +89,6 @@ export const SensorData = () => {
       {(!sensorData || !sensorData[0]) && <div>Loading ...</div>}
       {sensorData && sensorData[0] && (
         <>
-          <div className="measurementsdata">
-            <div className="measurements">
-              {/*sensorData.map((data, i) => (
-                <div key={i}>
-                  Timestamp: {data.time_stamp_utc}, Measurement:
-                  {data.measurement}
-                </div>
-              ))*/}
-            </div>
-          </div>
           <LineChart data={sensorData} dataInfo={dataInfo} />
         </>
       )}
