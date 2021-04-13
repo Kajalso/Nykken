@@ -5,7 +5,7 @@ import "./button.scss";
 export const Button = ({ text, onClick, icon }) => {
   return (
     <button className="button" onClick={onClick}>
-      <img src={icon} alt="Button icon" />
+      {icon && <img src={icon} alt="Button icon" />}
       {text}
     </button>
   );

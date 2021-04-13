@@ -8,8 +8,8 @@ import { EditDashboard } from "../ModalContent/EditDashboard";
 
 import "./dashboard.scss";
 
-import plusIcon from "../Button/plus_icon.svg";
-import editIcon from "../Button/edit_icon.svg";
+import plusIcon from "../../icons/plus_icon.svg";
+import editIcon from "../../icons/edit_icon.svg";
 
 Modal.setAppElement("#root");
 
@@ -20,7 +20,11 @@ export const Dashboard = () => {
 
   const EditModal = ({ isOpen }) => {
     return (
-      <Modal isOpen={isOpen} onRequestClose={() => setEditModalIsOpen(false)}>
+      <Modal
+        className="modal-background"
+        isOpen={isOpen}
+        onRequestClose={() => setEditModalIsOpen(false)}
+      >
         <EditDashboard />
         <button onClick={() => setEditModalIsOpen(false)}>Close</button>
       </Modal>
