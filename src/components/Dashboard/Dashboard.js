@@ -6,6 +6,9 @@ import Modal from "react-modal";
 
 import "./dashboard.scss";
 
+import plusIcon from "../Button/plus_icon.svg";
+import editIcon from "../Button/edit_icon.svg";
+
 Modal.setAppElement("#root");
 
 export const Dashboard = () => {
@@ -52,14 +55,17 @@ export const Dashboard = () => {
         <h2 className="title">Sensor measurements</h2>
         <div className="buttons">
           <Button
+            icon={editIcon}
             text="Edit dashboard"
             onClick={() => setEditModalIsOpen(true)}
           />
           <Button
+            icon={plusIcon}
             text="Create section"
             onClick={() => setGroupModalIsOpen(true)}
           />
           <Button
+            icon={plusIcon}
             text="Create custom chart"
             onClick={() => setCustomChartModalIsOpen(true)}
           />

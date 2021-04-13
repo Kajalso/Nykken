@@ -11,6 +11,14 @@ button {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Remove blue outline on focus */
+input:focus,
+textarea:focus,
+select:focus,
+button:focus {
+  outline: none;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
