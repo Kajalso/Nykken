@@ -4,6 +4,8 @@ import { SensorChart } from "./SensorChart/SensorChart";
 import { Button } from "../Button/Button";
 import Modal from "react-modal";
 
+import { EditDashboard } from "../ModalContent/EditDashboard";
+
 import "./dashboard.scss";
 
 import plusIcon from "../Button/plus_icon.svg";
@@ -19,8 +21,7 @@ export const Dashboard = () => {
   const EditModal = ({ isOpen }) => {
     return (
       <Modal isOpen={isOpen} onRequestClose={() => setEditModalIsOpen(false)}>
-        <h4>Edit dashboard</h4>
-        <p>Select which sensors you want to see on the dashboard</p>
+        <EditDashboard />
         <button onClick={() => setEditModalIsOpen(false)}>Close</button>
       </Modal>
     );

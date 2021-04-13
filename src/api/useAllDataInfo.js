@@ -10,7 +10,7 @@ export const useAllDataInfo = () => {
       .get(`http://ibmrisvol.ibm.ntnu.no/data/info?id=${id}`)
       .then((response) => {
         if (id <= 12) {
-          setAllDataInfo([...allDataInfo, response.data]);
+          setAllDataInfo((allDataInfo) => [...allDataInfo, response.data]);
           setId(id + 1);
         } else if (id === 13) {
           console.log("All data info successfully retrieved.");
