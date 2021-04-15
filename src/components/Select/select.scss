@@ -1,0 +1,16 @@
+$strokeColor: #e3e4e1;
+
+.react-select-container {
+  width: 150px;
+
+  .react-select__control {
+    border-radius: 8px;
+    border-color: $strokeColor;
+    font-size: 12px;
+
+    .react-select__value-container {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+}

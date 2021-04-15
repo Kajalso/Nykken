@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import Select from "react-select";
+import { ReactSelect as Select } from "../Select/Select";
 
 import { LineChart } from "./LineChart/LineChart";
 import { SensorSelect } from "./SensorSelect";
@@ -120,12 +120,7 @@ export const SensorChart = () => {
         <>
           <h3 className="section-title">{dataInfo.description}</h3>
           <p>Time frame:</p>
-          <Select
-            className="react-select"
-            classNamePrefix="react-select"
-            defaultValue={timeOptions[0]}
-            options={timeOptions}
-          />
+          <Select options={timeOptions} />
           <LineChart data={sensorData} dataInfo={dataInfo} />
         </>
       )}
