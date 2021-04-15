@@ -1,1 +1,21 @@
+$secondaryText: #79807c;
 
+.select-time {
+  > * {
+    display: inline-block;
+  }
+
+  p {
+    color: $secondaryText;
+  }
+}
+
+h3.section-title {
+  margin-bottom: 0.5em;
+}
+
+@media only screen and (min-width: 768px) {
+  .select-time p {
+    margin-right: 1em;
+  }
+}

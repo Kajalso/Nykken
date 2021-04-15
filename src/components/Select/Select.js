@@ -5,7 +5,15 @@ import Select from "react-select";
 import "./select.scss";
 
 const styles = {
-  control: (styles) => ({ ...styles, backgroundColor: "white" }),
+  control: (base) => ({
+    ...base,
+    minHeight: 20,
+  }),
+  dropdownIndicator: (base) => ({
+    ...base,
+    paddingTop: 0,
+    paddingBottom: 0,
+  }),
   option: (styles, { data, isDisabled, isFocused, isSelected }) => {
     return {
       ...styles,

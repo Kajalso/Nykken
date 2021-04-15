@@ -119,8 +119,10 @@ export const SensorChart = () => {
       {sensorData && sensorData[0] && (
         <>
           <h3 className="section-title">{dataInfo.description}</h3>
-          <p>Time frame:</p>
-          <Select options={timeOptions} />
+          <div className="select-time">
+            <p>Time frame:</p>
+            <Select options={timeOptions} />
+          </div>
           <LineChart data={sensorData} dataInfo={dataInfo} />
         </>
       )}
