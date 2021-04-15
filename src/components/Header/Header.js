@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
+import { timeFormat, now } from "d3";
 
 import { Button } from "../Button/Button";
 import { CreateGroupModal } from "../Modal/CreateGroupModal";
@@ -9,6 +10,9 @@ import customChartIcon from "../../icons/custom_chart.svg";
 import plusIcon from "../../icons/plus.svg";
 
 import "./header.scss";
+
+const dateFormat = (d) => timeFormat("%d.%m.%y %H:%M")(new Date());
+const today = dateFormat(now);
 
 export const Header = () => {
   const [groupModalIsOpen, setGroupModalIsOpen] = useState(false);
@@ -46,7 +50,7 @@ export const Header = () => {
         <Button icon={customChartIcon} text="Create custom chart" />
       </div>
       <GroupModal isOpen={groupModalIsOpen} />
-      <p className="small">Last data update:</p>
+      <p className="small">Last data update: {today}</p>
     </div>
   );
 };

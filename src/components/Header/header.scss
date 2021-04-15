@@ -9,9 +9,12 @@ $secondaryBackground: #f0f2eb;
     display: inline-block;
   }
 
+  h2 {
+    margin-right: 2em;
+  }
+
   .buttons {
     display: inline-flex;
-    margin-left: 2em;
 
     > * {
       margin-right: 1.5em;
