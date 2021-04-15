@@ -46,6 +46,7 @@ export const Header = () => {
         <Button icon={customChartIcon} text="Create custom chart" />
       </div>
       <GroupModal isOpen={groupModalIsOpen} />
+      <p className="small">Last data update:</p>
     </div>
   );
 };

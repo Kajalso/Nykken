@@ -4,7 +4,8 @@ $secondaryBackground: #f0f2eb;
   background-color: $secondaryBackground;
   padding: 0.5em 1em;
 
-  h2 {
+  h2,
+  p {
     display: inline-block;
   }
 
@@ -14,6 +15,18 @@ $secondaryBackground: #f0f2eb;
 
     > * {
       margin-right: 1.5em;
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .header {
+    position: relative;
+
+    p {
+      position: absolute;
+      right: 1em;
+      bottom: 0em;
     }
   }
 }
