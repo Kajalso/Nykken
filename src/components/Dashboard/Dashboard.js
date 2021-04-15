@@ -12,7 +12,7 @@ import "./dashboard.scss";
 import plusIcon from "../../icons/plus_icon.svg";
 import editIcon from "../../icons/edit_icon.svg";
 
-Modal.setAppElement("#root");
+if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#root');
 
 export const Dashboard = () => {
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
