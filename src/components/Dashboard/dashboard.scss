@@ -1,21 +1,29 @@
-.dashboard {
-  padding: 0 1em;
-}
+$secondaryBackground: #f0f2eb;
 
-.title-buttons {
-  > * {
-    display: inline-block;
-  }
+.dashboard {
+  padding: 1em 2em;
 }
 
 .title {
+  width: 100%;
   margin-right: 2em;
+  border-bottom: 2px solid $secondaryBackground;
 }
 
-.sensor-grid {
-  display: grid;
-  grid-template-columns: auto auto;
-  justify-content: start;
-  column-gap: 5em;
-  row-gap: 2em;
+.sensor-measurements {
+  position: relative;
+
+  .button {
+    position: absolute;
+    top: 3.5em;
+    right: 0;
+  }
+
+  .sensor-grid {
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: start;
+    column-gap: 5em;
+    row-gap: 2em;
+  }
 }

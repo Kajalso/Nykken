@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import Select from "react-select";
+
 import { LineChart } from "./LineChart/LineChart";
 import { SensorSelect } from "./SensorSelect";
 
@@ -29,6 +31,33 @@ export const SensorChart = () => {
   // Fetch sensor data and data info
   const sensorData = useSensorData(id, startDateTime, endDateTime);
   const dataInfo = useDataInfo(id);
+
+  const timeOptions = [
+    {
+      value: "last_24_hours",
+      label: "Last 24 hours",
+    },
+    {
+      value: "last_week",
+      label: "Last week",
+    },
+    {
+      value: "last_14_days",
+      label: "Last 14 days",
+    },
+    {
+      value: "last_month",
+      label: "Last month",
+    },
+    {
+      value: "last_year",
+      label: "Last year",
+    },
+    {
+      value: "custom",
+      label: "Custom",
+    },
+  ];
 
   const handleClick = () => {
     setId(idFromInput);
@@ -89,6 +118,14 @@ export const SensorChart = () => {
       {(!sensorData || !sensorData[0]) && <div>Loading ...</div>}
       {sensorData && sensorData[0] && (
         <>
+          <h3 className="section-title">{dataInfo.description}</h3>
+          <p>Time frame:</p>
+          <Select
+            className="react-select"
+            classNamePrefix="react-select"
+            defaultValue={timeOptions[0]}
+            options={timeOptions}
+          />
           <LineChart data={sensorData} dataInfo={dataInfo} />
         </>
       )}

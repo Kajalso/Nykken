@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 
 import { Button } from "../Button/Button";
-import { CreateGroupModal } from "../ModalContent/CreateGroupModal";
+import { CreateGroupModal } from "../Modal/CreateGroupModal";
 
 import groupIcon from "../../icons/group.svg";
 import customChartIcon from "../../icons/custom_chart.svg";

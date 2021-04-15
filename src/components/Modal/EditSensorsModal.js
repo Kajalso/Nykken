@@ -6,7 +6,7 @@ import { useAllDataInfo } from "../../api/useAllDataInfo";
 
 import "./modals.scss";
 
-export const EditDashboardModal = () => {
+export const EditSensorsModal = () => {
   const allDataInfo = useAllDataInfo();
 
   return (
