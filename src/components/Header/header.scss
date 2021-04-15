@@ -1,0 +1,19 @@
+$secondaryBackground: #f0f2eb;
+
+.header {
+  background-color: $secondaryBackground;
+  padding: 0.5em 1em;
+
+  h2 {
+    display: inline-block;
+  }
+
+  .buttons {
+    display: inline-flex;
+    margin-left: 2em;
+
+    > * {
+      margin-right: 1.5em;
+    }
+  }
+}

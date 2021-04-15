@@ -11,9 +11,11 @@ export const CreateGroupModal = () => {
 
   return (
     <>
-      <div className="title">
-        <h4>Create group</h4>
-        <p>Compare multiple sensor data during the same time frame</p>
+      <div className="modal-title">
+        <h3>Create group</h3>
+        <p className="small">
+          Compare multiple sensor data during the same time frame
+        </p>
       </div>
 
       <div className="sensor-select">
