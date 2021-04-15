@@ -11,9 +11,11 @@ export const EditDashboardModal = () => {
 
   return (
     <>
-      <div className="title">
-        <h4>Edit dashboard</h4>
-        <p>Select which sensors you want to see on the dashboard</p>
+      <div className="modal-title">
+        <h3>Manage sensors</h3>
+        <p className="small">
+          Select which sensors you want to see on the dashboard
+        </p>
       </div>
 
       <div className="sensor-select">

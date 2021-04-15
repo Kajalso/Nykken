@@ -67,8 +67,9 @@ export const Dashboard = () => {
         <div className="buttons">
           <Button
             icon={editIcon}
-            text="Edit dashboard"
+            text="Add/remove sensors"
             onClick={() => setEditModalIsOpen(true)}
+            className="small"
           />
           <Button
             icon={plusIcon}

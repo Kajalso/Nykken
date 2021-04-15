@@ -55,8 +55,8 @@ export const LineChart = ({ data = [], dataInfo = {} }) => {
 
   return (
     <div className="chart">
-      <h4 className="section-title">{dataInfo.description}</h4>
-      <h5>Sensor ID: {dataInfo.data_identifier}</h5>
+      <h3 className="section-title">{dataInfo.description}</h3>
+      <p>Time frame:</p>
       <div className="data">
         <svg width={width} height={height}>
           <g transform={`translate(${margin.left}, ${margin.top})`}>
