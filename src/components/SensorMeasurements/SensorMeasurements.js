@@ -46,7 +46,7 @@ export const SensorMeasurements = () => {
       <div className="sensor-grid">
         {sensors &&
           sensors.map((sensor, i) => (
-            <SensorChart id={sensor.data_identifier} />
+            <SensorChart id={sensor.data_identifier} dataInfo={sensor} />
           ))}
       </div>
     </div>

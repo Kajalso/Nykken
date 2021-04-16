@@ -10,11 +10,7 @@ import { useDataInfo } from "../../api/useDataInfo";
 
 import "./sensorChart.scss";
 
-export const SensorChart = ({ id }) => {
-  /*
-  const [idFromInput, setIdFromInput] = useState(1);
-  const [id, setId] = useState(1);*/
-
+export const SensorChart = ({ id, dataInfo }) => {
   const [startTimeFromInput, setStartTimeFromInput] = useState("00:00:00");
   const [endTimeFromInput, setEndTimeFromInput] = useState("00:11:00");
   const [startDateFromInput, setStartDateFromInput] = useState("2020-08-08");
@@ -31,7 +27,6 @@ export const SensorChart = ({ id }) => {
 
   // Fetch sensor data and data info
   const sensorData = useSensorData(id, startDateTime, endDateTime);
-  const dataInfo = useDataInfo(id);
 
   const timeOptions = [
     {
@@ -83,9 +78,6 @@ export const SensorChart = ({ id }) => {
 
   return (
     <div className="sensor-chart">
-      {/*<SensorSelect
-        onChange={(e) => setIdFromInput(e.target.selectedIndex + 1)}
-      />*/}
       <div className="date-picker">
         <label>From:</label>
         <input
