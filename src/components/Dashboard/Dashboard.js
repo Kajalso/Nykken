@@ -12,7 +12,7 @@ import "./dashboard.scss";
 import plusIcon from "../../icons/plus.svg";
 import editIcon from "../../icons/edit.svg";
 
-Modal.setAppElement("#root");
+if (process.env.NODE_ENV !== 'test') Modal.setAppElement('#root');
 
 export const Dashboard = () => {
   return (
