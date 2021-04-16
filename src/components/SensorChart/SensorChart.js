@@ -78,6 +78,7 @@ export const SensorChart = ({ id, dataInfo }) => {
 
   return (
     <div className="sensor-chart">
+      {/**
       <div className="date-picker">
         <label>From:</label>
         <input
@@ -103,21 +104,22 @@ export const SensorChart = ({ id, dataInfo }) => {
           onChange={(e) => setEndTimeFromInput(e.target.value)}
           step="1"
         />
-      </div>
+      </div> 
       <button type="button" onClick={handleClick}>
         Fetch data
-      </button>
-      {(!sensorData || !sensorData[0]) && <div>Loading ...</div>}
-      {sensorData && sensorData[0] && (
-        <>
-          <h3 className="section-title">{dataInfo.description}</h3>
-          <div className="select-time">
-            <p>Time frame:</p>
-            <Select options={timeOptions} />
-          </div>
+      </button>*/}
+
+      <>
+        <h3 className="section-title">{dataInfo.description}</h3>
+        <div className="select-time">
+          <p>Time frame:</p>
+          <Select options={timeOptions} />
+        </div>
+        {(!sensorData || !sensorData[0]) && <div>Loading ...</div>}
+        {sensorData && sensorData[0] && (
           <LineChart data={sensorData} dataInfo={dataInfo} />
-        </>
-      )}
+        )}
+      </>
     </div>
   );
 };

@@ -10,21 +10,3 @@ $secondaryBackground: #f0f2eb;
   margin-right: 2em;
   border-bottom: 2px solid $secondaryBackground;
 }
-
-.sensor-measurements {
-  position: relative;
-
-  .button {
-    position: absolute;
-    top: 4em;
-    right: 0;
-  }
-
-  .sensor-grid {
-    display: grid;
-    grid-template-columns: auto auto;
-    justify-content: start;
-    column-gap: 5em;
-    row-gap: 2em;
-  }
-}
