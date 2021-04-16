@@ -1,16 +1,25 @@
+$secondaryBackground: #f0f2eb;
+
+$buttonBackground: #d1e3b2;
+$smallButtonBackground: $secondaryBackground;
+
 .button {
   display: flex;
-  padding: 11px;
+  align-items: center;
+  padding: 6px 14px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 12px;
-  font-weight: 500;
+  background-color: $buttonBackground;
 }
 
 .button > img {
-  width: 1.25em;
-  margin-right: 5px;
+  height: 1em;
+  margin-right: 0.75em;
+}
+
+.button.small {
+  background-color: $smallButtonBackground;
 }
 
 .button.close {
@@ -18,7 +27,8 @@
   top: -0.75em;
   right: -0.75em;
   border-radius: 50%;
-  padding: 3px;
+  padding: 8px 3px;
+  background-color: $smallButtonBackground;
 
   > img {
     width: 2em;

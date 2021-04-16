@@ -1,25 +1,12 @@
-.title-buttons {
-  > * {
-    display: inline-block;
-  }
+$secondaryBackground: #f0f2eb;
+
+.dashboard {
+  padding: 1em 2em;
 }
 
 .title {
+  width: 100%;
+  padding-bottom: 0.25em;
   margin-right: 2em;
-}
-
-.buttons {
-  display: inline-flex;
-
-  > * {
-    margin-right: 0.5em;
-  }
-}
-
-.sensor-grid {
-  display: grid;
-  grid-template-columns: auto auto;
-  justify-content: start;
-  column-gap: 5em;
-  row-gap: 2em;
+  border-bottom: 2px solid $secondaryBackground;
 }

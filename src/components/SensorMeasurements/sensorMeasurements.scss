@@ -1,0 +1,18 @@
+.sensor-measurements {
+  position: relative;
+
+  .button.small {
+    position: absolute;
+    top: 4em;
+    right: 0;
+  }
+
+  .sensor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 700px);
+    align-items: center;
+    justify-content: start;
+    column-gap: 1em;
+    row-gap: 1em;
+  }
+}
