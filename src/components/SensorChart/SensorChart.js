@@ -32,7 +32,6 @@ export const SensorChart = () => {
 
   const handleClick = () => {
     setId(idFromInput);
-
     setStartTime(startTimeFromInput);
     setEndTime(endTimeFromInput);
     setStartDate(startDateFromInput);
