@@ -138,7 +138,9 @@ export const SensorChart = ({ id, dataInfo }) => {
           <CustomTimeframe />
           {/*<Select options={timeOptions} />*/}
         </div>
-        {(!sensorData || !sensorData[0]) && <div>Loading ...</div>}
+        {(!sensorData || !sensorData[0]) && (
+          <p className="loading">Loading ...</p>
+        )}
         {sensorData && sensorData[0] && (
           <LineChart data={sensorData} dataInfo={dataInfo} />
         )}
