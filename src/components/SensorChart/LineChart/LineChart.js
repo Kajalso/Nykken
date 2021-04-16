@@ -7,7 +7,6 @@ import {
   utcFormat,
   curveMonotoneX,
 } from "d3";
-import Select from "react-select";
 
 import { AxisBottom } from "./AxisBottom";
 import { AxisLeft } from "./AxisLeft";
@@ -26,12 +25,13 @@ const innerWidth = width - margin.right - margin.left;
 // X values
 const xValue = (d) => new Date(d.time_stamp_utc);
 let xAxisLabel = "Time";
-const xAxisLabelOffset = 50;
+const xAxisLabelOffset = 40;
+const xAxisDateOffset = 50;
 
 // Y values
 const yValue = (d) => +d.measurement;
 let yAxisLabel = "Measurement";
-const yAxisLabelOffset = 45;
+const yAxisLabelOffset = 50;
 
 // Axis formats
 const xAxisTickFormat = utcFormat("%H:%M");
@@ -80,19 +80,19 @@ export const LineChart = ({ data = [], dataInfo = {} }) => {
             <text
               x={innerWidth - yAxisLabelOffset}
               y={innerHeight + xAxisLabelOffset}
-              className={"axis-label"}
+              className={"axis-label x small"}
             >
               {xAxisLabel + " (min)"}
             </text>
             <text
               x={innerWidth / 2}
-              y={innerHeight + xAxisLabelOffset}
+              y={innerHeight + xAxisDateOffset}
               className={"axis-date"}
             >
               {dateFormat(data[0])}
             </text>
             <text
-              className={"axis-label"}
+              className={"axis-label y"}
               transform={`translate(${-yAxisLabelOffset},
                 ${innerHeight / 2}) rotate(-90)`}
             >

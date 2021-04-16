@@ -40,10 +40,12 @@ h6 {
   font-size: 10pt;
 }
 
-p {
+p,
+text {
   font-size: 12px;
 }
 
+text.small,
 p.small {
   font-size: 10px;
 }
