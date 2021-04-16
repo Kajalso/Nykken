@@ -1,0 +1,35 @@
+$secondaryBackground: #f0f2eb;
+
+.header {
+  background-color: $secondaryBackground;
+  padding: 0.5em 1em;
+
+  h2,
+  p {
+    display: inline-block;
+  }
+
+  h2 {
+    margin-right: 2em;
+  }
+
+  .buttons {
+    display: inline-flex;
+
+    > * {
+      margin-right: 1.5em;
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .header {
+    position: relative;
+
+    p {
+      position: absolute;
+      right: 1em;
+      bottom: 0em;
+    }
+  }
+}

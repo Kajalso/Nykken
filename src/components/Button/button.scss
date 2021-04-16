@@ -1,0 +1,38 @@
+$secondaryBackground: #f0f2eb;
+
+$buttonBackground: #d1e3b2;
+$smallButtonBackground: $secondaryBackground;
+
+.button {
+  display: flex;
+  align-items: center;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: $buttonBackground;
+}
+
+.button > img {
+  height: 1em;
+  margin-right: 0.75em;
+}
+
+.button.small {
+  background-color: $smallButtonBackground;
+}
+
+.button.close {
+  position: absolute;
+  top: -0.75em;
+  right: -0.75em;
+  border-radius: 50%;
+  padding: 8px 3px;
+  background-color: $smallButtonBackground;
+
+  > img {
+    width: 2em;
+    margin: 0;
+    transform: rotate(45deg);
+  }
+}

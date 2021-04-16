@@ -1,13 +1,12 @@
-import "./App.css";
-import { Header } from "./components/Header";
-import { SensorData } from "./components/SensorData";
+import "./App.scss";
+import { Header } from "./components/Header/Header";
+import { Dashboard } from "./components/Dashboard/Dashboard";
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <SensorData />
-      <SensorData />
+      <Dashboard />
     </div>
   );
 }

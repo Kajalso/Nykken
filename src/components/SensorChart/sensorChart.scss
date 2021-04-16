@@ -1,0 +1,39 @@
+$secondaryText: #79807c;
+$strokeColor: #e3e4e1;
+
+.select-time {
+  position: relative;
+  > * {
+    display: inline-block;
+  }
+
+  p {
+    margin-right: 1em;
+  }
+
+  .from,
+  .until {
+    margin-bottom: 0.3em;
+  }
+
+  .fetch-data {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+  }
+
+  .date-picker {
+    display: block;
+
+    label {
+      margin-right: 1em;
+    }
+  }
+}
+
+h3.section-title {
+  margin-bottom: 0.5em;
+}
+
+@media only screen and (min-width: 768px) {
+}

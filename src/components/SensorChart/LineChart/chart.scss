@@ -23,16 +23,18 @@ $colorPurple: rgb(214, 106, 241);
 }
 
 .axis-label {
-  text-anchor: middle;
-  font-size: small;
-  font-weight: 600;
+  font-weight: 400;
   fill: #635f5d;
+}
+
+.axis-label.y {
+  text-anchor: middle;
 }
 
 .axis-date {
   text-anchor: middle;
-  font-size: smaller;
-  font-weight: 600;
+  font-size: small;
+  font-weight: 500;
   fill: #635f5d;
 }
 

@@ -1,9 +1,0 @@
-.measurementsdata {
-  display: grid;
-  grid-template-columns: auto auto;
-}
-
-label {
-  font-size: smaller;
-  margin-right: 1em;
-}
