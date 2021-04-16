@@ -1,4 +1,5 @@
 $primaryText: #3b4541;
+$strokeColor: #e3e4e1;
 
 .App {
   padding: 0;
@@ -11,7 +12,9 @@ h3,
 h4,
 h5,
 h6,
-label {
+p,
+label,
+button {
   font-weight: 400;
   color: $primaryText;
 }
@@ -41,12 +44,14 @@ h6 {
 }
 
 p,
-text {
+text,
+label {
   font-size: 12px;
 }
 
 text.small,
-p.small {
+p.small,
+label.small {
   font-size: 10px;
 }
 
@@ -57,4 +62,48 @@ p.small {
 
 .button.small {
   font-size: 10px;
+}
+
+// Date and time inputs
+
+/* A few custom styles for date inputs */
+input[type="date"],
+input[type="time"] {
+  border-radius: 8px;
+  font-size: 10px;
+  appearance: none;
+  -webkit-appearance: none;
+  color: $primaryText;
+  font-size: 12px;
+  border: 1px solid $strokeColor;
+  padding: 5px;
+  display: inline-block !important;
+  visibility: visible !important;
+  margin-right: 1em;
+}
+
+/* Removes the clear button from date inputs */
+input[type="date"]::-webkit-clear-button,
+input[type="time"]::-webkit-clear-button {
+  display: none;
+}
+
+/* Removes the spin button */
+input[type="date"]::-webkit-inner-spin-button,
+input[type="time"]::-webkit-inner-spin-button {
+  display: none;
+}
+
+/* Always display the drop down caret */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  color: $primaryText;
+}
+
+input[type="date"],
+input[type="time"],
+focus {
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
 }

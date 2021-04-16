@@ -4,18 +4,22 @@ import { ReactSelect as Select } from "../Select/Select";
 
 import { LineChart } from "./LineChart/LineChart";
 
+import { Button } from "../Button/Button";
+
 import { useSensorData } from "../../api/useSensorData";
 
 import "./sensorChart.scss";
 
+const exampleDate = "2021-03-01";
+
 export const SensorChart = ({ id, dataInfo }) => {
   const [startTimeFromInput, setStartTimeFromInput] = useState("00:00:00");
   const [endTimeFromInput, setEndTimeFromInput] = useState("00:11:00");
-  const [startDateFromInput, setStartDateFromInput] = useState("2020-08-08");
-  const [endDateFromInput, setEndDateFromInput] = useState("2020-08-08");
+  const [startDateFromInput, setStartDateFromInput] = useState(exampleDate);
+  const [endDateFromInput, setEndDateFromInput] = useState(exampleDate);
 
-  const [startDate, setStartDate] = useState("2020-08-08");
-  const [endDate, setEndDate] = useState("2020-08-08");
+  const [startDate, setStartDate] = useState(exampleDate);
+  const [endDate, setEndDate] = useState(exampleDate);
 
   const [startTime, setStartTime] = useState("00:00:00");
   const [endTime, setEndTime] = useState("00:11:00");
@@ -28,34 +32,12 @@ export const SensorChart = ({ id, dataInfo }) => {
 
   const timeOptions = [
     {
-      value: "last_24_hours",
-      label: "Last 24 hours",
-    },
-    {
-      value: "last_week",
-      label: "Last week",
-    },
-    {
-      value: "last_14_days",
-      label: "Last 14 days",
-    },
-    {
-      value: "last_month",
-      label: "Last month",
-    },
-    {
-      value: "last_year",
-      label: "Last year",
-    },
-    {
       value: "custom",
       label: "Custom",
     },
   ];
 
   const handleClick = () => {
-    //setId(idFromInput);
-
     setStartTime(startTimeFromInput);
     setEndTime(endTimeFromInput);
     setStartDate(startDateFromInput);
@@ -72,6 +54,48 @@ export const SensorChart = ({ id, dataInfo }) => {
     } else {
       setEndDateTime(endDateFromInput + endTimeFromInput);
     }
+  };
+
+  const CustomTimeframe = () => {
+    return (
+      <>
+        <div className="date-picker">
+          <div className="from">
+            <label>From:</label>
+            <input
+              type="date"
+              value={startDateFromInput}
+              onChange={(e) => setStartDateFromInput(e.target.value)}
+            />
+            <input
+              type="time"
+              value={startTimeFromInput}
+              onChange={(e) => setStartTimeFromInput(e.target.value)}
+              step="1"
+            />
+          </div>
+          <div className="until">
+            <label>Until:</label>
+            <input
+              type="date"
+              value={endDateFromInput}
+              onChange={(e) => setEndDateFromInput(e.target.value)}
+            />
+            <input
+              type="time"
+              value={endTimeFromInput}
+              onChange={(e) => setEndTimeFromInput(e.target.value)}
+              step="1"
+            />
+          </div>
+        </div>
+        <Button
+          text="Fetch data"
+          className="fetch-data"
+          onClick={handleClick}
+        />
+      </>
+    );
   };
 
   return (
@@ -111,7 +135,8 @@ export const SensorChart = ({ id, dataInfo }) => {
         <h3 className="section-title">{dataInfo.description}</h3>
         <div className="select-time">
           <p>Time frame:</p>
-          <Select options={timeOptions} />
+          <CustomTimeframe />
+          {/*<Select options={timeOptions} />*/}
         </div>
         {(!sensorData || !sensorData[0]) && <div>Loading ...</div>}
         {sensorData && sensorData[0] && (
