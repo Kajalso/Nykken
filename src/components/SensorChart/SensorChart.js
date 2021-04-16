@@ -3,10 +3,8 @@ import React, { useState } from "react";
 import { ReactSelect as Select } from "../Select/Select";
 
 import { LineChart } from "./LineChart/LineChart";
-import { SensorSelect } from "./SensorSelect";
 
 import { useSensorData } from "../../api/useSensorData";
-import { useDataInfo } from "../../api/useDataInfo";
 
 import "./sensorChart.scss";
 
