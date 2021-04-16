@@ -7,6 +7,7 @@ $secondaryText: #79807c;
 
   p {
     color: $secondaryText;
+    margin-right: 1em;
   }
 }
 
@@ -15,7 +16,4 @@ h3.section-title {
 }
 
 @media only screen and (min-width: 768px) {
-  .select-time p {
-    margin-right: 1em;
-  }
 }
