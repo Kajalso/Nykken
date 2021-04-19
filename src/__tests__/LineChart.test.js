@@ -25,8 +25,8 @@ const data = [
 ];
 
 const data2 = [
-    {0: {measurement: "17", time_stamp_utc: "2020-09-08T00:00:00Z" }},
-    {1: {measurement: "17", time_stamp_utc: "2020-09-08T00:01:00Z" }}
+    {0: {measurement: "17", time_stamp_utc: "2020-09-08T00:02:00Z" }},
+    {1: {measurement: "17", time_stamp_utc: "2020-09-08T00:03:00Z" }}
 ];
 
 const dI1 = {
