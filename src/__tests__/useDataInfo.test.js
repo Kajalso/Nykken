@@ -32,15 +32,3 @@ describe("testing axios", () => {
         );
     });
 });
-
-//Failing test
- /*    test("returns correct object", async () => {
-        const { result, rerender } = renderHook(() => useDataInfo(1));
-        act(()=> {
-            result.current.dataInfo;
-        }) 
-        console.log(result.current)
-        expect(result.current.dataInfo).toEqual({"data_identifier": 1, "sensor_id": 1, "unit": "\u00b0C", "description": "Temperature"})
-        });
-    }); */
-
