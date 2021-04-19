@@ -1,24 +1,25 @@
 import React, { useState } from "react";
 
+import { ReactSelect as Select } from "../Select/Select";
+
 import { LineChart } from "./LineChart/LineChart";
-import { SensorSelect } from "./SensorSelect";
+
+import { Button } from "../Button/Button";
 
 import { useSensorData } from "../../api/useSensorData";
-import { useDataInfo } from "../../api/useDataInfo";
 
 import "./sensorChart.scss";
 
-export const SensorChart = () => {
-  const [idFromInput, setIdFromInput] = useState(1);
-  const [id, setId] = useState(1);
+const exampleDate = "2021-03-01";
 
+export const SensorChart = ({ id, dataInfo }) => {
   const [startTimeFromInput, setStartTimeFromInput] = useState("00:00:00");
   const [endTimeFromInput, setEndTimeFromInput] = useState("00:11:00");
-  const [startDateFromInput, setStartDateFromInput] = useState("2020-08-08");
-  const [endDateFromInput, setEndDateFromInput] = useState("2020-08-08");
+  const [startDateFromInput, setStartDateFromInput] = useState(exampleDate);
+  const [endDateFromInput, setEndDateFromInput] = useState(exampleDate);
 
-  const [startDate, setStartDate] = useState("2020-08-08");
-  const [endDate, setEndDate] = useState("2020-08-08");
+  const [startDate, setStartDate] = useState(exampleDate);
+  const [endDate, setEndDate] = useState(exampleDate);
 
   const [startTime, setStartTime] = useState("00:00:00");
   const [endTime, setEndTime] = useState("00:11:00");
@@ -28,10 +29,18 @@ export const SensorChart = () => {
 
   // Fetch sensor data and data info
   const sensorData = useSensorData(id, startDateTime, endDateTime);
-  const dataInfo = useDataInfo(id);
 
   const handleClick = () => {
     setId(idFromInput);
+
+  const timeOptions = [
+    {
+      value: "custom",
+      label: "Custom",
+    },
+  ];
+
+  const handleClick = () => {
     setStartTime(startTimeFromInput);
     setEndTime(endTimeFromInput);
     setStartDate(startDateFromInput);
@@ -50,12 +59,51 @@ export const SensorChart = () => {
     }
   };
 
+  const CustomTimeframe = () => {
+    return (
+      <>
+        <div className="date-picker">
+          <div className="from">
+            <label>From:</label>
+            <input
+              type="date"
+              value={startDateFromInput}
+              onChange={(e) => setStartDateFromInput(e.target.value)}
+            />
+            <input
+              type="time"
+              value={startTimeFromInput}
+              onChange={(e) => setStartTimeFromInput(e.target.value)}
+              step="1"
+            />
+          </div>
+          <div className="until">
+            <label>Until:</label>
+            <input
+              type="date"
+              value={endDateFromInput}
+              onChange={(e) => setEndDateFromInput(e.target.value)}
+            />
+            <input
+              type="time"
+              value={endTimeFromInput}
+              onChange={(e) => setEndTimeFromInput(e.target.value)}
+              step="1"
+            />
+          </div>
+        </div>
+        <Button
+          text="Fetch data"
+          className="fetch-data"
+          onClick={handleClick}
+        />
+      </>
+    );
+  };
+
   return (
     <div className="sensor-chart">
-      <label>Sensor:</label>
-      <SensorSelect
-        onChange={(e) => setIdFromInput(e.target.selectedIndex + 1)}
-      />
+      {/**
       <div className="date-picker">
         <label>From:</label>
         <input
@@ -81,16 +129,25 @@ export const SensorChart = () => {
           onChange={(e) => setEndTimeFromInput(e.target.value)}
           step="1"
         />
-      </div>
+      </div> 
       <button type="button" onClick={handleClick}>
         Fetch data
-      </button>
-      {(!sensorData || !sensorData[0]) && <div>Loading ...</div>}
-      {sensorData && sensorData[0] && (
-        <>
+      </button>*/}
+
+      <>
+        <h3 className="section-title">{dataInfo.description}</h3>
+        <div className="select-time">
+          <p>Time frame:</p>
+          <CustomTimeframe />
+          {/*<Select options={timeOptions} />*/}
+        </div>
+        {(!sensorData || !sensorData[0]) && (
+          <p className="loading">Loading ...</p>
+        )}
+        {sensorData && sensorData[0] && (
           <LineChart data={sensorData} dataInfo={dataInfo} />
-        </>
-      )}
+        )}
+      </>
     </div>
   );
-};
+}};
