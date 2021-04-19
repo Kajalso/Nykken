@@ -34,7 +34,11 @@ export const SensorMeasurements = () => {
         {sensors.length === 0 && <p>No sensors chosen</p>}
         {sensors &&
           sensors.map((sensor, i) => (
-            <SensorChart id={sensor.data_identifier} dataInfo={sensor} />
+            <SensorChart
+              key={i}
+              id={sensor.data_identifier}
+              dataInfo={sensor}
+            />
           ))}
       </div>
     </div>

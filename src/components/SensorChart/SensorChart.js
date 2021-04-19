@@ -30,9 +30,6 @@ export const SensorChart = ({ id, dataInfo }) => {
   // Fetch sensor data and data info
   const sensorData = useSensorData(id, startDateTime, endDateTime);
 
-  const handleClick = () => {
-    setId(idFromInput);
-
   const timeOptions = [
     {
       value: "custom",
@@ -150,4 +147,4 @@ export const SensorChart = ({ id, dataInfo }) => {
       </>
     </div>
   );
-}};
+};
