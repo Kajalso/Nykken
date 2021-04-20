@@ -1,3 +1,7 @@
+$secondaryText: #79807c;
+$strokeColor: #e3e4e1;
+$primaryBackground: #fafbf9;
+
 .modal-background {
   position: fixed;
   top: 0;
@@ -6,15 +10,29 @@
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.25);
 
+  .modal-title {
+    align-items: center;
+    margin: 0 0 1em 0;
+
+    h3 {
+      margin: 0;
+      margin-bottom: 0.5em;
+    }
+
+    p {
+      color: $secondaryText;
+    }
+  }
+
   .modal {
-    width: 700px;
-    height: 262px;
+    min-height: 250px;
+    width: 400px;
     position: absolute;
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
 
-    border: 1px solid #ccc;
+    border: 1px solid $strokeColor;
     background-color: #fff;
     overflow: visible;
     -webkit-overflow-scrolling: touch;
@@ -22,24 +40,11 @@
     outline: none;
 
     .modal-content {
-      padding: 0 20px;
-      position: relative;
-      height: 100%;
-
-      .title {
-        display: inline-flex;
-        align-items: center;
-
-        p {
-          opacity: 0.5;
-          margin-left: 1em;
-        }
-      }
+      padding: 20px;
 
       button {
-        position: absolute;
-        right: 25px;
-        bottom: 20px;
+        margin-top: 1em;
+        margin-left: auto;
       }
     }
   }
@@ -48,7 +53,7 @@
 .sensor-select {
   padding-left: 0.5em;
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: auto auto;
   grid-gap: 12px;
 
   .sensor-option {
@@ -80,5 +85,27 @@
     input[type="checkbox"]:checked ~ .checkbox-icon {
       background-image: url("../../icons/checkbox_checked.svg");
     }
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .modal-background {
+    .modal {
+      width: 600px;
+    }
+
+    .modal-title {
+      display: inline-flex;
+      align-items: center;
+
+      p {
+        opacity: 0.5;
+        margin-left: 2em;
+      }
+    }
+  }
+
+  .sensor-select {
+    grid-template-columns: auto auto auto;
   }
 }

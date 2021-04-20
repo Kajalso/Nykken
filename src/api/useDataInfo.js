@@ -15,5 +15,6 @@ export const useDataInfo = (id) => {
       });
   }, [id]);
 
+  console.log("This is console.logged in useDataInfo: " , dataInfo);
   return dataInfo;
 };

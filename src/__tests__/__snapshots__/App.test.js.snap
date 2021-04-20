@@ -8,94 +8,44 @@ Object {
       <div
         class="App"
       >
-        <h2>
-          Risvollan measurement station
-        </h2>
         <div
-          class="title-buttons"
+          class="header"
         >
-          <h2
-            class="title"
-          >
-            Sensor measurements
+          <h2>
+            Risvollan measurement station
           </h2>
-          <div
-            class="buttons"
+          <p
+            class="small"
           >
-            <button
-              class="button undefined"
-            >
-              <img
-                alt="Button icon"
-                src="edit_icon.svg"
-              />
-              Edit dashboard
-            </button>
-            <button
-              class="button undefined"
-            >
-              <img
-                alt="Button icon"
-                src="plus_icon.svg"
-              />
-              Create group
-            </button>
-            <button
-              class="button undefined"
-            >
-              <img
-                alt="Button icon"
-                src="plus_icon.svg"
-              />
-              Create custom chart
-            </button>
-          </div>
+            Last data update: 05.03.21 06:02
+          </p>
         </div>
         <div
-          class="sensor-grid"
+          class="dashboard"
         >
           <div
-            class="sensor-chart"
+            class="sensor-measurements"
           >
-            <label>
-              Sensor:
-            </label>
-            <select />
-            <div
-              class="date-picker"
+            <h2
+              class="title"
             >
-              <label>
-                From:
-              </label>
-              <input
-                type="date"
-                value="2020-08-08"
-              />
-              <input
-                step="1"
-                type="time"
-                value="00:00:00"
-              />
-              <label>
-                Until:
-              </label>
-              <input
-                type="date"
-                value="2020-08-08"
-              />
-              <input
-                step="1"
-                type="time"
-                value="00:11:00"
-              />
-            </div>
+              Sensor measurements
+            </h2>
             <button
-              type="button"
+              class="button small"
             >
-              Fetch data
+              <img
+                alt="Button icon"
+                src="edit.svg"
+              />
+              Add/remove sensors
             </button>
-            <div>
-              Loading ...
+            <div
+              class="sensor-grid"
+            >
+              <p>
+                No sensors chosen
+              </p>
             </div>
           </div>
         </div>
@@ -112,94 +62,44 @@ Object {
     <div
       class="App"
     >
-      <h2>
-        Risvollan measurement station
-      </h2>
       <div
-        class="title-buttons"
+        class="header"
       >
-        <h2
-          class="title"
-        >
-          Sensor measurements
+        <h2>
+          Risvollan measurement station
         </h2>
-        <div
-          class="buttons"
+        <p
+          class="small"
         >
-          <button
-            class="button undefined"
-          >
-            <img
-              alt="Button icon"
-              src="edit_icon.svg"
-            />
-            Edit dashboard
-          </button>
-          <button
-            class="button undefined"
-          >
-            <img
-              alt="Button icon"
-              src="plus_icon.svg"
-            />
-            Create group
-          </button>
-          <button
-            class="button undefined"
-          >
-            <img
-              alt="Button icon"
-              src="plus_icon.svg"
-            />
-            Create custom chart
-          </button>
-        </div>
+          Last data update: 05.03.21 06:02
+        </p>
       </div>
       <div
-        class="sensor-grid"
+        class="dashboard"
       >
         <div
-          class="sensor-chart"
+          class="sensor-measurements"
         >
-          <label>
-            Sensor:
-          </label>
-          <select />
-          <div
-            class="date-picker"
+          <h2
+            class="title"
           >
-            <label>
-              From:
-            </label>
-            <input
-              type="date"
-              value="2020-08-08"
-            />
-            <input
-              step="1"
-              type="time"
-              value="00:00:00"
-            />
-            <label>
-              Until:
-            </label>
-            <input
-              type="date"
-              value="2020-08-08"
-            />
-            <input
-              step="1"
-              type="time"
-              value="00:11:00"
-            />
-          </div>
+            Sensor measurements
+          </h2>
           <button
-            type="button"
+            class="button small"
           >
-            Fetch data
+            <img
+              alt="Button icon"
+              src="edit.svg"
+            />
+            Add/remove sensors
           </button>
-          <div>
-            Loading ...
+          <div
+            class="sensor-grid"
+          >
+            <p>
+              No sensors chosen
+            </p>
           </div>
         </div>
       </div>
