@@ -29,6 +29,11 @@ const data2 = [
     {1: {measurement: "17", time_stamp_utc: "2020-09-08T00:03:00Z" }}
 ];
 
+const data0 = [
+    {0: {measurement: "", time_stamp_utc: "" }},
+    {1: {measurement: "", time_stamp_utc: "" }}
+];
+
 const dI1 = {
     data_identifier: 1,
     description: "Temperature",
@@ -51,6 +56,14 @@ describe('renders without crashing and takes snapshot', () => {
 })
 
 describe('displays correct elements', () => {
+
+    test('displays loading while fetching data', () =>  {
+        const { getByTestId } = render( < LineChart data={[data0]}/>)
+        const load = getByTestId('loading');
+        expect(load).toHaveTextContent("Loading chart...");
+    })
+
+
     test('display correct sensor name (Temperature)', () => {
         const { getByText } = render(< LineChart data={data} dataInfo={dI1} />);
         getByText('Temperature');
@@ -65,8 +78,9 @@ describe('displays correct elements', () => {
         const { getByText } = render(< LineChart data={data} dataInfo={dI1} />);
         getByText('Sensor ID: 1');
     });
-
 })
+
+
 describe('Converts date to text correctly', () => {
     test('08082020 ', () => {
         const { queryByText } = render(< LineChart data={data} dataInfo={dI1} />);

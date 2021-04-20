@@ -38,7 +38,7 @@ const dateFormat = (d) => timeFormat("%A %d %B %Y")(new Date(d.time_stamp_utc));
 
 export const LineChart = ({ data = [], dataInfo = {} }) => {
   if (!data || !dataInfo) {
-    return <pre>Loading chart...</pre>;
+    return <pre data-testid='loading' >Loading chart...</pre>;
   }
 
   // Linear scale for x values
