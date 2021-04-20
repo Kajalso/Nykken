@@ -16,17 +16,12 @@ export const Marks = ({
   circleRadius = 7,
   curveStyle = curveNatural,
 }) => {
-  let markColor = colorBlue;
+  let markColor = colorRed;
   const id = dataInfo.data_identifier;
 
   // Set color to purple for Radiation, Humidity and Wind Speed
-  if (id == 3 || id == 4 || id == 6) {
+  if (id === 3 || id === 4 || id === 6) {
     markColor = colorPurple;
-  }
-
-  // Set color to dark blue for Rainfall
-  if (id == 5) {
-    markColor = colorDarkBlue;
   }
 
   return (

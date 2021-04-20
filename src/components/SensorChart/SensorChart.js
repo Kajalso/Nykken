@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { ReactSelect as Select } from "../Select/Select";
 
 import { LineChart } from "./LineChart/LineChart";
+import { BarChart } from "./BarChart/BarChart";
 
 import { Button } from "../Button/Button";
 
@@ -100,37 +101,6 @@ export const SensorChart = ({ id, dataInfo }) => {
 
   return (
     <div className="sensor-chart">
-      {/**
-      <div className="date-picker">
-        <label>From:</label>
-        <input
-          type="date"
-          value={startDateFromInput}
-          onChange={(e) => setStartDateFromInput(e.target.value)}
-        />
-        <input
-          type="time"
-          value={startTimeFromInput}
-          onChange={(e) => setStartTimeFromInput(e.target.value)}
-          step="1"
-        />
-        <label>Until:</label>
-        <input
-          type="date"
-          value={endDateFromInput}
-          onChange={(e) => setEndDateFromInput(e.target.value)}
-        />
-        <input
-          type="time"
-          value={endTimeFromInput}
-          onChange={(e) => setEndTimeFromInput(e.target.value)}
-          step="1"
-        />
-      </div> 
-      <button type="button" onClick={handleClick}>
-        Fetch data
-      </button>*/}
-
       <>
         <h3 className="section-title">{dataInfo.title}</h3>
         <div className="select-time">
@@ -142,7 +112,10 @@ export const SensorChart = ({ id, dataInfo }) => {
           <p className="loading">Loading ...</p>
         )}
         {sensorData && sensorData[0] && (
-          <LineChart data={sensorData} dataInfo={dataInfo} />
+          <>
+            {id === 5 && <BarChart data={sensorData} dataInfo={dataInfo} />}
+            {id !== 5 && <LineChart data={sensorData} dataInfo={dataInfo} />}
+          </>
         )}
       </>
     </div>
