@@ -21,27 +21,17 @@ afterAll(() => {
 //Providing props
 const data = [
     {0: {measurement: "17", time_stamp_utc: "2020-08-08T00:00:00Z" }},
-    {1: {measurement: "17", time_stamp_utc: "2020-08-08T00:01:00Z" }}
+    {1: {measurement: "18", time_stamp_utc: "2020-08-08T00:01:00Z" }}
 ];
 
 const data2 = [
-    {0: {measurement: "17", time_stamp_utc: "2020-09-08T00:02:00Z" }},
-    {1: {measurement: "17", time_stamp_utc: "2020-09-08T00:03:00Z" }}
-];
-
-const data0 = [
-    {0: {measurement: "", time_stamp_utc: "" }},
-    {1: {measurement: "", time_stamp_utc: "" }}
+    {0: {measurement: "12", time_stamp_utc: "2020-09-08T00:02:00Z" }},
+    {1: {measurement: "10", time_stamp_utc: "2020-09-08T00:03:00Z" }}
 ];
 
 const dI1 = {
     data_identifier: 1,
     description: "Temperature",
-}
-
-const dI2 = {
-    data_identifier: 2,
-    description: "Air Temperature",
 }
 
 describe('renders without crashing and takes snapshot', () => {
@@ -54,32 +44,6 @@ describe('renders without crashing and takes snapshot', () => {
     })
 
 })
-
-describe('displays correct elements', () => {
-
-    test('displays loading while fetching data', () =>  {
-        const { getByTestId } = render( < LineChart data={[data0]}/>)
-        const load = getByTestId('loading');
-        expect(load).toHaveTextContent("Loading chart...");
-    })
-
-
-    test('display correct sensor name (Temperature)', () => {
-        const { getByText } = render(< LineChart data={data} dataInfo={dI1} />);
-        getByText('Temperature');
-    })
-
-    test('display correct sensor name (Air Temperature)', () => {
-        const { getByText } = render(< LineChart data={data} dataInfo={dI2} />);
-        getByText('Air Temperature');
-    })
-
-    test('display correct sensor ID', () => {
-        const { getByText } = render(< LineChart data={data} dataInfo={dI1} />);
-        getByText('Sensor ID: 1');
-    });
-})
-
 
 describe('Converts date to text correctly', () => {
     test('08082020 ', () => {
