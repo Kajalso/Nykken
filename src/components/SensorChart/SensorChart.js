@@ -139,7 +139,7 @@ export const SensorChart = ({ id, dataInfo }) => {
           {/*<Select options={timeOptions} />*/}
         </div>
         {(!sensorData || !sensorData[0]) && (
-          <p className="loading">Loading ...</p>
+          <p data-testid="loading" className="loading">Loading ...</p>
         )}
         {sensorData && sensorData[0] && (
           <LineChart data={sensorData} dataInfo={dataInfo} />
