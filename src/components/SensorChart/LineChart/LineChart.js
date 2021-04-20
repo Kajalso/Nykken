@@ -7,6 +7,7 @@ import {
   utcFormat,
   curveMonotoneX,
 } from "d3";
+import { CSVLink } from "react-csv";
 
 import { AxisBottom } from "./AxisBottom";
 import { AxisLeft } from "./AxisLeft";
@@ -54,8 +55,20 @@ export const LineChart = ({ data = [], dataInfo = {} }) => {
     .range([innerHeight, 0])
     .nice();
 
+    const headers = [
+      { label: "Measurement", key: "measurement" },
+      { label: "Timestamp", key: "time_stamp_utc" },
+    ];
+
+    const csvReport = {
+      data: data,
+      headers: headers,
+      filename: (dataInfo.title)+'_from_'+(data[0].time_stamp_utc)+'_to_'+(data[data.length-1].time_stamp_utc)+'.csv'
+    };
+
   return (
     <div className="chart">
+       <CSVLink {...csvReport}>CSV</CSVLink>
       <div className="data">
         <svg width={width} height={height}>
           <g transform={`translate(${margin.left}, ${margin.top})`}>
