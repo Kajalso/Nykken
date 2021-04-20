@@ -1,5 +1,7 @@
 import React from 'react';
-import { render } from '@testing-library/react'
+import { render } from '@testing-library/react';
+import user from '@testing-library/user-event';
+
 
 import { SensorChart } from '../components/SensorChart/SensorChart';
 
@@ -29,7 +31,7 @@ const dataInfo = {
 }
 
 const dataInfo1 = {
-    description: "Temperature"
+    description: "Air Temperature"
 }
 
 const id = {id: 1}
@@ -52,18 +54,43 @@ describe('displays correct elements', () => {
         expect(load).toHaveTextContent("Loading ...");
     })
 
-    /* test('display correct sensor name (Temperature)', () => {
-        const { getByText } = render(< LineChart data={data} dataInfo={dI1} />);
+    test('display correct sensor name (Temperature)', () => {
+        const { getByText } = render(< SensorChart dataInfo={dataInfo} />);
         getByText('Temperature');
     })
 
     test('display correct sensor name (Air Temperature)', () => {
-        const { getByText } = render(< LineChart data={data} dataInfo={dI2} />);
+        const { getByText } = render(< SensorChart dataInfo={dataInfo1} />);
         getByText('Air Temperature');
     })
+});
 
-    test('display correct sensor ID', () => {
-        const { getByText } = render(< LineChart data={data} dataInfo={dI1} />);
-        getByText('Sensor ID: 1');
-    }); */
+describe('Add/remove button', () => {
+    test('appears in document', async () =>  {
+        const { getByRole } = render( < SensorChart dataInfo={dataInfo}/>)
+        const sensors = getByRole('button', 'Add/remove sensors');
+        expect(sensors).toBeInTheDocument();
+    })
 })
+
+describe('Fetch button', () => {
+    test('appears in document', async () =>  {
+        const { getByRole } = render( < SensorChart dataInfo={dataInfo}/>)
+        const fetch = getByRole('button', 'Fetch data');
+        expect(fetch).toBeInTheDocument();
+    })
+
+  /*   test('button is clicked', async () => {
+        const onClick = jest.fn();
+        const { getByRole } = render( < SensorChart dataInfo={dataInfo} onClick={onClick}  />)
+        const fetch = getByRole('button', 'Fetch data');
+        expect(onClick).not.toHaveBeenCalled();
+        user.click(fetch);
+        expect(onClick).toHaveBeenCalled();
+    }) */
+
+});
+
+
+
+
