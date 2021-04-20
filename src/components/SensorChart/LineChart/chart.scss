@@ -1,6 +1,7 @@
 $colorBlue: rgb(156, 204, 248);
 $colorRed: rgb(250, 143, 143);
 $colorPurple: rgb(214, 106, 241);
+$colorLine: $colorBlue;
 
 /* Chart styling */
 .chart {
@@ -11,12 +12,12 @@ $colorPurple: rgb(214, 106, 241);
 
 /* Marks styling */
 .mark-circle {
-  fill: $colorPurple;
+  //fill: $colorLine;
 }
 
 .mark-temp-line {
   fill: none;
-  stroke: $colorPurple;
+  //stroke: $colorLine;
   stroke-width: 3;
   stroke-linejoin: round;
   stroke-linecap: round;

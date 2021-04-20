@@ -8,8 +8,8 @@ import {
   curveMonotoneX,
 } from "d3";
 
-import { AxisBottom } from "./AxisBottom";
-import { AxisLeft } from "./AxisLeft";
+import { AxisBottom } from "../Axes/AxisBottom";
+import { AxisLeft } from "../Axes/AxisLeft";
 import { Marks } from "./Marks";
 
 import "./chart.scss";
