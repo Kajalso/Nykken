@@ -55,16 +55,18 @@ export const LineChart = ({ data = [], dataInfo = {} }) => {
     .range([innerHeight, 0])
     .nice();
 
-    const headers = [
-      { label: "Measurement", key: "measurement" },
-      { label: "Timestamp", key: "time_stamp_utc" },
-    ];
+  //Headers for the CSV-file download
+  const headers = [
+    { label: "Measurement", key: "measurement" },
+    { label: "Timestamp", key: "time_stamp_utc" },
+  ];
 
-    const csvReport = {
-      data: data,
-      headers: headers,
-      filename: (dataInfo.title)+'_from_'+(data[0].time_stamp_utc)+'_to_'+(data[data.length-1].time_stamp_utc)+'.csv'
-    };
+  //Create CSV-report
+  const csvReport = {
+    data: data,
+    headers: headers,
+    filename: (dataInfo.title)+'_from_'+(data[0].time_stamp_utc)+'_to_'+(data[data.length-1].time_stamp_utc)+'.csv'
+  };
 
   return (
     <div className="chart">
