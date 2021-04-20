@@ -132,7 +132,7 @@ export const SensorChart = ({ id, dataInfo }) => {
       </button>*/}
 
       <>
-        <h3 className="section-title">{dataInfo.description}</h3>
+        <h3 className="section-title">{dataInfo.title}</h3>
         <div className="select-time">
           <p>Time frame:</p>
           <CustomTimeframe />

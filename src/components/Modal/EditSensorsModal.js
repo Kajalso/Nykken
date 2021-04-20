@@ -64,7 +64,7 @@ export const EditSensorsModal = ({
                   />
                   <label htmlFor={i} className="checkbox-icon" />
                   <label htmlFor={i} className="label">
-                    {sensor.description}
+                    {sensor.title}
                   </label>
                 </div>
               ))}
