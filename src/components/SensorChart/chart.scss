@@ -1,3 +1,10 @@
+/* Chart styling */
+.chart {
+  svg {
+    overflow: visible;
+  }
+}
+
 /* Marks styling */
 .mark-temp-line {
   fill: none;
@@ -6,10 +13,23 @@
   stroke-linecap: round;
 }
 
+.mark-temp-area {
+  fill-opacity: 0.5;
+}
+
 .axis-label {
+  font-weight: 400;
+  fill: #635f5d;
+}
+
+.axis-label.y {
   text-anchor: middle;
-  font-size: smaller;
-  font-weight: bold;
+}
+
+.axis-date {
+  text-anchor: middle;
+  font-size: small;
+  font-weight: 500;
   fill: #635f5d;
 }
 

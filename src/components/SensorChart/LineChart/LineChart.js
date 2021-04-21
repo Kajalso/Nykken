@@ -12,7 +12,7 @@ import { AxisBottom } from "./Axes/AxisBottom";
 import { AxisLeft } from "./Axes/AxisLeft";
 import { Marks } from "./Marks";
 
-import "./chart.scss";
+import "../chart.scss";
 
 const width = 700;
 const height = 400;
@@ -73,6 +73,7 @@ export const LineChart = ({ data = [], dataInfo = {} }) => {
               yScale={yScale}
               xValue={xValue}
               yValue={yValue}
+              innerHeight={innerHeight}
               xFormat={xAxisTickFormat}
               circleRadius={circleRadius}
               curveStyle={curveMonotoneX}
