@@ -13,7 +13,7 @@ export const AxisBottom = ({
     >
       <line y2={innerHeight} className={"tick-line"} />
       <text
-        x={xScale.bandwidth() / 2 + centerPadding}
+        x={xScale.bandwidth() / 2}
         className={"tick-text-x"}
         y={innerHeight + tickOffset}
         dy={".5em"}

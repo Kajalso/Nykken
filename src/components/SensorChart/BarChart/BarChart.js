@@ -1,5 +1,13 @@
 import React from "react";
-import { scaleBand, scaleLinear, max, timeFormat, utcFormat } from "d3";
+import {
+  scaleBand,
+  scaleLinear,
+  min,
+  max,
+  extent,
+  timeFormat,
+  utcFormat,
+} from "d3";
 
 import { AxisBottom } from "./Axes/AxisBottom";
 import { AxisLeft } from "./Axes/AxisLeft";
@@ -8,7 +16,7 @@ import { Marks } from "./Marks";
 const width = 700;
 const height = 400;
 const margin = { top: 10, right: 50, bottom: 50, left: 70 };
-const centerPadding = 4.8;
+const centerPadding = 0;
 
 const innerHeight = height - margin.top - margin.bottom;
 const innerWidth = width - margin.right - margin.left;
@@ -37,16 +45,28 @@ export const BarChart = ({ data = [], dataInfo = {} }) => {
   yAxisLabel = dataInfo.title;
 
   // Linear scale for x values
-  const xScale = scaleBand()
-    .domain(data.map(xValue))
-    .range([0, innerWidth])
-    .paddingOuter(0)
-    .paddingInner(0.2); // Space between each bar
+  const xScale = scaleBand().domain(data.map(xValue)).range([0, innerWidth]);
+
+  // Set yScale for positive and negative values
+  let minY = Math.abs(min(data, yValue));
+  let maxY = max(data, yValue);
+
+  let largestY = Math.max(minY, maxY); // Largest y value, either pos or neg
 
   // Linear scale for y values
   const yScale = scaleLinear()
-    .domain([0, max(data, yValue)])
+    .domain([-largestY, largestY])
     .range([innerHeight, 0]);
+
+  // Linear scale for positive y values
+  const yScalePos = scaleLinear()
+    .domain([0, max(data, yValue)])
+    .range([0, innerHeight / 2]);
+
+  // Linear scale for negative y values
+  const yScaleNeg = scaleLinear()
+    .domain([min(data, yValue), 0])
+    .range([innerHeight / 2, innerHeight]);
 
   return (
     <div className="chart">
@@ -59,19 +79,21 @@ export const BarChart = ({ data = [], dataInfo = {} }) => {
               innerHeight={innerHeight}
               tickFormat={xAxisTickFormat}
               tickOffset={10}
-              centerPadding={centerPadding}
+              centerPadding={xScale.bandwidth() * 0.15}
             />
 
             <Marks
               data={data}
               dataInfo={dataInfo}
               xScale={xScale}
+              yScalePos={yScalePos}
+              yScaleNeg={yScaleNeg}
               yScale={yScale}
               xValue={xValue}
               yValue={yValue}
               xFormat={xAxisTickFormat}
               innerHeight={innerHeight}
-              centerPadding={centerPadding}
+              centerPadding={xScale.bandwidth() * 0.15}
             />
             <text
               x={innerWidth - yAxisLabelOffset}

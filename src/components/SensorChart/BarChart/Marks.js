@@ -5,6 +5,8 @@ export const Marks = ({
   dataInfo,
   xScale,
   yScale,
+  yScalePos,
+  yScaleNeg,
   xValue,
   yValue,
   xFormat,
@@ -19,21 +21,22 @@ export const Marks = ({
   return (
     <>
       {data.map((d, i) => {
-        let height = yScale(yValue(d));
+        let height = yValue(d);
+        console.log(height);
 
         if (height < 0) {
           return (
             <rect
               className="mark-bar"
               fill={colorRed}
+              stroke={colorRed}
               key={i}
-              y={0}
+              y={innerHeight / 2}
               x={xScale(xValue(d))}
               width={xScale.bandwidth()}
-              height={innerHeight}
+              height={yScalePos(Math.abs(height))}
             >
               <title>
-                {console.log("Negative value.")}
                 {xFormat(xValue(d)) + ": " + yValue(d) + " " + dataInfo.unit}
               </title>
             </rect>
@@ -45,10 +48,10 @@ export const Marks = ({
               fill={colorDarkBlue}
               stroke={colorDarkBlue}
               key={i}
-              y={height}
-              x={xScale(xValue(d)) + centerPadding}
+              y={innerHeight / 2 - yScalePos(height)}
+              x={xScale(xValue(d))}
               width={xScale.bandwidth()}
-              height={innerHeight - height}
+              height={yScalePos(height)}
             >
               <title>
                 {xFormat(xValue(d)) + ": " + yValue(d) + " " + dataInfo.unit}
