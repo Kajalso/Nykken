@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 import { ReactSelect as Select } from "../Select/Select";
 
+import { ExportCSV } from "./ExportCSV";
+
 import { LineChart } from "./LineChart/LineChart";
 
 import { Button } from "../Button/Button";
@@ -9,6 +11,7 @@ import { Button } from "../Button/Button";
 import { useSensorData } from "../../api/useSensorData";
 
 import "./sensorChart.scss";
+
 
 const exampleDate = "2021-03-01";
 
@@ -55,7 +58,7 @@ export const SensorChart = ({ id, dataInfo }) => {
       setEndDateTime(endDateFromInput + endTimeFromInput);
     }
   };
-
+  
   const CustomTimeframe = () => {
     return (
       <>
@@ -94,6 +97,7 @@ export const SensorChart = ({ id, dataInfo }) => {
           className="fetch-data"
           onClick={handleClick}
         />
+        <ExportCSV data={sensorData} dataInfo={dataInfo} />
       </>
     );
   };
