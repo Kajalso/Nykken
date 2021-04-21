@@ -13,6 +13,8 @@ import "./sensorChart.scss";
 
 const exampleDate = "2021-03-01";
 
+const barChartIDs = [5, 8, 10, 12];
+
 export const SensorChart = ({ id, dataInfo }) => {
   const [startTimeFromInput, setStartTimeFromInput] = useState("00:00:00");
   const [endTimeFromInput, setEndTimeFromInput] = useState("00:11:00");
@@ -113,8 +115,12 @@ export const SensorChart = ({ id, dataInfo }) => {
         )}
         {sensorData && sensorData[0] && (
           <>
-            {id === 5 && <BarChart data={sensorData} dataInfo={dataInfo} />}
-            {id !== 5 && <LineChart data={sensorData} dataInfo={dataInfo} />}
+            {barChartIDs.includes(id) && (
+              <BarChart data={sensorData} dataInfo={dataInfo} />
+            )}
+            {!barChartIDs.includes(id) && (
+              <LineChart data={sensorData} dataInfo={dataInfo} />
+            )}
           </>
         )}
       </>
