@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { ReactSelect as Select } from "../Select/Select";
+// import { ReactSelect as Select } from "../Select/Select";
 
 import { LineChart } from "./LineChart/LineChart";
 import { BarChart } from "./BarChart/BarChart";
@@ -31,12 +31,12 @@ export const SensorChart = ({ id, dataInfo }) => {
   // Fetch sensor data and data info
   const sensorData = useSensorData(id, startDateTime, endDateTime);
 
-  const timeOptions = [
+  /* const timeOptions = [
     {
       value: "custom",
       label: "Custom",
     },
-  ];
+  ];*/
 
   const handleClick = () => {
     setStartTime(startTimeFromInput);
