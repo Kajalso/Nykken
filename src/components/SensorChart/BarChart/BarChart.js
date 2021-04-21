@@ -15,13 +15,13 @@ const innerWidth = width - margin.right - margin.left;
 
 // X values
 const xValue = (d) => new Date(d.time_stamp_utc);
-const xAxisLabel = "Time";
+let xAxisLabel = "Time";
 const xAxisLabelOffset = 40;
 const xAxisDateOffset = 50;
 
 // Y values
 const yValue = (d) => +d.measurement;
-const yAxisLabel = "Measurement";
+let yAxisLabel = "Measurement";
 const yAxisLabelOffset = 50;
 
 // Axis formats
@@ -32,6 +32,9 @@ export const BarChart = ({ data = [], dataInfo = {} }) => {
   if (!data || !dataInfo) {
     return <pre>Loading chart...</pre>;
   }
+
+  // Y axis label
+  yAxisLabel = dataInfo.title;
 
   // Linear scale for x values
   const xScale = scaleBand()

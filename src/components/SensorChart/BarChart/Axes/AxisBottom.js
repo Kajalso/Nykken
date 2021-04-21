@@ -2,8 +2,8 @@ export const AxisBottom = ({
   xScale,
   innerHeight,
   tickFormat,
-  centerPadding,
   tickOffset = 5,
+  centerPadding,
 }) =>
   xScale.domain().map((tickValue, i) => (
     <g

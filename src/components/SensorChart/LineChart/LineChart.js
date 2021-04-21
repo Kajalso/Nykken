@@ -42,6 +42,9 @@ export const LineChart = ({ data = [], dataInfo = {} }) => {
     return <pre>Loading chart...</pre>;
   }
 
+  // Y axis label
+  yAxisLabel = dataInfo.title;
+
   // Linear scale for x values
   const xScale = scaleTime()
     .domain(extent(data, xValue)) // Extent-function replaces min, max
