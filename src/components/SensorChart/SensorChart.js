@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+
+import { exportComponentAsPNG, exportComponentAsPDF } from 'react-component-export-image';
 
 import { ReactSelect as Select } from "../Select/Select";
 
 import { LineChart } from "./LineChart/LineChart";
+
 
 import { Button } from "../Button/Button";
 
@@ -26,6 +29,8 @@ export const SensorChart = ({ id, dataInfo }) => {
 
   const [startDateTime, setStartDateTime] = useState(startDate + startTime);
   const [endDateTime, setEndDateTime] = useState(endDate + endTime);
+
+  const componentRef = useRef();
 
   // Fetch sensor data and data info
   const sensorData = useSensorData(id, startDateTime, endDateTime);
@@ -55,6 +60,10 @@ export const SensorChart = ({ id, dataInfo }) => {
       setEndDateTime(endDateFromInput + endTimeFromInput);
     }
   };
+
+  const handleDownloadPNG = () => {
+    exportComponentAsPNG(componentRef);
+  }
 
   const CustomTimeframe = () => {
     return (
@@ -94,6 +103,10 @@ export const SensorChart = ({ id, dataInfo }) => {
           className="fetch-data"
           onClick={handleClick}
         />
+         <Button
+          onClick={handleDownloadPNG}
+          text="PNG"
+          />
       </>
     );
   };
@@ -142,7 +155,9 @@ export const SensorChart = ({ id, dataInfo }) => {
           <p className="loading">Loading ...</p>
         )}
         {sensorData && sensorData[0] && (
-          <LineChart data={sensorData} dataInfo={dataInfo} />
+          <div>
+          <LineChart data={sensorData} dataInfo={dataInfo} ref={componentRef}/>        
+          </div>
         )}
       </>
     </div>

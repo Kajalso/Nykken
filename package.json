@@ -13,6 +13,7 @@
     "react-modal": "^3.12.1",
     "react-scripts": "4.0.3",
     "react-select": "^4.3.0",
+    "react-component-export-image": "^1.0.5",
     "sass": "^1.32.8",
     "web-vitals": "^1.1.1"
   },
@@ -41,6 +42,7 @@
     ]
   },
   "devDependencies": {
-    "@testing-library/react-hooks": "^5.1.1"
+    "@testing-library/react-hooks": "^5.1.1",
+    "react-component-export-image": "^1.0.5"
   }
 }
