@@ -1,3 +1,5 @@
+import { useColors } from "../../../styles/useColors";
+
 export const Marks = ({
   data,
   dataInfo,
@@ -8,8 +10,11 @@ export const Marks = ({
   xFormat,
   innerHeight,
 }) => {
-  const colorDarkBlue = "#3A6DF0";
-  const colorRed = "rgb(250, 143, 143)";
+  const colors = useColors();
+
+  let colorDarkBlue = colors.darkBlue;
+  let colorBlue = colors.blue;
+  let colorRed = colors.red;
 
   return (
     <>
@@ -38,6 +43,7 @@ export const Marks = ({
             <rect
               className="mark-bar"
               fill={colorDarkBlue}
+              stroke={colorBlue}
               key={i}
               y={height}
               x={xScale(xValue(d))}

@@ -1,9 +1,6 @@
 import { line, curveNatural } from "d3";
 
-const colorRed = "rgb(250, 143, 143)";
-const colorBlue = "rgb(156, 204, 248)";
-const colorPurple = "rgb(214, 106, 241)";
-const colorDarkBlue = "#3A6DF0";
+import { useColors } from "../../../styles/useColors";
 
 export const Marks = ({
   data,
@@ -16,12 +13,14 @@ export const Marks = ({
   circleRadius = 7,
   curveStyle = curveNatural,
 }) => {
-  let markColor = colorRed;
   const id = dataInfo.data_identifier;
+  const colors = useColors();
+
+  let markColor = colors.blue;
 
   // Set color to purple for Radiation, Humidity and Wind Speed
   if (id === 3 || id === 4 || id === 6) {
-    markColor = colorPurple;
+    markColor = colors.purple;
   }
 
   return (
