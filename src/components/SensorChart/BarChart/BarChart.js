@@ -8,6 +8,7 @@ import { Marks } from "./Marks";
 const width = 700;
 const height = 400;
 const margin = { top: 10, right: 50, bottom: 50, left: 70 };
+const centerPadding = 4.8;
 
 const innerHeight = height - margin.top - margin.bottom;
 const innerWidth = width - margin.right - margin.left;
@@ -36,7 +37,8 @@ export const BarChart = ({ data = [], dataInfo = {} }) => {
   const xScale = scaleBand()
     .domain(data.map(xValue))
     .range([0, innerWidth])
-    .paddingInner(0); // Space between each bar
+    .paddingOuter(0)
+    .paddingInner(0.2); // Space between each bar
 
   // Linear scale for y values
   const yScale = scaleLinear()
@@ -54,6 +56,7 @@ export const BarChart = ({ data = [], dataInfo = {} }) => {
               innerHeight={innerHeight}
               tickFormat={xAxisTickFormat}
               tickOffset={10}
+              centerPadding={centerPadding}
             />
 
             <Marks
@@ -65,6 +68,7 @@ export const BarChart = ({ data = [], dataInfo = {} }) => {
               yValue={yValue}
               xFormat={xAxisTickFormat}
               innerHeight={innerHeight}
+              centerPadding={centerPadding}
             />
             <text
               x={innerWidth - yAxisLabelOffset}

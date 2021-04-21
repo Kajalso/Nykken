@@ -2,6 +2,7 @@ export const AxisBottom = ({
   xScale,
   innerHeight,
   tickFormat,
+  centerPadding,
   tickOffset = 5,
 }) =>
   xScale.domain().map((tickValue, i) => (
@@ -11,7 +12,12 @@ export const AxisBottom = ({
       className={"tick"}
     >
       <line y2={innerHeight} className={"tick-line"} />
-      <text className={"tick-text-x"} y={innerHeight + tickOffset} dy={".5em"}>
+      <text
+        x={xScale.bandwidth() / 2 + centerPadding}
+        className={"tick-text-x"}
+        y={innerHeight + tickOffset}
+        dy={".5em"}
+      >
         {tickFormat(tickValue)}
       </text>
     </g>

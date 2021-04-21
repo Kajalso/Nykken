@@ -8,12 +8,12 @@ export const Marks = ({
   xValue,
   yValue,
   xFormat,
+  centerPadding,
   innerHeight,
 }) => {
   const colors = useColors();
 
   let colorDarkBlue = colors.darkBlue;
-  let colorBlue = colors.blue;
   let colorRed = colors.red;
 
   return (
@@ -43,10 +43,10 @@ export const Marks = ({
             <rect
               className="mark-bar"
               fill={colorDarkBlue}
-              stroke={colorBlue}
+              stroke={colorDarkBlue}
               key={i}
               y={height}
-              x={xScale(xValue(d))}
+              x={xScale(xValue(d)) + centerPadding}
               width={xScale.bandwidth()}
               height={innerHeight - height}
             >
