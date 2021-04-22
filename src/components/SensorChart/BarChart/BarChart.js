@@ -16,7 +16,6 @@ import { Marks } from "./Marks";
 const width = 700;
 const height = 400;
 const margin = { top: 10, right: 50, bottom: 50, left: 70 };
-const centerPadding = 0;
 
 const innerHeight = height - margin.top - margin.bottom;
 const innerWidth = width - margin.right - margin.left;
