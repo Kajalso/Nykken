@@ -47,26 +47,24 @@ export const BarChart = ({ data = [], dataInfo = {} }) => {
   // Linear scale for x values
   const xScale = scaleBand().domain(data.map(xValue)).range([0, innerWidth]);
 
-  // Set yScale for positive and negative values
-  let minY = Math.abs(min(data, yValue));
+  // Y values
+  let minY = min(data, yValue);
   let maxY = max(data, yValue);
 
-  let largestY = Math.max(minY, maxY); // Largest y value, either pos or neg
+  const domainY = minY < 0 ? extent(data, yValue) : [0, maxY];
 
   // Linear scale for y values
-  const yScale = scaleLinear()
-    .domain([-largestY, largestY])
-    .range([innerHeight, 0]);
+  const yScale = scaleLinear().domain(domainY).range([innerHeight, 0]);
 
   // Linear scale for positive y values
   const yScalePos = scaleLinear()
-    .domain([0, max(data, yValue)])
-    .range([0, innerHeight / 2]);
+    .domain([0, maxY])
+    .range([0, innerHeight - yScale(0)]); // From top of chart to zero-line
 
   // Linear scale for negative y values
   const yScaleNeg = scaleLinear()
-    .domain([min(data, yValue), 0])
-    .range([innerHeight / 2, innerHeight]);
+    .domain([minY, 0])
+    .range([innerHeight - yScale(0), innerHeight]); // From zero-line to bottom of chart
 
   return (
     <div className="chart">

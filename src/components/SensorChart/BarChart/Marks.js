@@ -21,20 +21,20 @@ export const Marks = ({
   return (
     <>
       {data.map((d, i) => {
-        let height = yValue(d);
-        console.log(height);
+        let value = yValue(d);
+        let zeroLine = yScale(0);
 
-        if (height < 0) {
+        if (value < 0) {
           return (
             <rect
               className="mark-bar"
               fill={colorRed}
               stroke={colorRed}
               key={i}
-              y={innerHeight / 2}
+              y={zeroLine}
               x={xScale(xValue(d))}
               width={xScale.bandwidth()}
-              height={yScalePos(Math.abs(height))}
+              height={yScaleNeg(yValue(d))}
             >
               <title>
                 {xFormat(xValue(d)) + ": " + yValue(d) + " " + dataInfo.unit}
@@ -48,10 +48,10 @@ export const Marks = ({
               fill={colorDarkBlue}
               stroke={colorDarkBlue}
               key={i}
-              y={innerHeight / 2 - yScalePos(height)}
+              y={yScale(yValue(d))}
               x={xScale(xValue(d))}
               width={xScale.bandwidth()}
-              height={yScalePos(height)}
+              height={zeroLine - yScale(yValue(d))}
             >
               <title>
                 {xFormat(xValue(d)) + ": " + yValue(d) + " " + dataInfo.unit}
