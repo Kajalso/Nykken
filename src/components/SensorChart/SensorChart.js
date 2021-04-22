@@ -47,7 +47,6 @@ export const SensorChart = ({ id, dataInfo }) => {
       setCustomTimeModalIsOpen(true);
     }
     setSelectedTime(selectedTimeOption);
-    console.log("Option selected: ", selectedTimeOption);
   };
 
   const handleConfirm = (
