@@ -1,31 +1,32 @@
 import React, { useState } from "react";
 
-// import { ReactSelect as Select } from "../Select/Select";
+import { ReactSelect as Select } from "../Select/Select";
 
 import { LineChart } from "./LineChart/LineChart";
 import { BarChart } from "./BarChart/BarChart";
-
 import { Button } from "../Button/Button";
+import { CustomTimeModal } from "../Modal/CustomTimeModal";
 
 import { useSensorData } from "../../api/useSensorData";
 
 import "./sensorChart.scss";
 
 const exampleDate = "2021-03-01";
+const exampleStartTime = "00:00:00";
+const exampleEndTime = "00:11:00";
 
 const barChartIDs = [5, 8, 10, 12];
 
 export const SensorChart = ({ id, dataInfo }) => {
-  const [startTimeFromInput, setStartTimeFromInput] = useState("00:00:00");
-  const [endTimeFromInput, setEndTimeFromInput] = useState("00:11:00");
-  const [startDateFromInput, setStartDateFromInput] = useState(exampleDate);
-  const [endDateFromInput, setEndDateFromInput] = useState(exampleDate);
+  const [customTimeModalIsOpen, setCustomTimeModalIsOpen] = useState(false);
+
+  const closeCustomTimeModal = () => setCustomTimeModalIsOpen(false);
 
   const [startDate, setStartDate] = useState(exampleDate);
   const [endDate, setEndDate] = useState(exampleDate);
 
-  const [startTime, setStartTime] = useState("00:00:00");
-  const [endTime, setEndTime] = useState("00:11:00");
+  const [startTime, setStartTime] = useState(exampleStartTime);
+  const [endTime, setEndTime] = useState(exampleEndTime);
 
   const [startDateTime, setStartDateTime] = useState(startDate + startTime);
   const [endDateTime, setEndDateTime] = useState(endDate + endTime);
@@ -33,14 +34,19 @@ export const SensorChart = ({ id, dataInfo }) => {
   // Fetch sensor data and data info
   const sensorData = useSensorData(id, startDateTime, endDateTime);
 
-  /* const timeOptions = [
+  const timeOptions = [
     {
       value: "custom",
       label: "Custom",
     },
-  ];*/
+  ];
 
-  const handleClick = () => {
+  const handleConfirm = (
+    startTimeFromInput,
+    endTimeFromInput,
+    startDateFromInput,
+    endDateFromInput
+  ) => {
     setStartTime(startTimeFromInput);
     setEndTime(endTimeFromInput);
     setStartDate(startDateFromInput);
@@ -58,6 +64,7 @@ export const SensorChart = ({ id, dataInfo }) => {
       setEndDateTime(endDateFromInput + endTimeFromInput);
     }
   };
+  /*
 
   const CustomTimeframe = () => {
     return (
@@ -95,11 +102,11 @@ export const SensorChart = ({ id, dataInfo }) => {
         <Button
           text="Fetch data"
           className="fetch-data"
-          onClick={handleClick}
+          onClick={handleConfirm}
         />
       </>
     );
-  };
+  };*/
 
   return (
     <div className="sensor-chart">
@@ -107,7 +114,16 @@ export const SensorChart = ({ id, dataInfo }) => {
         <h3 className="section-title">{dataInfo.title}</h3>
         <div className="select-time">
           <p>Time frame:</p>
-          <CustomTimeframe />
+          <Button
+            text="Custom time frame"
+            onClick={() => setCustomTimeModalIsOpen(true)}
+          />
+          <CustomTimeModal
+            sensor={dataInfo}
+            isOpen={customTimeModalIsOpen}
+            handleConfirm={handleConfirm}
+            closeModal={closeCustomTimeModal}
+          />
           {/*<Select options={timeOptions} />*/}
         </div>
         {(!sensorData || !sensorData[0]) && (
