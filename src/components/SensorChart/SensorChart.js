@@ -62,7 +62,9 @@ export const SensorChart = ({ id, dataInfo }) => {
   };
 
   const handleDownloadPNG = () => {
-    exportComponentAsPNG(componentRef);
+    exportComponentAsPNG(componentRef, {
+      fileName: dataInfo.title + '_from_' + startDateTime + '_to_' + endDateTime
+    });
   }
 
   const CustomTimeframe = () => {
