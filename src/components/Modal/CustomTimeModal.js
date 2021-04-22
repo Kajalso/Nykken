@@ -45,7 +45,7 @@ export const CustomTimeModal = ({
           </div>
           <div className="date-picker">
             <div className="from">
-              <label>From:</label>
+              <label className="from">From:</label>
               <input
                 type="date"
                 value={startDateFromInput}
@@ -59,7 +59,7 @@ export const CustomTimeModal = ({
               />
             </div>
             <div className="until">
-              <label>Until:</label>
+              <label className="until">Until:</label>
               <input
                 type="date"
                 value={endDateFromInput}

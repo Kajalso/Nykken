@@ -64,49 +64,6 @@ export const SensorChart = ({ id, dataInfo }) => {
       setEndDateTime(endDateFromInput + endTimeFromInput);
     }
   };
-  /*
-
-  const CustomTimeframe = () => {
-    return (
-      <>
-        <div className="date-picker">
-          <div className="from">
-            <label>From:</label>
-            <input
-              type="date"
-              value={startDateFromInput}
-              onChange={(e) => setStartDateFromInput(e.target.value)}
-            />
-            <input
-              type="time"
-              value={startTimeFromInput}
-              onChange={(e) => setStartTimeFromInput(e.target.value)}
-              step="1"
-            />
-          </div>
-          <div className="until">
-            <label>Until:</label>
-            <input
-              type="date"
-              value={endDateFromInput}
-              onChange={(e) => setEndDateFromInput(e.target.value)}
-            />
-            <input
-              type="time"
-              value={endTimeFromInput}
-              onChange={(e) => setEndTimeFromInput(e.target.value)}
-              step="1"
-            />
-          </div>
-        </div>
-        <Button
-          text="Fetch data"
-          className="fetch-data"
-          onClick={handleConfirm}
-        />
-      </>
-    );
-  };*/
 
   return (
     <div className="sensor-chart">
