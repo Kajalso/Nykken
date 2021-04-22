@@ -17,8 +17,16 @@ const exampleEndTime = "00:11:00";
 
 const barChartIDs = [5, 8, 10, 12];
 
+const timeOptions = [
+  {
+    value: "custom",
+    label: "Custom",
+  },
+];
+
 export const SensorChart = ({ id, dataInfo }) => {
   const [customTimeModalIsOpen, setCustomTimeModalIsOpen] = useState(false);
+  const [selectedTime, setSelectedTime] = useState(timeOptions[0].value);
 
   const closeCustomTimeModal = () => setCustomTimeModalIsOpen(false);
 
@@ -34,12 +42,13 @@ export const SensorChart = ({ id, dataInfo }) => {
   // Fetch sensor data and data info
   const sensorData = useSensorData(id, startDateTime, endDateTime);
 
-  const timeOptions = [
-    {
-      value: "custom",
-      label: "Custom",
-    },
-  ];
+  const handleChange = (selectedTimeOption) => {
+    if (selectedTimeOption.value === "custom") {
+      setCustomTimeModalIsOpen(true);
+    }
+    setSelectedTime(selectedTimeOption);
+    console.log("Option selected: ", selectedTimeOption);
+  };
 
   const handleConfirm = (
     startTimeFromInput,
@@ -71,17 +80,13 @@ export const SensorChart = ({ id, dataInfo }) => {
         <h3 className="section-title">{dataInfo.title}</h3>
         <div className="select-time">
           <p>Time frame:</p>
-          <Button
-            text="Custom time frame"
-            onClick={() => setCustomTimeModalIsOpen(true)}
-          />
           <CustomTimeModal
             sensor={dataInfo}
             isOpen={customTimeModalIsOpen}
             handleConfirm={handleConfirm}
             closeModal={closeCustomTimeModal}
           />
-          {/*<Select options={timeOptions} />*/}
+          <Select options={timeOptions} onChange={handleChange} />
         </div>
         {(!sensorData || !sensorData[0]) && (
           <p className="loading">Loading ...</p>

@@ -48,13 +48,15 @@ const theme = (theme) => ({
   },
 });
 
-export const ReactSelect = ({ options }) => {
+export const ReactSelect = ({ options, onChange }) => {
   return (
     <Select
       className="react-select-container"
       classNamePrefix="react-select"
       options={options}
+      onChange={onChange}
       defaultValue={options[0]}
+      isSearchable={false}
       theme={theme}
       styles={styles}
       components={{
