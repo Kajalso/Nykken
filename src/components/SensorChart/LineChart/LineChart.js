@@ -12,32 +12,30 @@ import { AxisBottom } from "./Axes/AxisBottom";
 import { AxisLeft } from "./Axes/AxisLeft";
 import { Marks } from "./Marks";
 
+import { useChartProps } from "../../../styles/useChartStyles";
+
 import "../chart.scss";
 
-const width = 700;
-const height = 400;
-const margin = { top: 10, right: 50, bottom: 50, left: 60 };
 const circleRadius = 2;
 
-const innerHeight = height - margin.top - margin.bottom;
-const innerWidth = width - margin.right - margin.left;
-
-// X values
-const xValue = (d) => new Date(d.time_stamp_utc);
-let xAxisLabel = "Time";
-const xAxisLabelOffset = 40;
-const xAxisDateOffset = 50;
-
-// Y values
-const yValue = (d) => +d.measurement;
-let yAxisLabel = "Measurement";
-const yAxisLabelOffset = 50;
-
-// Axis formats
-const xAxisTickFormat = utcFormat("%H:%M");
-const dateFormat = (d) => timeFormat("%A %d %B %Y")(new Date(d.time_stamp_utc));
-
 export const LineChart = ({ data = [], dataInfo = {} }) => {
+  let [
+    width,
+    height,
+    margin,
+    innerHeight,
+    innerWidth,
+    xValue,
+    xAxisLabel,
+    xAxisLabelOffset,
+    xAxisDateOffset,
+    xAxisTickFormat,
+    yValue,
+    yAxisLabel,
+    yAxisLabelOffset,
+    dateFormat,
+  ] = useChartProps();
+
   if (!data || !dataInfo) {
     return <pre>Loading chart...</pre>;
   }
