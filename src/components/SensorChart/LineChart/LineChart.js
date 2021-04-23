@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef } from "react";
 import {
   scaleTime,
   scaleLinear,
@@ -38,7 +38,7 @@ const yAxisLabelOffset = 50;
 const xAxisTickFormat = utcFormat("%H:%M");
 const dateFormat = (d) => timeFormat("%A %d %B %Y")(new Date(d.time_stamp_utc));
 
-export const LineChart = ({ data = [], dataInfo = {} }) => {
+export const LineChart = React.forwardRef(({data = [], dataInfo = {}}, ref ) => {
   if (!data || !dataInfo) {
     return <pre>Loading chart...</pre>;
   }
@@ -57,7 +57,7 @@ export const LineChart = ({ data = [], dataInfo = {} }) => {
 
   return (
     <div className="chart">
-      <div className="data">
+      <div ref={ref} className="data">
         <svg width={width} height={height}>
           <g transform={`translate(${margin.left}, ${margin.top})`}>
             <AxisBottom
@@ -104,4 +104,10 @@ export const LineChart = ({ data = [], dataInfo = {} }) => {
       </div>
     </div>
   );
-};
+});
+
+
+
+
+
+
