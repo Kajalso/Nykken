@@ -32,8 +32,8 @@ const theme = (theme) => ({
     primary50: "rgba(209, 227, 178, 0.5)",
     primary75: "rgba(209, 227, 178, 0.75)",
     primary25: "rgba(209, 227, 178, 0.25)",
-    danger: "rgba(249, 126, 126, 1)",
-    dangerLight: "rgba(249, 126, 126, 0.5)",
+    danger: "rgba(255, 82, 82, 1)",
+    dangerLight: "rgba(255, 82, 82, 0.5)",
     neutral90: "rgba(59, 69, 65, 0.9)",
     neutral80: "rgba(59, 69, 65, 0.8)",
     neutral70: "rgba(59, 69, 65, 0.7)",
@@ -48,7 +48,7 @@ const theme = (theme) => ({
   },
 });
 
-export const ReactSelect = ({ options, onChange }) => {
+export const ReactSelect = ({ options, onChange, defaultValue }) => {
   return (
     <Select
       className="react-select-container"

@@ -24,6 +24,15 @@ const timeOptions = [
   },
 ];
 
+const granularityOptions = [
+  { value: "MEASURED", label: "As measured" },
+  { value: "HOURLY", label: "Hourly" },
+  { value: "DAILY", label: "Daily" },
+  { value: "WEEKLY", label: "Weekly" },
+  { value: "MONTHLY", label: "Monthly" },
+  { value: "YEARLY", label: "Yearly" },
+];
+
 export const SensorChart = ({ id, dataInfo }) => {
   const [customTimeModalIsOpen, setCustomTimeModalIsOpen] = useState(false);
   const [selectedTime, setSelectedTime] = useState(timeOptions[0].value);
@@ -77,15 +86,22 @@ export const SensorChart = ({ id, dataInfo }) => {
     <div className="sensor-chart">
       <>
         <h3 className="section-title">{dataInfo.title}</h3>
-        <div className="select-time">
-          <p>Time frame:</p>
-          <CustomTimeModal
-            sensor={dataInfo}
-            isOpen={customTimeModalIsOpen}
-            handleConfirm={handleConfirm}
-            closeModal={closeCustomTimeModal}
-          />
-          <Select options={timeOptions} onChange={handleChange} />
+        <div className="selects">
+          <div className="select-time">
+            <p>Time frame:</p>
+
+            <Select options={timeOptions} onChange={handleChange} />
+            <CustomTimeModal
+              sensor={dataInfo}
+              isOpen={customTimeModalIsOpen}
+              handleConfirm={handleConfirm}
+              closeModal={closeCustomTimeModal}
+            />
+          </div>
+          <div className="select-granularity">
+            <p>Granularity:</p>
+            <Select options={granularityOptions} />
+          </div>
         </div>
         {(!sensorData || !sensorData[0]) && (
           <p className="loading">Loading ...</p>

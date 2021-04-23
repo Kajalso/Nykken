@@ -1,8 +1,14 @@
 $secondaryText: #79807c;
 $strokeColor: #e3e4e1;
 
-.select-time {
+.selects {
+  display: flex;
+}
+
+.select-time,
+.select-granularity {
   position: relative;
+  margin-right: 1.5em;
   > * {
     display: inline-block;
   }
