@@ -9,6 +9,8 @@ import { CustomTimeModal } from "../Modal/CustomTimeModal";
 
 import { useSensorData } from "../../api/useSensorData";
 
+import moreIcon from "../../icons/more.svg";
+
 import "./sensorChart.scss";
 
 const exampleDate = "2021-03-01";
@@ -17,28 +19,18 @@ const exampleEndTime = "00:11:00";
 
 const barChartIDs = [5, 8, 10, 12];
 
-const timeOptions = [
+const chartOptions = [
   {
-    value: "custom",
-    label: "Custom",
+    value: "edit",
+    label: "Edit chart",
   },
-];
-
-const granularityOptions = [
-  { value: "MEASURED", label: "As measured" },
-  { value: "HOURLY", label: "Hourly" },
-  { value: "DAILY", label: "Daily" },
-  { value: "WEEKLY", label: "Weekly" },
-  { value: "MONTHLY", label: "Monthly" },
-  { value: "YEARLY", label: "Yearly" },
+  { value: "download_png", label: "Download PNG" },
+  { value: "download_csv", label: "Download CSV" },
 ];
 
 export const SensorChart = ({ id, dataInfo }) => {
   const [customTimeModalIsOpen, setCustomTimeModalIsOpen] = useState(false);
-  const [selectedTime, setSelectedTime] = useState(timeOptions[0].value);
-  const [selectedGranularity, setSelectedGranularity] = useState(
-    granularityOptions[0].value
-  );
+  const [granularity, setGranularity] = useState("measured");
 
   const closeCustomTimeModal = () => setCustomTimeModalIsOpen(false);
 
@@ -52,25 +44,28 @@ export const SensorChart = ({ id, dataInfo }) => {
   const [endDateTime, setEndDateTime] = useState(endDate + endTime);
 
   // Fetch sensor data and data info
-  const sensorData = useSensorData(id, startDateTime, endDateTime);
+  const sensorData = useSensorData(id, startDateTime, endDateTime, granularity);
 
-  const handleChange = (selectedTimeOption) => {
-    if (selectedTimeOption.value === "custom") {
+  // Handle change of time frame
+  const handleClick = (chartOption) => {
+    if (chartOption.value === "edit") {
       setCustomTimeModalIsOpen(true);
     }
-    setSelectedTime(selectedTimeOption);
   };
 
+  // Handle confirm custom time frame from modal
   const handleConfirm = (
     startTimeFromInput,
     endTimeFromInput,
     startDateFromInput,
-    endDateFromInput
+    endDateFromInput,
+    granularity
   ) => {
     setStartTime(startTimeFromInput);
     setEndTime(endTimeFromInput);
     setStartDate(startDateFromInput);
     setEndDate(endDateFromInput);
+    setGranularity(granularity);
 
     // Check for correct time format when using Chrome
     if (startTimeFromInput.length < 6) {
@@ -87,39 +82,36 @@ export const SensorChart = ({ id, dataInfo }) => {
 
   return (
     <div className="sensor-chart">
-      <>
-        <h3 className="section-title">{dataInfo.title}</h3>
-        <div className="selects">
-          <div className="select-time">
-            <p>Time frame:</p>
+      <h3 className="section-title">{dataInfo.title}</h3>
+      <div className="more">
+        <Select
+          className="more-select-container"
+          classNamePrefix="more-select"
+          options={chartOptions}
+          icon={moreIcon}
+          onChange={handleClick}
+        />
+      </div>
+      <CustomTimeModal
+        sensor={dataInfo}
+        isOpen={customTimeModalIsOpen}
+        handleConfirm={handleConfirm}
+        closeModal={closeCustomTimeModal}
+      />
 
-            <Select options={timeOptions} onChange={handleChange} />
-            <CustomTimeModal
-              sensor={dataInfo}
-              isOpen={customTimeModalIsOpen}
-              handleConfirm={handleConfirm}
-              closeModal={closeCustomTimeModal}
-            />
-          </div>
-          <div className="select-granularity">
-            <p>Granularity:</p>
-            <Select options={granularityOptions} />
-          </div>
-        </div>
-        {(!sensorData || !sensorData[0]) && (
-          <p className="loading">Loading ...</p>
-        )}
-        {sensorData && sensorData[0] && (
-          <>
-            {barChartIDs.includes(id) && (
-              <BarChart data={sensorData} dataInfo={dataInfo} />
-            )}
-            {!barChartIDs.includes(id) && (
-              <LineChart data={sensorData} dataInfo={dataInfo} />
-            )}
-          </>
-        )}
-      </>
+      {(!sensorData || !sensorData[0]) && (
+        <p className="loading">Loading ...</p>
+      )}
+      {sensorData && sensorData[0] && (
+        <>
+          {barChartIDs.includes(id) && (
+            <BarChart data={sensorData} dataInfo={dataInfo} />
+          )}
+          {!barChartIDs.includes(id) && (
+            <LineChart data={sensorData} dataInfo={dataInfo} />
+          )}
+        </>
+      )}
     </div>
   );
 };

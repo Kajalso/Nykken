@@ -57,52 +57,50 @@ export const LineChart = ({ data = [], dataInfo = {} }) => {
 
   return (
     <div className="chart">
-      <div className="data">
-        <svg width={width} height={height}>
-          <g transform={`translate(${margin.left}, ${margin.top})`}>
-            <AxisBottom
-              xScale={xScale}
-              innerHeight={innerHeight}
-              tickFormat={xAxisTickFormat}
-              tickOffset={10}
-            />
-            <AxisLeft yScale={yScale} innerWidth={innerWidth} tickOffset={7} />
-            <Marks
-              data={data}
-              dataInfo={dataInfo}
-              xScale={xScale}
-              yScale={yScale}
-              xValue={xValue}
-              yValue={yValue}
-              innerHeight={innerHeight}
-              xFormat={xAxisTickFormat}
-              circleRadius={circleRadius}
-              curveStyle={curveMonotoneX}
-            />
-            <text
-              x={innerWidth - yAxisLabelOffset}
-              y={innerHeight + xAxisLabelOffset}
-              className={"axis-label x small"}
-            >
-              {xAxisLabel + " (min)"}
-            </text>
-            <text
-              x={innerWidth / 2}
-              y={innerHeight + xAxisDateOffset}
-              className={"axis-date"}
-            >
-              {dateFormat(data[0])}
-            </text>
-            <text
-              className={"axis-label y"}
-              transform={`translate(${-yAxisLabelOffset},
+      <svg width={width} height={height}>
+        <g transform={`translate(${margin.left}, ${margin.top})`}>
+          <AxisBottom
+            xScale={xScale}
+            innerHeight={innerHeight}
+            tickFormat={xAxisTickFormat}
+            tickOffset={10}
+          />
+          <AxisLeft yScale={yScale} innerWidth={innerWidth} tickOffset={7} />
+          <Marks
+            data={data}
+            dataInfo={dataInfo}
+            xScale={xScale}
+            yScale={yScale}
+            xValue={xValue}
+            yValue={yValue}
+            innerHeight={innerHeight}
+            xFormat={xAxisTickFormat}
+            circleRadius={circleRadius}
+            curveStyle={curveMonotoneX}
+          />
+          <text
+            x={innerWidth - yAxisLabelOffset}
+            y={innerHeight + xAxisLabelOffset}
+            className={"axis-label x small"}
+          >
+            {xAxisLabel + " (min)"}
+          </text>
+          <text
+            x={innerWidth / 2}
+            y={innerHeight + xAxisDateOffset}
+            className={"axis-date"}
+          >
+            {dateFormat(data[0])}
+          </text>
+          <text
+            className={"axis-label y"}
+            transform={`translate(${-yAxisLabelOffset},
                 ${innerHeight / 2}) rotate(-90)`}
-            >
-              {yAxisLabel + " (" + dataInfo.unit + ")"}
-            </text>
-          </g>
-        </svg>
-      </div>
+          >
+            {yAxisLabel + " (" + dataInfo.unit + ")"}
+          </text>
+        </g>
+      </svg>
     </div>
   );
 };

@@ -48,20 +48,31 @@ const theme = (theme) => ({
   },
 });
 
-export const ReactSelect = ({ options, onChange, defaultValue }) => {
+export const ReactSelect = ({
+  options,
+  onChange,
+  className = "react-select-container",
+  classNamePrefix = "react-select",
+  icon,
+  menuIsOpen,
+}) => {
   return (
-    <Select
-      className="react-select-container"
-      classNamePrefix="react-select"
-      options={options}
-      onChange={onChange}
-      defaultValue={options[0]}
-      isSearchable={false}
-      theme={theme}
-      styles={styles}
-      components={{
-        IndicatorSeparator: () => null,
-      }}
-    />
+    <div className="select">
+      <Select
+        className={className}
+        classNamePrefix={classNamePrefix}
+        options={options}
+        onChange={onChange}
+        defaultValue={options[0]}
+        isSearchable={false}
+        theme={theme}
+        styles={styles}
+        menuIsOpen={menuIsOpen}
+        components={{
+          IndicatorSeparator: () => null,
+        }}
+      />
+      {icon && <img className="more-icon" src={icon} alt="Button icon" />}
+    </div>
   );
 };

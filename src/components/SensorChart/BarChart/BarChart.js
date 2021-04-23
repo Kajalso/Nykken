@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  scaleBand,
-  scaleLinear,
-  min,
-  max,
-  extent,
-  timeFormat,
-  utcFormat,
-} from "d3";
+import { scaleBand, scaleLinear, min, max, extent } from "d3";
 
 import { AxisBottom } from "./Axes/AxisBottom";
 import { AxisLeft } from "./Axes/AxisLeft";
@@ -64,55 +56,53 @@ export const BarChart = ({ data = [], dataInfo = {} }) => {
 
   return (
     <div className="chart">
-      <div className="data">
-        <svg width={width} height={height}>
-          <g transform={`translate(${margin.left}, ${margin.top})`}>
-            <AxisLeft yScale={yScale} innerWidth={innerWidth} tickOffset={7} />
-            <AxisBottom
-              xScale={xScale}
-              innerHeight={innerHeight}
-              tickFormat={xAxisTickFormat}
-              tickOffset={10}
-              centerPadding={xScale.bandwidth() * 0.15}
-            />
+      <svg width={width} height={height}>
+        <g transform={`translate(${margin.left}, ${margin.top})`}>
+          <AxisLeft yScale={yScale} innerWidth={innerWidth} tickOffset={7} />
+          <AxisBottom
+            xScale={xScale}
+            innerHeight={innerHeight}
+            tickFormat={xAxisTickFormat}
+            tickOffset={10}
+            centerPadding={xScale.bandwidth() * 0.15}
+          />
 
-            <Marks
-              data={data}
-              dataInfo={dataInfo}
-              xScale={xScale}
-              yScalePos={yScalePos}
-              yScaleNeg={yScaleNeg}
-              yScale={yScale}
-              xValue={xValue}
-              yValue={yValue}
-              xFormat={xAxisTickFormat}
-              innerHeight={innerHeight}
-              centerPadding={xScale.bandwidth() * 0.15}
-            />
-            <text
-              x={innerWidth - yAxisLabelOffset}
-              y={innerHeight + xAxisLabelOffset}
-              className={"axis-label x small"}
-            >
-              {xAxisLabel + " (min)"}
-            </text>
-            <text
-              x={innerWidth / 2}
-              y={innerHeight + xAxisDateOffset}
-              className={"axis-date"}
-            >
-              {dateFormat(data[0])}
-            </text>
-            <text
-              className={"axis-label y"}
-              transform={`translate(${-yAxisLabelOffset},
+          <Marks
+            data={data}
+            dataInfo={dataInfo}
+            xScale={xScale}
+            yScalePos={yScalePos}
+            yScaleNeg={yScaleNeg}
+            yScale={yScale}
+            xValue={xValue}
+            yValue={yValue}
+            xFormat={xAxisTickFormat}
+            innerHeight={innerHeight}
+            centerPadding={xScale.bandwidth() * 0.15}
+          />
+          <text
+            x={innerWidth - yAxisLabelOffset}
+            y={innerHeight + xAxisLabelOffset}
+            className={"axis-label x small"}
+          >
+            {xAxisLabel + " (min)"}
+          </text>
+          <text
+            x={innerWidth / 2}
+            y={innerHeight + xAxisDateOffset}
+            className={"axis-date"}
+          >
+            {dateFormat(data[0])}
+          </text>
+          <text
+            className={"axis-label y"}
+            transform={`translate(${-yAxisLabelOffset},
                 ${innerHeight / 2}) rotate(-90)`}
-            >
-              {yAxisLabel + " (" + dataInfo.unit + ")"}
-            </text>
-          </g>
-        </svg>
-      </div>
+          >
+            {yAxisLabel + " (" + dataInfo.unit + ")"}
+          </text>
+        </g>
+      </svg>
     </div>
   );
 };
