@@ -1,6 +1,6 @@
 import { area, line, curveNatural } from "d3";
 
-import { useColors } from "../../../styles/useColors";
+import { useColors } from "../../../styles/useChartStyles";
 
 export const Marks = ({
   data,

@@ -36,6 +36,9 @@ const granularityOptions = [
 export const SensorChart = ({ id, dataInfo }) => {
   const [customTimeModalIsOpen, setCustomTimeModalIsOpen] = useState(false);
   const [selectedTime, setSelectedTime] = useState(timeOptions[0].value);
+  const [selectedGranularity, setSelectedGranularity] = useState(
+    granularityOptions[0].value
+  );
 
   const closeCustomTimeModal = () => setCustomTimeModalIsOpen(false);
 
