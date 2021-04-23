@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   scaleTime,
   scaleLinear,
@@ -18,89 +18,90 @@ import "../chart.scss";
 
 const circleRadius = 2;
 
-export const LineChart = ({ data = [], dataInfo = {} }) => {
-  let [
-    width,
-    height,
-    margin,
-    innerHeight,
-    innerWidth,
-    xValue,
-    xAxisLabel,
-    xAxisLabelOffset,
-    xAxisDateOffset,
-    xAxisTickFormat,
-    yValue,
-    yAxisLabel,
-    yAxisLabelOffset,
-    dateFormat,
-  ] = useChartProps();
+export const LineChart = React.forwardRef(
+  ({ data = [], dataInfo = {} }, ref) => {
+    let [
+      width,
+      height,
+      margin,
+      innerHeight,
+      innerWidth,
+      xValue,
+      xAxisLabel,
+      xAxisLabelOffset,
+      xAxisDateOffset,
+      xAxisTickFormat,
+      yValue,
+      yAxisLabel,
+      yAxisLabelOffset,
+      dateFormat,
+    ] = useChartProps();
 
-  if (!data || !dataInfo) {
-    return <pre>Loading chart...</pre>;
-  }
+    if (!data || !dataInfo) {
+      return <pre>Loading chart...</pre>;
+    }
 
-  // Y axis label
-  yAxisLabel = dataInfo.title;
+    // Y axis label
+    yAxisLabel = dataInfo.title;
 
-  // Linear scale for x values
-  const xScale = scaleTime()
-    .domain(extent(data, xValue)) // Extent-function replaces min, max
-    .range([0, innerWidth])
-    .nice(); // Adjusts the axis to prevent overlap
+    // Linear scale for x values
+    const xScale = scaleTime()
+      .domain(extent(data, xValue)) // Extent-function replaces min, max
+      .range([0, innerWidth])
+      .nice(); // Adjusts the axis to prevent overlap
 
-  // Linear scale for y values
-  const yScale = scaleLinear()
-    .domain(extent(data, yValue))
-    .range([innerHeight, 0])
-    .nice();
+    // Linear scale for y values
+    const yScale = scaleLinear()
+      .domain(extent(data, yValue))
+      .range([innerHeight, 0])
+      .nice();
 
-  return (
-    <div className="chart">
-      <svg width={width} height={height}>
-        <g transform={`translate(${margin.left}, ${margin.top})`}>
-          <AxisBottom
-            xScale={xScale}
-            innerHeight={innerHeight}
-            tickFormat={xAxisTickFormat}
-            tickOffset={10}
-          />
-          <AxisLeft yScale={yScale} innerWidth={innerWidth} tickOffset={7} />
-          <Marks
-            data={data}
-            dataInfo={dataInfo}
-            xScale={xScale}
-            yScale={yScale}
-            xValue={xValue}
-            yValue={yValue}
-            innerHeight={innerHeight}
-            xFormat={xAxisTickFormat}
-            circleRadius={circleRadius}
-            curveStyle={curveMonotoneX}
-          />
-          <text
-            x={innerWidth - yAxisLabelOffset}
-            y={innerHeight + xAxisLabelOffset}
-            className={"axis-label x small"}
-          >
-            {xAxisLabel + " (min)"}
-          </text>
-          <text
-            x={innerWidth / 2}
-            y={innerHeight + xAxisDateOffset}
-            className={"axis-date"}
-          >
-            {dateFormat(data[0])}
-          </text>
-          <text
-            className={"axis-label y"}
-            transform={`translate(${-yAxisLabelOffset},
+    return (
+      <div className="chart" ref={ref}>
+        <svg width={width} height={height}>
+          <g transform={`translate(${margin.left}, ${margin.top})`}>
+            <AxisBottom
+              xScale={xScale}
+              innerHeight={innerHeight}
+              tickFormat={xAxisTickFormat}
+              tickOffset={10}
+            />
+            <AxisLeft yScale={yScale} innerWidth={innerWidth} tickOffset={7} />
+            <Marks
+              data={data}
+              dataInfo={dataInfo}
+              xScale={xScale}
+              yScale={yScale}
+              xValue={xValue}
+              yValue={yValue}
+              xFormat={xAxisTickFormat}
+              circleRadius={circleRadius}
+              curveStyle={curveMonotoneX}
+            />
+            <text
+              x={innerWidth - yAxisLabelOffset}
+              y={innerHeight + xAxisLabelOffset}
+              className={"axis-label x small"}
+            >
+              {xAxisLabel + " (min)"}
+            </text>
+            <text
+              x={innerWidth / 2}
+              y={innerHeight + xAxisDateOffset}
+              className={"axis-date"}
+            >
+              {dateFormat(data[0])}
+            </text>
+            <text
+              className={"axis-label y"}
+              transform={`translate(${-yAxisLabelOffset},
                 ${innerHeight / 2}) rotate(-90)`}
-          >
-            {yAxisLabel + " (" + dataInfo.unit + ")"}
-          </text>
-        </g>
-      </svg>
-    </div>
-  );
-};
+            >
+              {yAxisLabel + " (" + dataInfo.unit + ")"}
+            </text>
+          </g>
+        </svg>
+      </div>
+    );
+  }
+);
