@@ -8,10 +8,10 @@
   }
 
   .sensor-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, 700px);
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 2.5em;
+    column-gap: 2.5em;
     justify-content: start;
-    column-gap: 1em;
-    row-gap: 1em;
   }
 }

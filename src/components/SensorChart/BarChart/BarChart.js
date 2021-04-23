@@ -1,12 +1,5 @@
 import React, { useRef } from "react";
-import {
-  scaleTime,
-  scaleLinear,
-  extent,
-  timeFormat,
-  utcFormat,
-  curveMonotoneX,
-} from "d3";
+import { scaleBand, scaleLinear, min, max, extent } from "d3";
 
 import { AxisBottom } from "./Axes/AxisBottom";
 import { AxisLeft } from "./Axes/AxisLeft";
@@ -14,11 +7,7 @@ import { Marks } from "./Marks";
 
 import { useChartProps } from "../../../styles/useChartStyles";
 
-import "../chart.scss";
-
-const circleRadius = 2;
-
-export const LineChart = React.forwardRef(
+export const BarChart = React.forwardRef(
   ({ data = [], dataInfo = {} }, ref) => {
     let [
       width,
@@ -45,38 +34,52 @@ export const LineChart = React.forwardRef(
     yAxisLabel = dataInfo.title;
 
     // Linear scale for x values
-    const xScale = scaleTime()
-      .domain(extent(data, xValue)) // Extent-function replaces min, max
-      .range([0, innerWidth])
-      .nice(); // Adjusts the axis to prevent overlap
+    const xScale = scaleBand().domain(data.map(xValue)).range([0, innerWidth]);
+
+    // Y values
+    let minY = min(data, yValue);
+    let maxY = max(data, yValue);
+
+    const domainY = minY < 0 ? extent(data, yValue) : [0, maxY];
 
     // Linear scale for y values
-    const yScale = scaleLinear()
-      .domain(extent(data, yValue))
-      .range([innerHeight, 0])
-      .nice();
+    const yScale = scaleLinear().domain(domainY).range([innerHeight, 0]);
+
+    // Linear scale for positive y values
+    const yScalePos = scaleLinear()
+      .domain([0, maxY])
+      .range([0, innerHeight - yScale(0)]); // From top of chart to zero-line
+
+    // Linear scale for negative y values
+    const yScaleNeg = scaleLinear()
+      .domain([minY, 0])
+      .range([innerHeight - yScale(0), innerHeight]); // From zero-line to bottom of chart
 
     return (
       <div className="chart" ref={ref}>
         <svg width={width} height={height}>
           <g transform={`translate(${margin.left}, ${margin.top})`}>
+            <AxisLeft yScale={yScale} innerWidth={innerWidth} tickOffset={7} />
             <AxisBottom
               xScale={xScale}
               innerHeight={innerHeight}
               tickFormat={xAxisTickFormat}
               tickOffset={10}
+              centerPadding={xScale.bandwidth() * 0.15}
             />
-            <AxisLeft yScale={yScale} innerWidth={innerWidth} tickOffset={7} />
+
             <Marks
               data={data}
               dataInfo={dataInfo}
               xScale={xScale}
+              yScalePos={yScalePos}
+              yScaleNeg={yScaleNeg}
               yScale={yScale}
               xValue={xValue}
               yValue={yValue}
               xFormat={xAxisTickFormat}
-              circleRadius={circleRadius}
-              curveStyle={curveMonotoneX}
+              innerHeight={innerHeight}
+              centerPadding={xScale.bandwidth() * 0.15}
             />
             <text
               x={innerWidth - yAxisLabelOffset}

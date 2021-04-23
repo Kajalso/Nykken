@@ -1,5 +1,6 @@
 $strokeColor: #e3e4e1;
 
+// Standard select
 .react-select-container {
   width: 150px;
 
@@ -16,10 +17,64 @@ $strokeColor: #e3e4e1;
 
   .react-select__menu {
     .react_select__option {
-      font-size: 10px;
-    }
-
-    .react-select__option.--is-selected {
+      font-size: 12px;
     }
   }
+}
+
+// More select
+.more {
+  height: 20px;
+  position: relative;
+}
+
+.css-g1d714-ValueContainer {
+  cursor: pointer;
+}
+
+.select {
+  width: 100%;
+  position: relative;
+}
+
+.more-select-container {
+  position: absolute !important;
+  right: 0;
+  width: 35px;
+  height: 100%;
+  display: block;
+
+  .more-select__control {
+    border: none;
+    background: none;
+  }
+
+  .more-select__menu {
+    width: 150px;
+    top: 1em;
+    right: 0;
+  }
+
+  .more-select__control--is-focused {
+    box-shadow: none;
+  }
+
+  .more-select__single-value {
+    display: none;
+  }
+
+  .more-select__dropdown-indicator {
+    display: none;
+  }
+}
+
+.more-icon {
+  z-index: -1;
+  width: 1.25em;
+  height: 1.25em;
+  display: block;
+  transform: rotate(90deg);
+  position: absolute;
+  top: 0;
+  right: 0.5em;
 }
