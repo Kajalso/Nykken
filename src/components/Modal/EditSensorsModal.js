@@ -11,35 +11,48 @@ import "./modals.scss";
 
 export const EditSensorsModal = ({
   sensors,
+  sensorID,
   isOpen,
-  handleSave,
+  saveSensor,
+  saveSensorID,
   closeModal,
 }) => {
   const [chosenSensors, setChosenSensors] = useState(sensors);
   const allDataInfo = useAllDataInfo();
+  const [checklistSensors, setChecklistSensors] = useState(sensorID);
 
   const handleChange = (currentSensor) => {
-    if (chosenSensors.includes(currentSensor)) {
-      setChosenSensors(
-        chosenSensors.filter((sensor) => sensor !== currentSensor)
+    const sensorIdentifier = currentSensor.data_identifier;
+    if (checklistSensors.includes(sensorIdentifier)) {
+      setChecklistSensors(
+        checklistSensors.filter((IDs) => IDs !== sensorIdentifier),
       );
-      console.log("removing " + currentSensor.description);
-    } else {
+      const newSensors = chosenSensors.filter((sensor) => sensor.data_identifier !== currentSensor.data_identifier);
+      setChosenSensors(newSensors);
+      console.log("removing name " + sensorIdentifier);
+      console.log('chosen sensors unchecked ' + chosenSensors);
+    } 
+    else {
+      setChecklistSensors((checklistSensors) => [...checklistSensors, sensorIdentifier]);
       setChosenSensors((chosenSensors) => [...chosenSensors, currentSensor]);
-      console.log("adding " + currentSensor.description);
+      console.log("adding name " + currentSensor.data_identifier);
     }
   };
 
   const handleClick = () => {
     console.log("saving...");
-    handleSave(chosenSensors);
+    setChosenSensors(chosenSensors);
+    setChecklistSensors(checklistSensors);
+    saveSensor(chosenSensors);
+    saveSensorID(checklistSensors);
     closeModal();
   };
+
 
   return (
     <Modal
       className="modal-background"
-      isOpen={isOpen}
+      isOpen={isOpen} //console.log(chosenSensors)}
       onRequestClose={closeModal}
     >
       <div className="modal">
@@ -59,8 +72,8 @@ export const EditSensorsModal = ({
                     id={i}
                     type="checkbox"
                     value={sensor.description}
-                    onChange={() => handleChange(sensor)}
-                    checked={chosenSensors.includes(sensor)}
+                    onChange={e => {handleChange(sensor)}}
+                    checked={checklistSensors.includes(sensor.data_identifier)}
                   />
                   <label htmlFor={i} className="checkbox-icon" />
                   <label htmlFor={i} className="label">
@@ -76,6 +89,7 @@ export const EditSensorsModal = ({
     </Modal>
   );
 };
+
 
 /*
 <>
