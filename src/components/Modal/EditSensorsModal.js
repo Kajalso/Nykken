@@ -64,7 +64,7 @@ export const EditSensorsModal = ({
   return (
     <Modal
       className="modal-background"
-      isOpen={isOpen} //console.log(chosenSensors)}
+      isOpen={isOpen}
       onRequestClose={closeModal}
     >
       <div className="modal">
@@ -83,7 +83,6 @@ export const EditSensorsModal = ({
                   <input
                     id={i}
                     type="checkbox"
-                    value={sensor.description}
                     onChange={(e) => {
                       handleChange(sensor);
                     }}
