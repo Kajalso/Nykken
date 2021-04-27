@@ -18,7 +18,7 @@ export const useColors = () => {
 };
 
 export const useChartProps = () => {
-  const width = 450;
+  const width = 550;
   const height = 300;
   const margin = { top: 10, right: 50, bottom: 50, left: 60 };
 
