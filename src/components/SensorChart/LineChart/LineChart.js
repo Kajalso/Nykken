@@ -70,6 +70,7 @@ export const LineChart = React.forwardRef(
               xFormat={xAxisTickFormat}
               circleRadius={circleRadius}
               curveStyle={curveMonotoneX}
+              innerHeight={innerHeight}
             />
             <text
               x={innerWidth - yAxisLabelOffset}
