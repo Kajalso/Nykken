@@ -76,7 +76,6 @@ export const EditSensorsModal = ({
                   <input
                     id={i}
                     type="checkbox"
-                    value={sensor.description}
                     onChange={e => {handleChange(sensor)}}
                     checked={checklistSensors.includes(sensor.data_identifier)}
                   />
