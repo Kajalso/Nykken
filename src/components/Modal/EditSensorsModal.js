@@ -10,44 +10,48 @@ import plusIcon from "../../icons/plus.svg";
 import "./modals.scss";
 
 export const EditSensorsModal = ({
-  sensors,
   sensorID,
+  sensors,
   isOpen,
   saveSensor,
   saveSensorID,
   closeModal,
 }) => {
+
+  //Create a copy of the list of sensor IDs in local storage
+  const [checklistSensors, setChecklistSensors] = useState(sensorID);
+  //Create a copy of the list of sensor objects local storage
   const [chosenSensors, setChosenSensors] = useState(sensors);
   const allDataInfo = useAllDataInfo();
-  const [checklistSensors, setChecklistSensors] = useState(sensorID);
 
+  
+  //When a sensor is (un)checked
+  //This only affect the copied list of sensor IDs and sensor objects
   const handleChange = (currentSensor) => {
     const sensorIdentifier = currentSensor.data_identifier;
+    //If the list of sensor ID's contain the current sensor's ID,
+    //remove the item from both the list of sensor ID's and the list of sensor objects
     if (checklistSensors.includes(sensorIdentifier)) {
-      setChecklistSensors(
-        checklistSensors.filter((IDs) => IDs !== sensorIdentifier),
-      );
-      const newSensors = chosenSensors.filter((sensor) => sensor.data_identifier !== currentSensor.data_identifier);
-      setChosenSensors(newSensors);
-      console.log("removing name " + sensorIdentifier);
-      console.log('chosen sensors unchecked ' + chosenSensors);
+      setChecklistSensors(checklistSensors.filter((IDs) => IDs !== sensorIdentifier));
+      setChosenSensors(chosenSensors.filter((sensor) => sensor.data_identifier !== currentSensor.data_identifier));
+      console.log("removing name " + currentSensor.description);
     } 
+      //If the sensor is not in the lists, 
+      //add the sensor ID to the checklistSensors list and the list of sensor objects
     else {
       setChecklistSensors((checklistSensors) => [...checklistSensors, sensorIdentifier]);
       setChosenSensors((chosenSensors) => [...chosenSensors, currentSensor]);
-      console.log("adding name " + currentSensor.data_identifier);
+      console.log("adding name " + currentSensor.description);
     }
   };
 
+//When the save button is clicked, the local storage lists are updated
   const handleClick = () => {
     console.log("saving...");
-    setChosenSensors(chosenSensors);
-    setChecklistSensors(checklistSensors);
     saveSensor(chosenSensors);
     saveSensorID(checklistSensors);
     closeModal();
   };
-
 
   return (
     <Modal
@@ -89,11 +93,3 @@ export const EditSensorsModal = ({
     </Modal>
   );
 };
-
-
-/*
-<>
-    <input type="checkbox" id={i} name={i} value={sensor.sensor_id}>
-      <label for={i}>{sensor.description}</label>
-    </input>
-  </>*/
