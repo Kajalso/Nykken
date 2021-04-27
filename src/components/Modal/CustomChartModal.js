@@ -4,13 +4,15 @@ import Modal from "react-modal";
 
 import { Button } from "../Button/Button";
 
+import { SensorChart } from "../SensorChart/SensorChart";
+
 import { useAllDataInfo } from "../../api/useAllDataInfo";
 
 import plusIcon from "../../icons/plus.svg";
 
 import "./modals.scss";
 
-export const CreateGroupModal = ({ isOpen, closeModal }) => {
+export const CustomChartModal = ({ isOpen, closeModal }) => {
   const allDataInfo = useAllDataInfo();
   // const [chosenSensors, setChosenSensors] = useState([]);
   // const handleAddGroup = () => {};
@@ -24,11 +26,11 @@ export const CreateGroupModal = ({ isOpen, closeModal }) => {
       <div className="modal">
         <div className="modal-content">
           <div className="modal-title">
-            <h3>Create group</h3>
-            <p className="small">
-              Compare multiple sensor data during the same time frame
-            </p>
+            <h3>Create custom chart</h3>
+            <p className="small">Combine multiple sensor data into one chart</p>
           </div>
+
+          <SensorChart />
 
           <form className="sensor-select">
             {allDataInfo &&
@@ -42,7 +44,7 @@ export const CreateGroupModal = ({ isOpen, closeModal }) => {
                 </div>
               ))}
           </form>
-          <Button text="Add group" />
+          <Button text="Add chart" />
         </div>
         <Button className="close" icon={plusIcon} onClick={closeModal} />
       </div>
