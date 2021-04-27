@@ -32,7 +32,8 @@ const chartOptions = [
   { value: "download_png", label: "Download PNG" },
 ];
 
-export const SensorChart = ({ id, dataInfo }) => {
+export const SensorChart = ({ dataInfo }) => {
+  const id = dataInfo.data_identifier;
   const [customTimeModalIsOpen, setCustomTimeModalIsOpen] = useState(false);
   const [granularity, setGranularity] = useSessionStorage(id+'granularity', 'measured');//useState("measured");
 

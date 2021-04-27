@@ -14,6 +14,19 @@ Object {
           <h2>
             Risvollan measurement station
           </h2>
+          <div
+            class="buttons"
+          >
+            <button
+              class="button undefined"
+            >
+              <img
+                alt="Button icon"
+                src="group.svg"
+              />
+              Add chart group
+            </button>
+          </div>
           <p
             class="small"
           >
@@ -69,6 +82,19 @@ Object {
         <h2>
           Risvollan measurement station
         </h2>
+        <div
+          class="buttons"
+        >
+          <button
+            class="button undefined"
+          >
+            <img
+              alt="Button icon"
+              src="group.svg"
+            />
+            Add chart group
+          </button>
+        </div>
         <p
           class="small"
         >
