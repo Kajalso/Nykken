@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { Button } from "../Button/Button";
 import Modal from "react-modal";
@@ -81,7 +81,7 @@ export const EditSensorsModal = ({
                   />
                   <label htmlFor={i} className="checkbox-icon" />
                   <label htmlFor={i} className="label">
-                    {sensor.description}
+                    {sensor.title}
                   </label>
                 </div>
               ))}

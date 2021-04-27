@@ -20,7 +20,7 @@ describe("testing axios", () => {
   test('axios is being called', () => {
         renderHook(() => useSensorData(1, '2020-08-0800+00:00', '2020-08-0800+11:00'));
         expect(axios.get).toHaveBeenCalledWith(
-            `http://ibmrisvol.ibm.ntnu.no/data?from=2020-08-08T00%3A00%3A0Z&until=2020-08-08T00%3A11%3A0Z&identifier=1`,
+            "http://ibmrisvol.ibm.ntnu.no/data?granularity=MEASURED&from=2020-08-08T00%3A00%3A0Z&until=2020-08-08T00%3A11%3A0Z&identifier=1",
         );
     });
 });
