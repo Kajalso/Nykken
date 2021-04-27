@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { scaleBand, scaleLinear, min, max, extent } from "d3";
 
 import { AxisBottom } from "./Axes/AxisBottom";

@@ -50,12 +50,9 @@ export const CustomTimeModal = ({
   useEffect(() => {
     let options = granularityOptions;
     if (startDateFromInput.slice(0, 4) === endDateFromInput.slice(0, 4)) {
-      console.log("Same year");
       options = options.filter((option) => option.value !== "YEARLY");
-      console.log(options);
     }
     if (startDateFromInput.slice(0, 7) === endDateFromInput.slice(0, 7)) {
-      console.log("Same month");
       options = options.filter((option) => option.value !== "YEARLY");
       options = options.filter((option) => option.value !== "MONTHLY");
     }
@@ -64,13 +61,11 @@ export const CustomTimeModal = ({
       startDateFromInput.slice(0, 7) === endDateFromInput.slice(0, 7) &&
       +endDateFromInput.slice(9, 11) - +startDateFromInput.slice(9, 11) < 7
     ) {
-      console.log("Same week");
       options = options.filter((option) => option.value !== "YEARLY");
       options = options.filter((option) => option.value !== "MONTHLY");
       options = options.filter((option) => option.value !== "WEEKLY");
     }
     if (startDateFromInput === endDateFromInput) {
-      console.log("Same day");
       options = options.filter((option) => option.value !== "YEARLY");
       options = options.filter((option) => option.value !== "MONTHLY");
       options = options.filter((option) => option.value !== "WEEKLY");
@@ -80,7 +75,6 @@ export const CustomTimeModal = ({
       startDateFromInput === endDateFromInput &&
       startTimeFromInput.slice(0, 2) === endTimeFromInput.slice(0, 2)
     ) {
-      console.log("Same hour");
       options = options.filter((option) => option.value === "MEASURED");
     }
 

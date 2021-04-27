@@ -23,16 +23,17 @@ export const EditSensorsModal = ({
       setChosenSensors(
         chosenSensors.filter((sensor) => sensor !== currentSensor)
       );
-      console.log("removing " + currentSensor.description);
+      console.log("Removing " + currentSensor.title);
     } else {
       setChosenSensors((chosenSensors) => [...chosenSensors, currentSensor]);
-      console.log("adding " + currentSensor.description);
+      console.log("Adding " + currentSensor.title);
     }
   };
 
   const handleClick = () => {
-    console.log("saving...");
+    console.log("Saving sensors...");
     handleSave(chosenSensors);
+    console.log("Sensors saved.");
     closeModal();
   };
 

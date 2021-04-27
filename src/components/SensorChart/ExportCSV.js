@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { CSVLink } from "react-csv";
 
 export const ExportCSV = ({ data = [], dataInfo = {} }) => {
