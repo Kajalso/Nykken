@@ -6,14 +6,28 @@ import { Button } from "../Button/Button";
 
 import { useAllDataInfo } from "../../api/useAllDataInfo";
 
+import { useLocalStorage } from '../../storage/useLocalStorage';
+
 import plusIcon from "../../icons/plus.svg";
 
 import "./modals.scss";
+import { group } from "d3-array";
 
-export const CreateGroupModal = ({ isOpen, closeModal }) => {
+export const CreateGroupModal = ({ 
+  isOpen, 
+  closeModal
+ }) => {
   const allDataInfo = useAllDataInfo();
-  // const [chosenSensors, setChosenSensors] = useState([]);
-  // const handleAddGroup = () => {};
+  const [groupedSensors, setGroupedSensors] = useState();
+  
+  const handleChange = (currentSensor)  => {
+    setGroupedSensors((groupedSensors) => [...groupedSensors, currentSensor]);
+    console.log(groupedSensors);
+  }
+  
+  const handleAddGroup = () => {
+    //saveGroup(groupedSensors);
+  };
 
   return (
     <Modal
@@ -34,7 +48,11 @@ export const CreateGroupModal = ({ isOpen, closeModal }) => {
             {allDataInfo &&
               allDataInfo.map((sensor, i) => (
                 <div key={i} className="sensor-option">
-                  <input id={i} type="checkbox" />
+                  <input 
+                  id={i} 
+                  type="checkbox"
+                  onChange={(e) => {handleChange(sensor)}}
+                  />
                   <label htmlFor={i} className="checkbox-icon" />
                   <label htmlFor={i} className="label">
                     {sensor.title}
@@ -42,7 +60,7 @@ export const CreateGroupModal = ({ isOpen, closeModal }) => {
                 </div>
               ))}
           </form>
-          <Button text="Add group" />
+          <Button text="Add group" onClick={handleAddGroup} />
         </div>
         <Button className="close" icon={plusIcon} onClick={closeModal} />
       </div>
