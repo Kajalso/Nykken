@@ -50,6 +50,7 @@ export const EditSensorsModal = ({
     console.log("saving...");
     saveSensor(chosenSensors);
     saveSensorID(checklistSensors);
+
     closeModal();
   };
 

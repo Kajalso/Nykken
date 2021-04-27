@@ -1,12 +1,5 @@
-import React, { useRef } from "react";
-import {
-  scaleTime,
-  scaleLinear,
-  extent,
-  timeFormat,
-  utcFormat,
-  curveMonotoneX,
-} from "d3";
+import React from "react";
+import { scaleTime, scaleLinear, extent, curveMonotoneX } from "d3";
 
 import { AxisBottom } from "./Axes/AxisBottom";
 import { AxisLeft } from "./Axes/AxisLeft";
