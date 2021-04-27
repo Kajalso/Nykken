@@ -9,11 +9,13 @@ export const useAllDataInfo = () => {
     axios
       .get(`http://ibmrisvol.ibm.ntnu.no/data/info?id=${id}`)
       .then((response) => {
-        if (id <= 13) {
+        if (id <= 12) {
           setAllDataInfo((allDataInfo) => [...allDataInfo, response.data]);
           setId(id + 1);
+        } else if (id === 13) {
+          setAllDataInfo((allDataInfo) => [...allDataInfo, response.data]);
+          console.log("All data info successfully retrieved.");
         }
-        console.log("All data info successfully retrieved.");
       })
       .catch((error) => {
         console.log(error);
