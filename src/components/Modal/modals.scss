@@ -115,11 +115,19 @@ $primaryBackground: #fafbf9;
 
 // Custom chart modal
 .custom-chart-modal {
-  .custom-chart {
+  .chart-content-options {
     grid-gap: 1em;
   }
 
-  .modal-content .custom-chart {
+  .modal-title {
+    margin-bottom: 0;
+  }
+
+  .chart-title {
+    margin-top: 0;
+  }
+
+  .modal-content .chart-content-options {
     display: grid;
     grid-template-columns: auto;
   }
@@ -152,13 +160,17 @@ $primaryBackground: #fafbf9;
 
   // Custom chart modal
   .modal.custom-chart-modal {
-    width: 600px;
+    width: 650px;
 
-    .modal-content .custom-chart {
-      grid-template-columns: auto auto;
+    .chart-content-options {
+      display: grid;
+      grid-template-columns: auto 200px;
+    }
 
+    .modal-content .chart-content-options {
       .sensor-select {
         grid-template-columns: auto;
+        grid-gap: 0.25em;
       }
     }
   }

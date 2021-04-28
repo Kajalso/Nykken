@@ -18,10 +18,10 @@ export const useColors = () => {
 };
 
 export const useChartProps = () => {
-  const width = 500;
-  const height = 300;
+  const width = 300;
+  const height = 200;
 
-  const margin = { top: 10, right: 50, bottom: 50, left: 60 };
+  const margin = { top: 5, right: 30, bottom: 25, left: 30 };
 
   const innerHeight = height - margin.top - margin.bottom;
   const innerWidth = width - margin.right - margin.left;
@@ -34,7 +34,7 @@ export const useChartProps = () => {
 
   // Y values
   const yValue = (d) => +d.measurement;
-  let yAxisLabel = "Measurement";
+  let yAxisLabel = (d) => d.title;
   const yAxisLabelOffset = 50;
 
   // Axis formats

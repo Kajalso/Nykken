@@ -20,6 +20,10 @@ $secondaryBackground: #f0f2eb;
       margin-right: 1.5em;
     }
   }
+
+  .btn-custom-chart {
+    display: none;
+  }
 }
 
 @media only screen and (min-width: 768px) {
@@ -30,6 +34,10 @@ $secondaryBackground: #f0f2eb;
       position: absolute;
       right: 1em;
       bottom: 0em;
+    }
+
+    .btn-custom-chart {
+      display: block;
     }
   }
 }

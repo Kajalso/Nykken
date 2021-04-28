@@ -3,12 +3,14 @@ $strokeColor: #e3e4e1;
 /* Chart styling */
 .chart {
   background-color: white;
-  padding: 1em 0 0.5em 1em;
+  padding: 0.5em 0 0.5em 1em;
   border: 1px solid $strokeColor;
   border-radius: 8px;
 
   svg {
     overflow: visible;
+    display: block;
+    margin: auto;
   }
 }
 
@@ -34,7 +36,8 @@ $strokeColor: #e3e4e1;
   fill: #635f5d;
 }
 
-.axis-label.y {
+.axis-label.y,
+.custom-axis-label.y {
   text-anchor: middle;
 }
 
@@ -48,7 +51,7 @@ $strokeColor: #e3e4e1;
 /* Axes styling */
 
 .tick-line {
-  stroke: #c0c0bb;
+  stroke: #c0c0bb3f;
 }
 
 .tick-text-x {
@@ -61,4 +64,8 @@ $strokeColor: #e3e4e1;
   text-anchor: end;
   font-size: x-small;
   fill: #635f5d;
+}
+
+.tick-text-y.right {
+  text-anchor: start;
 }

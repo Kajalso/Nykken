@@ -33,6 +33,7 @@ export const Header = () => {
         />
 
         <Button
+          className="btn-custom-chart"
           icon={customChartIcon}
           text="Create custom chart"
           onClick={() => setChartModalIsOpen(true)}

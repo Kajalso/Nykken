@@ -5,17 +5,39 @@ import Modal from "react-modal";
 import { Button } from "../Button/Button";
 
 import { SensorChart } from "../SensorChart/SensorChart";
+import { CustomChart } from "../SensorChart/CustomChart/CustomChart";
 
 import { useAllDataInfo } from "../../api/useAllDataInfo";
 import { useDataInfo } from "../../api/useDataInfo";
+import { useSensorData } from "../../api/useSensorData";
 
 import plusIcon from "../../icons/plus.svg";
 
 import "./modals.scss";
 
+const exampleDate = "2021-03-01";
+const exampleStartTime = "00:00:00";
+const exampleEndTime = "00:11:00";
+
 export const CustomChartModal = ({ isOpen, closeModal }) => {
   const allDataInfo = useAllDataInfo();
-  const dataInfo = useDataInfo(1);
+  const dataInfo1 = useDataInfo(2);
+  const data1 = useSensorData(
+    2,
+    exampleDate + exampleStartTime,
+    exampleDate + exampleEndTime
+  );
+  const dataInfo2 = useDataInfo(3);
+  const data2 = useSensorData(
+    3,
+    exampleDate + exampleStartTime,
+    exampleDate + exampleEndTime
+  );
+
+  const sensors = [
+    { data: data1, dataInfo: dataInfo1 },
+    { data: data2, dataInfo: dataInfo2 },
+  ];
   // const [chosenSensors, setChosenSensors] = useState([]);
   // const handleAddGroup = () => {};
 
@@ -32,17 +54,24 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
             <p className="small">Combine multiple sensor data into one chart</p>
           </div>
 
-          <div className="custom-chart">
-            <SensorChart dataInfo={dataInfo} />
+          <div className="chart-content-options">
+            <CustomChart sensors={sensors} />
             <div className="sensors">
               <h6>Sensors</h6>
               <form className="sensor-select">
                 {allDataInfo &&
                   allDataInfo.map((sensor, i) => (
                     <div key={i} className="sensor-option">
-                      <input id={i} type="checkbox" />
-                      <label htmlFor={i} className="checkbox-icon" />
-                      <label htmlFor={i} className="label">
+                      <input
+                        id={sensor.data_identifier}
+                        type="checkbox"
+                        onChange={(e) => console.log(e.target)}
+                      />
+                      <label
+                        htmlFor={sensor.data_identifier}
+                        className="checkbox-icon"
+                      />
+                      <label htmlFor={sensor.data_identifier} className="label">
                         {sensor.title}
                       </label>
                     </div>
