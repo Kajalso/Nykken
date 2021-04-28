@@ -8,6 +8,7 @@ import { useAllDataInfo } from "../../api/useAllDataInfo";
 import plusIcon from "../../icons/plus.svg";
 
 import "./modals.scss";
+import { useLocalStorage } from "../../storage/useLocalStorage";
 
 export const EditSensorsModal = ({
   sensorID,
@@ -83,9 +84,7 @@ export const EditSensorsModal = ({
                   <input
                     id={i}
                     type="checkbox"
-                    onChange={(e) => {
-                      handleChange(sensor);
-                    }}
+                    onChange={e => {handleChange(sensor)}}
                     checked={checklistSensors.includes(sensor.data_identifier)}
                   />
                   <label htmlFor={i} className="checkbox-icon" />

@@ -18,15 +18,29 @@ export const CreateGroupModal = ({
   closeModal
  }) => {
   const allDataInfo = useAllDataInfo();
-  const [groupedSensors, setGroupedSensors] = useState();
+  const [groupedSensors, setGroupedSensors] = useState([]);
+  const [groupName, setGroupName] = useState(0);
+  const [newGroup, setNewGroup] = useLocalStorage( 'Group' + groupName, [])
   
   const handleChange = (currentSensor)  => {
-    setGroupedSensors((groupedSensors) => [...groupedSensors, currentSensor]);
-    console.log(groupedSensors);
+    if (groupedSensors.includes(currentSensor)) {
+      setGroupedSensors(
+        groupedSensors.filter(
+          (sensor) => sensor.data_identifier !== currentSensor.data_identifier
+        )
+      );
+    }
+    else {
+      setGroupedSensors((groupedSensors) => [...groupedSensors, currentSensor]);
+    }
   }
   
+
   const handleAddGroup = () => {
-    //saveGroup(groupedSensors);
+    setGroupName(groupName + 1);
+    setNewGroup(groupedSensors);
+    closeModal();
+    setGroupedSensors([]);
   };
 
   return (
