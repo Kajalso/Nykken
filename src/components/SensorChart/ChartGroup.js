@@ -1,17 +1,9 @@
-import React, { useState, useRef } from "react";
-
-import { exportComponentAsPNG } from "react-component-export-image";
-
-import { ReactSelect as Select } from "../Select/Select";
-
-import { ExportCSV } from "./ExportCSV";
+import React from "react";
 
 import { LineChart } from "./LineChart/LineChart";
 import { BarChart } from "./BarChart/BarChart";
 
-
 import { useSensorData } from "../../api/useSensorData";
-import { useSessionStorage } from '../../storage/useSessionStorage';
 
 
 import "./sensorChart.scss";

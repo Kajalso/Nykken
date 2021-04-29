@@ -8,7 +8,7 @@ import { useAllDataInfo } from "../../api/useAllDataInfo";
 import plusIcon from "../../icons/plus.svg";
 
 import "./modals.scss";
-import { useLocalStorage } from "../../storage/useLocalStorage";
+
 
 export const EditSensorsModal = ({
   sensorID,
@@ -20,7 +20,7 @@ export const EditSensorsModal = ({
 }) => {
   //Create a copy of the list of sensor IDs in local storage
   const [checklistSensors, setChecklistSensors] = useState(sensorID);
-  //Create a copy of the list of sensor objects local storage
+  //Create a copy of the list of sensor objects in local storage
   const [chosenSensors, setChosenSensors] = useState(sensors);
   const allDataInfo = useAllDataInfo();
 

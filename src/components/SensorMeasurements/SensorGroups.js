@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ReactSelect as Select } from "../Select/Select";
 import { CustomTimeModal } from "../Modal/CustomTimeModal";
 
-import { useSensorData } from "../../api/useSensorData";
+
 import { useSessionStorage } from '../../storage/useSessionStorage';
 
 import { ChartGroup } from "../SensorChart/ChartGroup";
@@ -17,11 +17,15 @@ const exampleEndTime = "00:11:00";
 const chartOptions = [
     {
       value: "edit",
-      label: "Edit chart",
+      label: "Edit group",
     },
+    {
+        value: "delete",
+        label: "Delete group",
+      },
   ];
 
-const testSensors = [{
+/* const testSensors = [{
     data_identifier: 2,
     description: "Air temperature",
     sensor_id: 2,
@@ -37,8 +41,12 @@ const testSensors = [{
 }    
 ]
 
-export const SensorGroups = () => {
-    const sensors =  testSensors
+const sensorGroups = JSON.parse(localStorage.getItem('Groups'));
+const testSensors = sensorGroups[0]; */ 
+
+
+export const SensorGroups = ({group}) => {
+    const sensors =  group;
     const [customTimeModalIsOpen, setCustomTimeModalIsOpen] = useState(false);
     const [granularity, setGranularity] = useSessionStorage('granularity', 'measured');
 
@@ -89,7 +97,7 @@ export const SensorGroups = () => {
 
     return (
         <div className="sensor-chart">
-        <h3 className="section-title">{'My Group'}</h3>
+        <h2 className="section-title">{'Group'}</h2>
         <div className="more">
             <Select
             className="more-select-container"

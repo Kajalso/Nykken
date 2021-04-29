@@ -131,7 +131,13 @@ export const CustomTimeModal = ({
               <p className="small">{sensor.title}</p>   
             )}
             {!sensor && chartGroup && (
-              <p className="small">{chartGroup}</p>   
+              <p className="small">{chartGroup}</p> 
+/*               <div>
+              <form>
+                 <p>Change group name:</p>
+                 <input ></input>
+              </form>  
+              </ div> */
             )}
           </div>
           <div className="selects">
