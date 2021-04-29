@@ -21,15 +21,27 @@ const exampleEndTime = "00:11:00";
 
 export const CustomChartModal = ({ isOpen, closeModal }) => {
   const allDataInfo = useAllDataInfo();
-  const dataInfo1 = useDataInfo(2);
+  const dataInfo1 = useDataInfo(3);
   const data1 = useSensorData(
-    2,
+    3,
     exampleDate + exampleStartTime,
     exampleDate + exampleEndTime
   );
-  const dataInfo2 = useDataInfo(3);
+  const dataInfo2 = useDataInfo(5);
   const data2 = useSensorData(
-    3,
+    5,
+    exampleDate + exampleStartTime,
+    exampleDate + exampleEndTime
+  );
+  const dataInfo3 = useDataInfo(6);
+  const data3 = useSensorData(
+    6,
+    exampleDate + exampleStartTime,
+    exampleDate + exampleEndTime
+  );
+  const dataInfo4 = useDataInfo(7);
+  const data4 = useSensorData(
+    7,
     exampleDate + exampleStartTime,
     exampleDate + exampleEndTime
   );
@@ -51,7 +63,7 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
         <div className="modal-content">
           <div className="modal-title">
             <h3>Create custom chart</h3>
-            <p className="small">Combine multiple sensor data into one chart</p>
+            <p className="small">Combine multiple sensor data into one</p>
           </div>
 
           <div className="chart-content-options">

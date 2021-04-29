@@ -34,7 +34,7 @@ export const useChartProps = () => {
 
   // Y values
   const yValue = (d) => +d.measurement;
-  let yAxisLabel = "Measurement";
+  let yAxisLabel = (d) => d.title;
   const yAxisLabelOffset = 50;
 
   // Axis formats
@@ -42,7 +42,7 @@ export const useChartProps = () => {
   const dateFormat = (d) =>
     timeFormat("%A %d %B %Y")(new Date(d.time_stamp_utc));
 
-  return [
+  return {
     width,
     height,
     margin,
@@ -57,5 +57,23 @@ export const useChartProps = () => {
     yAxisLabel,
     yAxisLabelOffset,
     dateFormat,
-  ];
+  };
+};
+
+export const useCustomProps = () => {
+  const width = 500;
+  const height = 300;
+
+  const margin = { top: 5, right: 30, bottom: 25, left: 30 };
+
+  const innerHeight = height - margin.top - margin.bottom;
+  const innerWidth = width - margin.right - margin.left;
+
+  return {
+    width,
+    height,
+    margin,
+    innerHeight,
+    innerWidth,
+  };
 };

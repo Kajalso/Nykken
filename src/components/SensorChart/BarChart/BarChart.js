@@ -9,7 +9,7 @@ import { useChartProps } from "../../../styles/useChartStyles";
 
 export const BarChart = React.forwardRef(
   ({ data = [], dataInfo = {} }, ref) => {
-    let [
+    let {
       width,
       height,
       margin,
@@ -24,14 +24,11 @@ export const BarChart = React.forwardRef(
       yAxisLabel,
       yAxisLabelOffset,
       dateFormat,
-    ] = useChartProps();
+    } = useChartProps();
 
     if (!data || !dataInfo) {
       return <pre>Loading chart...</pre>;
     }
-
-    // Y axis label
-    yAxisLabel = dataInfo.title;
 
     // Linear scale for x values
     const xScale = scaleBand().domain(data.map(xValue)).range([0, innerWidth]);
@@ -100,7 +97,7 @@ export const BarChart = React.forwardRef(
               transform={`translate(${-yAxisLabelOffset},
                 ${innerHeight / 2}) rotate(-90)`}
             >
-              {yAxisLabel + " (" + dataInfo.unit + ")"}
+              {yAxisLabel(dataInfo) + " (" + dataInfo.unit + ")"}
             </text>
           </g>
         </svg>

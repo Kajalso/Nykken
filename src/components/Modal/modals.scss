@@ -164,12 +164,12 @@ $primaryBackground: #fafbf9;
 
     .chart-content-options {
       display: grid;
-      grid-template-columns: auto 200px;
+      grid-template-columns: auto;
     }
 
     .modal-content .chart-content-options {
       .sensor-select {
-        grid-template-columns: auto;
+        grid-template-columns: auto auto auto;
         grid-gap: 0.25em;
       }
     }

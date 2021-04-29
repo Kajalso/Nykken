@@ -1,26 +1,34 @@
 import React from "react";
-import { scaleTime, scaleLinear, extent, curveMonotoneX } from "d3";
+import {
+  scaleTime,
+  min,
+  max,
+  scaleLinear,
+  scaleBand,
+  extent,
+  curveMonotoneX,
+} from "d3";
 
-import { useChartProps } from "../../../styles/useCustomChartStyles";
+import { useChartProps, useCustomProps } from "../../../styles/useChartStyles";
 import { useColors } from "../../../styles/useChartStyles";
 
 import { AxisBottom } from "./Axes/AxisBottom";
 import { AxisLeft } from "./Axes/AxisLeft";
 import { AxisRight } from "./Axes/AxisRight";
+
 import { Marks as LineMarks } from "../LineChart/Marks";
+import { Marks as BarMarks } from "../BarChart/Marks";
+
+import "./customChart.scss";
 
 const circleRadius = 2;
+const barChartIDs = [5, 8, 10, 12];
 
 export const CustomChart = ({ sensors }) => {
   const chosenSensors = sensors;
   const colors = useColors();
 
-  let [
-    width,
-    height,
-    margin,
-    innerHeight,
-    innerWidth,
+  let {
     xValue,
     xAxisLabel,
     xAxisLabelOffset,
@@ -30,7 +38,9 @@ export const CustomChart = ({ sensors }) => {
     yAxisLabel,
     yAxisLabelOffset,
     dateFormat,
-  ] = useChartProps();
+  } = useChartProps();
+
+  let { width, height, margin, innerWidth, innerHeight } = useCustomProps();
 
   const textColor = (id) => {
     let textColor = colors.purple;
@@ -43,15 +53,43 @@ export const CustomChart = ({ sensors }) => {
   };
 
   // Linear scale for x values
-  const xScale = (data) =>
+  const xScaleLine = (data) =>
     scaleTime()
       .domain(extent(data, xValue)) // Extent-function replaces min, max
       .range([0, innerWidth])
       .nice(); // Adjusts the axis to prevent overlap
 
   // Linear scale for y values
-  const yScale = (data) =>
+  const yScaleLine = (data) =>
     scaleLinear().domain(extent(data, yValue)).range([innerHeight, 0]).nice();
+
+  // Bar chart
+  // Y values
+  const minY = (data) => min(data, yValue);
+  const maxY = (data) => max(data, yValue);
+
+  const domainY = (data) =>
+    minY(data) < 0 ? extent(data, yValue) : [0, maxY(data)];
+
+  // Linear scale for x values
+  const xScaleBar = (data) =>
+    scaleBand().domain(data.map(xValue)).range([0, innerWidth]);
+
+  // Linear scale for y values
+  const yScaleBar = (data) =>
+    scaleLinear().domain(domainY(data)).range([innerHeight, 0]);
+
+  // Linear scale for positive y values
+  const yScalePos = (data) =>
+    scaleLinear()
+      .domain([0, maxY(data)])
+      .range([0, innerHeight - yScaleBar(0)]); // From top of chart to zero-line
+
+  // Linear scale for negative y values
+  const yScaleNeg = (data) =>
+    scaleLinear()
+      .domain([minY(data), 0])
+      .range([innerHeight - yScaleBar(0), innerHeight]); // From zero-line to bottom of chart
 
   return (
     <div className="custom-chart">
@@ -60,49 +98,34 @@ export const CustomChart = ({ sensors }) => {
         <svg width={width} height={height}>
           <g transform={`translate(${margin.left}, ${margin.top})`}>
             <AxisBottom
-              xScale={xScale(sensors[0].data)}
+              xScale={xScaleLine(chosenSensors[0].data)}
               innerHeight={innerHeight}
               tickFormat={xAxisTickFormat}
               tickOffset={10}
               tickAmount={3}
             />
-            <AxisLeft
-              yScale={yScale(sensors[0].data)}
-              innerHeight={innerHeight}
-              innerWidth={innerWidth}
-              tickOffset={10}
-            />
-            <text
-              fill={textColor(sensors[0].dataInfo.data_identifier)}
-              className={"custom-axis-label y small"}
-              transform={`translate(${-yAxisLabelOffset},
-                ${innerHeight / 2}) rotate(-90)`}
-            >
-              {yAxisLabel(sensors[0].dataInfo) +
-                " (" +
-                sensors[0].dataInfo.unit +
-                ")"}
-            </text>
-            {chosenSensors[1] && (
-              <>
-                <AxisRight
-                  yScale={yScale(sensors[1].data)}
-                  innerWidth={innerWidth}
-                  tickOffset={10}
-                />
-                <text
-                  fill={textColor(sensors[1].dataInfo.data_identifier)}
-                  className={"custom-axis-label y small"}
-                  transform={`translate(${innerWidth + yAxisLabelOffset},
-                ${innerHeight / 2}) rotate(90)`}
-                >
-                  {yAxisLabel(sensors[1].dataInfo) +
-                    " (" +
-                    sensors[1].dataInfo.unit +
-                    ")"}
-                </text>
-              </>
-            )}
+
+            {chosenSensors &&
+              chosenSensors[0] &&
+              chosenSensors.map((sensor, i) => (
+                <>
+                  {chosenSensors.indexOf(sensor) % 2 === 0 && (
+                    <AxisLeft
+                      yScale={yScaleLine(sensor.data)}
+                      innerHeight={innerHeight}
+                      innerWidth={innerWidth}
+                      tickOffset={10 + chosenSensors.indexOf(sensor) * 15}
+                    />
+                  )}
+                  {chosenSensors.indexOf(sensor) % 2 !== 0 && (
+                    <AxisRight
+                      yScale={yScaleLine(sensor.data)}
+                      innerWidth={innerWidth}
+                      tickOffset={chosenSensors.indexOf(sensor) * 15}
+                    />
+                  )}
+                </>
+              ))}
             <text
               x={innerWidth - yAxisLabelOffset}
               y={innerHeight + xAxisLabelOffset}
@@ -111,8 +134,59 @@ export const CustomChart = ({ sensors }) => {
               {xAxisLabel + " (min)"}
             </text>
 
-            {chosenSensors.map((sensor, i) => (
-              <>
+            {chosenSensors &&
+              chosenSensors[0] &&
+              chosenSensors.map((sensor, i) => (
+                <>
+                  {barChartIDs.includes(sensor.dataInfo.data_identifier) && (
+                    <>
+                      {console.log(
+                        "Barchart id: " + sensor.dataInfo.data_identifier
+                      )}
+                      <BarMarks
+                        data={sensor.data}
+                        dataInfo={sensor.dataInfo}
+                        xScale={xScaleBar(sensor.data)}
+                        yScalePos={yScalePos(sensor.data)}
+                        yScaleNeg={yScaleNeg(sensor.data)}
+                        yScale={yScaleBar(sensor.data)}
+                        xValue={xValue}
+                        yValue={yValue}
+                        xFormat={xAxisTickFormat}
+                        innerHeight={innerHeight}
+                        centerPadding={xScaleBar.bandwidth() * 0.15}
+                      />
+                    </>
+                  )}
+                  {!barChartIDs.includes(sensor.dataInfo.data_identifier) && (
+                    <>
+                      {console.log(
+                        "Linechart id: " + sensor.dataInfo.data_identifier
+                      )}
+                      <LineMarks
+                        data={sensor.data}
+                        dataInfo={sensor.dataInfo}
+                        xScale={xScaleLine(sensor.data)}
+                        yScale={yScaleLine(sensor.data)}
+                        xValue={xValue}
+                        yValue={yValue}
+                        xFormat={xAxisTickFormat}
+                        circleRadius={circleRadius}
+                        curveStyle={curveMonotoneX}
+                        innerHeight={innerHeight}
+                      />
+                    </>
+                  )}
+                </>
+              ))}
+          </g>
+        </svg>
+      </div>
+    </div>
+  );
+};
+
+/* <>
                 <LineMarks
                   data={sensor.data}
                   dataInfo={sensor.dataInfo}
@@ -125,11 +199,4 @@ export const CustomChart = ({ sensors }) => {
                   curveStyle={curveMonotoneX}
                   innerHeight={innerHeight}
                 />
-              </>
-            ))}
-          </g>
-        </svg>
-      </div>
-    </div>
-  );
-};
+              </> */
