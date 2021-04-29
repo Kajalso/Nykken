@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 import Modal from "react-modal";
 
@@ -6,21 +6,21 @@ import { Button } from "../Button/Button";
 
 import { useAllDataInfo } from "../../api/useAllDataInfo";
 
-import { useLocalStorage } from '../../storage/useLocalStorage';
+import { GroupsContext } from '../../context/GroupsContext';
 
 import plusIcon from "../../icons/plus.svg";
 
 import "./modals.scss";
-import { group } from "d3-array";
 
 export const CreateGroupModal = ({ 
   isOpen, 
   closeModal
  }) => {
+  const { dispatch } = useContext(GroupsContext);
   const allDataInfo = useAllDataInfo();
   const [groupedSensors, setGroupedSensors] = useState([]);
   const [newGroup, setNewGroup] = useState([]);
-  const [savedGroups, setSavedGroups] = useLocalStorage('Groups', []);
+  
   
   const handleChange = (currentSensor)  => {
     if (groupedSensors.includes(currentSensor)) {
@@ -34,14 +34,21 @@ export const CreateGroupModal = ({
       setGroupedSensors((groupedSensors) => [...groupedSensors, currentSensor]);
     }
   }
-  
 
-  const handleAddGroup =  () => {
+ useEffect(() => {
+   if (newGroup.length === 0) {
+     return null;
+   }
+   else {
+    dispatch({ type: 'ADD_GROUP', group: { newGroup }});
+   }
+  }, [newGroup]);
+  
+  const handleAddGroup = () => {
     setNewGroup(groupedSensors);
-    setSavedGroups((newGroup) => [...newGroup,  groupedSensors ]);
     setGroupedSensors('');
     closeModal();
-  };
+  }
 
   return (
     <Modal
@@ -54,7 +61,7 @@ export const CreateGroupModal = ({
           <div className="modal-title">
             <h3>Create group</h3>
             <p className="small">
-              Compare multiple sensor data during the same time frame
+              Select multiple sensors to see in the same time frame
             </p>
           </div>
 

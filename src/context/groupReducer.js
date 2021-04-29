@@ -4,8 +4,9 @@ export const groupReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_GROUP':
       return [...state, {
-        sensors: action.group.sensors, 
-        id: uuidv4()}
+        sensors: action.group.newGroup, 
+        //id: uuidv4()
+      }
       ]
     case 'REMOVE_GROUP':
       return state.filter(group => group.id !== action.id);

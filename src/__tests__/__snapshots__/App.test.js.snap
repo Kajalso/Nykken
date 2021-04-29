@@ -38,112 +38,6 @@ Object {
           class="dashboard"
         >
           <div
-            class="sensor-chart"
-          >
-            <h3
-              class="section-title"
-            >
-              My Group
-            </h3>
-            <div
-              class="more"
-            >
-              <div
-                class="select"
-              >
-                <div
-                  class="more-select-container css-2b097c-container"
-                >
-                  <span
-                    aria-atomic="false"
-                    aria-live="polite"
-                    aria-relevant="additions text"
-                    class="css-1f43avz-a11yText-A11yText"
-                  />
-                  <div
-                    class="more-select__control css-1oqqq0w-control"
-                  >
-                    <div
-                      class="more-select__value-container more-select__value-container--has-value css-g1d714-ValueContainer"
-                    >
-                      <div
-                        class="more-select__single-value css-3l6fsp-singleValue"
-                      >
-                        Edit chart
-                      </div>
-                      <input
-                        aria-autocomplete="list"
-                        class="css-wmatm6-dummyInput-DummyInput"
-                        id="react-select-3-input"
-                        readonly=""
-                        tabindex="0"
-                        value=""
-                      />
-                    </div>
-                    <div
-                      class="more-select__indicators css-1hb7zxy-IndicatorsContainer"
-                    >
-                      <div
-                        aria-hidden="true"
-                        class="more-select__indicator more-select__dropdown-indicator css-67tcjl-indicatorContainer"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          class="css-tj5bde-Svg"
-                          focusable="false"
-                          height="20"
-                          viewBox="0 0 20 20"
-                          width="20"
-                        >
-                          <path
-                            d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <img
-                  alt="Button icon"
-                  class="more-icon"
-                  src="more.svg"
-                />
-              </div>
-            </div>
-            <div
-              class="sensor-grid"
-            >
-              <div
-                class="sensor-chart"
-              >
-                <h3
-                  class="section-title"
-                >
-                  Air temperature
-                </h3>
-                <p
-                  class="loading"
-                >
-                  Loading ...
-                </p>
-              </div>
-              <div
-                class="sensor-chart"
-              >
-                <h3
-                  class="section-title"
-                >
-                  Wind Speed
-                </h3>
-                <p
-                  class="loading"
-                >
-                  Loading ...
-                </p>
-              </div>
-            </div>
-          </div>
-          <div
             class="sensor-measurements"
           >
             <h2
@@ -168,12 +62,15 @@ Object {
               </p>
             </div>
           </div>
+          <h2
+            class="title"
+          >
+            My Groups
+          </h2>
+          0
         </div>
       </div>
     </div>
-    <div
-      class="ReactModalPortal"
-    />
     <div
       class="ReactModalPortal"
     />
@@ -215,112 +112,6 @@ Object {
         class="dashboard"
       >
         <div
-          class="sensor-chart"
-        >
-          <h3
-            class="section-title"
-          >
-            My Group
-          </h3>
-          <div
-            class="more"
-          >
-            <div
-              class="select"
-            >
-              <div
-                class="more-select-container css-2b097c-container"
-              >
-                <span
-                  aria-atomic="false"
-                  aria-live="polite"
-                  aria-relevant="additions text"
-                  class="css-1f43avz-a11yText-A11yText"
-                />
-                <div
-                  class="more-select__control css-1oqqq0w-control"
-                >
-                  <div
-                    class="more-select__value-container more-select__value-container--has-value css-g1d714-ValueContainer"
-                  >
-                    <div
-                      class="more-select__single-value css-3l6fsp-singleValue"
-                    >
-                      Edit chart
-                    </div>
-                    <input
-                      aria-autocomplete="list"
-                      class="css-wmatm6-dummyInput-DummyInput"
-                      id="react-select-3-input"
-                      readonly=""
-                      tabindex="0"
-                      value=""
-                    />
-                  </div>
-                  <div
-                    class="more-select__indicators css-1hb7zxy-IndicatorsContainer"
-                  >
-                    <div
-                      aria-hidden="true"
-                      class="more-select__indicator more-select__dropdown-indicator css-67tcjl-indicatorContainer"
-                    >
-                      <svg
-                        aria-hidden="true"
-                        class="css-tj5bde-Svg"
-                        focusable="false"
-                        height="20"
-                        viewBox="0 0 20 20"
-                        width="20"
-                      >
-                        <path
-                          d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z"
-                        />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <img
-                alt="Button icon"
-                class="more-icon"
-                src="more.svg"
-              />
-            </div>
-          </div>
-          <div
-            class="sensor-grid"
-          >
-            <div
-              class="sensor-chart"
-            >
-              <h3
-                class="section-title"
-              >
-                Air temperature
-              </h3>
-              <p
-                class="loading"
-              >
-                Loading ...
-              </p>
-            </div>
-            <div
-              class="sensor-chart"
-            >
-              <h3
-                class="section-title"
-              >
-                Wind Speed
-              </h3>
-              <p
-                class="loading"
-              >
-                Loading ...
-              </p>
-            </div>
-          </div>
-        </div>
-        <div
           class="sensor-measurements"
         >
           <h2
@@ -345,6 +136,12 @@ Object {
             </p>
           </div>
         </div>
+        <h2
+          class="title"
+        >
+          My Groups
+        </h2>
+        0
       </div>
     </div>
   </div>,
