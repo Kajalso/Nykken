@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { ReactSelect as Select } from "../Select/Select";
 import { CustomTimeModal } from "../Modal/CustomTimeModal";
 
@@ -8,6 +8,7 @@ import { useSessionStorage } from '../../storage/useSessionStorage';
 import { ChartGroup } from "../SensorChart/ChartGroup";
 
 import moreIcon from "../../icons/more.svg";
+import { GroupsContext } from '../../context/GroupsContext';
 
 
 const exampleDate = "2021-03-01";
@@ -25,7 +26,7 @@ const chartOptions = [
       },
   ];
 
-/* const testSensors = [{
+/*  const testSensors = [{
     data_identifier: 2,
     description: "Air temperature",
     sensor_id: 2,
@@ -39,14 +40,17 @@ const chartOptions = [
     title: "Wind Speed",
     unit: "m/s" , 
 }    
-]
-
+] */
+/* 
 const sensorGroups = JSON.parse(localStorage.getItem('Groups'));
-const testSensors = sensorGroups[0]; */ 
+const testSensors = sensorGroups[0];  */
 
 
 export const SensorGroups = ({group}) => {
-    const sensors =  group;
+    const { dispatch } = useContext(GroupsContext);
+
+    const sensors =  group.sensors;
+
     const [customTimeModalIsOpen, setCustomTimeModalIsOpen] = useState(false);
     const [granularity, setGranularity] = useSessionStorage('granularity', 'measured');
 
@@ -64,9 +68,12 @@ export const SensorGroups = ({group}) => {
     // Handle change of time frame
     const handleClick = (chartOption) => {
         if (chartOption.value === "edit") {
-        setCustomTimeModalIsOpen(true);
+          setCustomTimeModalIsOpen(true);
         }
-    };
+        if (chartOption.value === "delete") {
+            dispatch({ type: 'REMOVE_GROUP', id: group.id });
+        }
+      };
 
     // Handle confirm custom time frame from modal
     const handleConfirm = (

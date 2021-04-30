@@ -67,7 +67,9 @@ Object {
           >
             My Groups
           </h2>
-          0
+          <p>
+            No groups to show
+          </p>
         </div>
       </div>
     </div>
@@ -141,7 +143,9 @@ Object {
         >
           My Groups
         </h2>
-        0
+        <p>
+          No groups to show
+        </p>
       </div>
     </div>
   </div>,
