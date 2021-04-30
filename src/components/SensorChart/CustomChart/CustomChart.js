@@ -42,14 +42,14 @@ export const CustomChart = ({ sensors }) => {
 
   let { width, height, margin, innerWidth, innerHeight } = useCustomProps();
 
-  const textColor = (id) => {
-    let textColor = colors.purple;
+  const chartColor = (id) => {
+    let chartColor = colors.purple;
     // Set color to purple for Radiation, Humidity and Wind Speed
     if (!(id === 3 || id === 4 || id === 6)) {
-      textColor = colors.blue;
+      chartColor = colors.blue;
     }
 
-    return textColor;
+    return chartColor;
   };
 
   // Linear scale for x values
@@ -86,12 +86,18 @@ export const CustomChart = ({ sensors }) => {
 
   // Linear scale for negative y values
   const yScaleNeg = (data) => {
-    console.log(data);
-
-    return scaleLinear()
-      .domain([minY(data), 0])
-      .range([innerHeight - yScaleBar(0), innerHeight]);
-  }; // From zero-line to bottom of chart
+    console.log(minY(data));
+    let range = [innerHeight - yScaleBar(0), innerHeight];
+    if (!range[0]) {
+      range = [-minY(data), innerHeight];
+    }
+    console.log(range);
+    return data[0]
+      ? scaleLinear()
+          .domain([minY(data), 0])
+          .range(range)
+      : 10;
+  };
 
   return (
     <div className="custom-chart">

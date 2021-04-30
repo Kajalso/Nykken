@@ -23,6 +23,8 @@ export const Marks = ({
         let zeroLine = yScale(0);
 
         if (value < 0) {
+          console.log("Negative bar");
+          console.log(yScaleNeg(value));
           return (
             <rect
               className="mark-bar"
@@ -32,7 +34,7 @@ export const Marks = ({
               y={zeroLine}
               x={xScale(xValue(d))}
               width={xScale.bandwidth()}
-              height={yScaleNeg(yValue(d))}
+              height={yScaleNeg(value)}
             >
               <title>
                 {xFormat(xValue(d)) + ": " + yValue(d) + " " + dataInfo.unit}
