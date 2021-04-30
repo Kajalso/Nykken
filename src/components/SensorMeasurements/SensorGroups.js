@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import { ReactSelect as Select } from "../Select/Select";
 import { CustomTimeModal } from "../Modal/CustomTimeModal";
 
-
 import { useSessionStorage } from '../../storage/useSessionStorage';
 
 import { ChartGroup } from "../SensorChart/ChartGroup";
@@ -25,26 +24,6 @@ const chartOptions = [
         label: "Delete group",
       },
   ];
-
-/*  const testSensors = [{
-    data_identifier: 2,
-    description: "Air temperature",
-    sensor_id: 2,
-    title: "Air temperature",
-    unit: "°C"
-    },
-{
-    data_identifier: 6,
-    description: "Maximum 3s wind velocity over last minute",
-    sensor_id: 3,
-    title: "Wind Speed",
-    unit: "m/s" , 
-}    
-] */
-/* 
-const sensorGroups = JSON.parse(localStorage.getItem('Groups'));
-const testSensors = sensorGroups[0];  */
-
 
 export const SensorGroups = ({group}) => {
     const { dispatch } = useContext(GroupsContext);

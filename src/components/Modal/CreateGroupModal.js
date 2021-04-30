@@ -20,6 +20,7 @@ export const CreateGroupModal = ({
   const allDataInfo = useAllDataInfo();
   const [groupedSensors, setGroupedSensors] = useState([]);
   const [newGroup, setNewGroup] = useState([]);
+  const [infoText, setInfoText] = useState('Select multiple sensors to see in the same time frame')
   
   
   const handleChange = (currentSensor)  => {
@@ -36,7 +37,7 @@ export const CreateGroupModal = ({
   }
 
  useEffect(() => {
-   if (newGroup.length === 0) {
+   if (newGroup.length === 0 || newGroup.length === 1) {
      return null;
    }
    else {
@@ -45,9 +46,15 @@ export const CreateGroupModal = ({
   }, [newGroup]);
   
   const handleAddGroup = () => {
-    setNewGroup(groupedSensors);
-    setGroupedSensors('');
-    closeModal();
+    if (groupedSensors.length === 0 || groupedSensors.length === 1) {
+      setInfoText('Please select more than one sensor');
+    }
+    else {
+      setNewGroup(groupedSensors);
+      setGroupedSensors('');
+      closeModal();
+      setInfoText('Select multiple sensors to see in the same time frame');
+    }
   }
 
   return (
@@ -61,7 +68,7 @@ export const CreateGroupModal = ({
           <div className="modal-title">
             <h3>Create group</h3>
             <p className="small">
-              Select multiple sensors to see in the same time frame
+              {infoText}
             </p>
           </div>
 
@@ -89,9 +96,3 @@ export const CreateGroupModal = ({
   );
 };
 
-/*
-<>
-    <input type="checkbox" id={i} name={i} value={sensor.sensor_id}>
-      <label for={i}>{sensor.description}</label>
-    </input>
-  </>*/

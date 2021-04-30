@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { LineChart } from "./LineChart/LineChart";
 import { BarChart } from "./BarChart/BarChart";
@@ -22,10 +22,8 @@ export const ChartGroup = ({
 
   // Fetch sensor data and data info
   const sensorData = useSensorData(id, startDateTime, endDateTime, granularity);
-  //const sensorData = useSessionStorage(id, id + startDateTime + endDateTime + granularity);
-
-
-  return (
+ 
+ return (
     <div className="sensor-chart">
       <h3 className="section-title">{dataInfo.title}</h3>
 
