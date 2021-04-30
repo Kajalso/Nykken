@@ -47,8 +47,8 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
   );
 
   const sensors = [
-    { data: data2, dataInfo: dataInfo2 },
     { data: data1, dataInfo: dataInfo1 },
+    { data: data2, dataInfo: dataInfo2 },
   ];
   // const [chosenSensors, setChosenSensors] = useState([]);
   // const handleAddGroup = () => {};
