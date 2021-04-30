@@ -82,11 +82,12 @@ export const CustomChart = ({ sensors }) => {
 
   // Linear scale for y values
   const yScaleBar = (data) =>
-    scaleLinear().domain(domainY(data)).range([innerHeight, 0]);
+    scaleLinear().domain(extent(data, yValue)).range([0, innerHeight]);
 
   // Linear scale for negative y values
   const yScaleNeg = (data) => {
     let range = [innerHeight - yScaleBar(data)(0), innerHeight];
+    //range = [0, yScaleBar(data)(0)];
     return data[0]
       ? scaleLinear()
           .domain([minY(data), 0])
@@ -156,6 +157,7 @@ export const CustomChart = ({ sensors }) => {
                         yValue={yValue}
                         xFormat={xAxisTickFormat}
                         innerHeight={innerHeight}
+                        isUpsideDown
                       />
                     </>
                   )}

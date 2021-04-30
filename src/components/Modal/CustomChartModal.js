@@ -46,7 +46,10 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
     exampleDate + exampleEndTime
   );
 
-  const sensors = [{ data: data2, dataInfo: dataInfo2 }];
+  const sensors = [
+    { data: data2, dataInfo: dataInfo2 },
+    { data: data1, dataInfo: dataInfo1 },
+  ];
   // const [chosenSensors, setChosenSensors] = useState([]);
   // const handleAddGroup = () => {};
 
