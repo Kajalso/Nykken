@@ -77,3 +77,21 @@ export const useCustomProps = () => {
     innerWidth,
   };
 };
+
+export const useGroupProps = () => {
+  const width = 700;
+  const height = 300;
+
+  const margin = { top: 5, right: 30, bottom: 25, left: 30 };
+
+  const innerHeight = height - margin.top - margin.bottom;
+  const innerWidth = width - margin.right - margin.left;
+
+  return {
+    width,
+    height,
+    margin,
+    innerHeight,
+    innerWidth,
+  };
+};

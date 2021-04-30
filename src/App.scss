@@ -74,7 +74,8 @@ label.tiny {
 
 /* A few custom styles for date inputs */
 input[type="date"],
-input[type="time"] {
+input[type="time"],
+input[type="text"] {
   border-radius: 8px;
   font-size: 10px;
   appearance: none;

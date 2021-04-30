@@ -5,6 +5,7 @@ import Modal from "react-modal";
 import { Button } from "../Button/Button";
 
 import { useAllDataInfo } from "../../api/useAllDataInfo";
+import { useColors } from "../../styles/useChartStyles";
 
 import { GroupsContext } from "../../context/GroupsContext";
 
@@ -21,6 +22,12 @@ export const CreateGroupModal = ({ isOpen, closeModal }) => {
   const [infoText, setInfoText] = useState(
     "Select multiple sensors to see in the same time frame"
   );
+
+  const colors = useColors();
+  const [errorMessage, setErrorMessage] = useState(
+    "Please select more than one sensor in the group"
+  );
+  const [displayError, setDisplayError] = useState("none");
 
   const handleChange = (currentSensor) => {
     if (groupedSensors.includes(currentSensor)) {
@@ -43,13 +50,18 @@ export const CreateGroupModal = ({ isOpen, closeModal }) => {
   }, [newGroup]);
 
   const handleAddGroup = () => {
-    if (groupedSensors.length === 0 || groupedSensors.length === 1) {
-      setInfoText("Please select more than one sensor");
+    // Check if the group has a name and more than one sensor
+    if (groupedSensors.length <= 1) {
+      setErrorMessage("Please choose more than one sensor");
+      setDisplayError("");
+    } else if (groupName === "" && groupedSensors.length > 1) {
+      setErrorMessage("Please give your group a name");
+      setDisplayError();
     } else {
       setNewGroup(groupedSensors);
       setGroupedSensors("");
       closeModal();
-      setInfoText("Select multiple sensors to see in the same time frame");
+      setDisplayError("none");
     }
   };
 
@@ -59,11 +71,13 @@ export const CreateGroupModal = ({ isOpen, closeModal }) => {
       isOpen={isOpen}
       onRequestClose={closeModal}
     >
-      <div className="modal">
+      <div className="modal group-modal">
         <div className="modal-content">
           <div className="modal-title">
             <h3>Create group</h3>
-            <p className="small">{infoText}</p>
+            <p className="small">
+              Select multiple sensors to see in the same time frame
+            </p>
           </div>
 
           <form className="sensor-select" onSubmit={handleAddGroup}>
@@ -83,14 +97,24 @@ export const CreateGroupModal = ({ isOpen, closeModal }) => {
                   </label>
                 </div>
               ))}
+          </form>
+          <div className="group-name">
+            <label htmlFor="group-name">Group name: </label>
             <input
+              id="group-name"
               type="text"
-              placeholder="Group Name"
+              placeholder="Example group"
               value={groupName}
               onChange={(e) => setGroupName(e.target.value)}
               required
             />
-          </form>
+          </div>
+          <p
+            className="error small"
+            style={{ color: `${colors.red}`, display: displayError }}
+          >
+            {errorMessage}
+          </p>
           <Button text="Add group" onClick={handleAddGroup} />
         </div>
         <Button className="close" icon={plusIcon} onClick={closeModal} />
