@@ -19,7 +19,7 @@ export const useColors = () => {
 
 // General chart properties
 export const useChartProps = () => {
-  const width = 800;
+  const width = 500;
   const height = 300;
 
   const margin = { top: 10, right: 50, bottom: 50, left: 60 };
@@ -63,8 +63,10 @@ export const useChartProps = () => {
 
 // Custom chart properties
 export const useCustomProps = () => {
-  const width = 500;
-  const height = 300;
+  const width = 320;
+  const height = 220;
+
+  const xAxisLabelOffset = 20;
 
   const margin = { top: 5, right: 30, bottom: 25, left: 30 };
 
@@ -77,6 +79,7 @@ export const useCustomProps = () => {
     margin,
     innerHeight,
     innerWidth,
+    xAxisLabelOffset,
   };
 };
 
