@@ -25,7 +25,7 @@ $primaryBackground: #fafbf9;
   }
 
   .modal {
-    min-height: 250px;
+    min-height: 200px;
     width: 400px;
     position: absolute;
     top: 40%;
@@ -50,6 +50,7 @@ $primaryBackground: #fafbf9;
   }
 }
 
+// Sensor select modal
 .sensor-select {
   padding-left: 0.5em;
   display: grid;
@@ -88,6 +89,23 @@ $primaryBackground: #fafbf9;
   }
 }
 
+// Custom time frame modal
+.date-picker {
+  display: grid;
+
+  .from,
+  .until {
+    display: block;
+    margin-bottom: 0.5em;
+  }
+
+  .fetch-data {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+  }
+}
+
 @media only screen and (min-width: 768px) {
   .modal-background {
     .modal {
@@ -107,5 +125,10 @@ $primaryBackground: #fafbf9;
 
   .sensor-select {
     grid-template-columns: auto auto auto;
+  }
+
+  .date-picker {
+    padding-top: 1em;
+    grid-template-columns: auto auto;
   }
 }

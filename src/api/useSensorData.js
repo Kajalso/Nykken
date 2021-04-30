@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export const useSensorData = (id, startDateTime, endDateTime) => {
+export const useSensorData = (
+  id,
+  startDateTime,
+  endDateTime,
+  granularity = "MEASURED"
+) => {
   const [sensorData, setSensorData] = useState(null);
 
   const startDate = startDateTime.slice(0, 10);
@@ -14,7 +19,7 @@ export const useSensorData = (id, startDateTime, endDateTime) => {
     console.log("Data with ID " + id + " is fetching...");
     axios
       .get(
-        `http://ibmrisvol.ibm.ntnu.no/data?from=${startDate}T${startTime.slice(
+        `http://ibmrisvol.ibm.ntnu.no/data?granularity=${granularity}&from=${startDate}T${startTime.slice(
           0,
           2
         )}%3A${startTime.slice(3, 5)}%3A${startTime.slice(
@@ -33,7 +38,7 @@ export const useSensorData = (id, startDateTime, endDateTime) => {
       .catch((error) => {
         console.log(error);
       });
-  }, [startDate, startTime, endDate, endTime, id]);
+  }, [id, granularity, startDate, startTime, endDate, endTime]);
 
   return sensorData;
 };

@@ -1,47 +1,82 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+
+import { exportComponentAsPNG } from "react-component-export-image";
 
 import { ReactSelect as Select } from "../Select/Select";
 
-import { LineChart } from "./LineChart/LineChart";
+import { ExportCSV } from "./ExportCSV";
 
-import { Button } from "../Button/Button";
+import { LineChart } from "./LineChart/LineChart";
+import { BarChart } from "./BarChart/BarChart";
+
+import { CustomTimeModal } from "../Modal/CustomTimeModal";
 
 import { useSensorData } from "../../api/useSensorData";
+import { useSessionStorage } from '../../storage/useSessionStorage';
+
+import moreIcon from "../../icons/more.svg";
 
 import "./sensorChart.scss";
 
 const exampleDate = "2021-03-01";
+const exampleStartTime = "00:00:00";
+const exampleEndTime = "00:11:00";
 
-export const SensorChart = ({ id, dataInfo }) => {
-  const [startTimeFromInput, setStartTimeFromInput] = useState("00:00:00");
-  const [endTimeFromInput, setEndTimeFromInput] = useState("00:11:00");
-  const [startDateFromInput, setStartDateFromInput] = useState(exampleDate);
-  const [endDateFromInput, setEndDateFromInput] = useState(exampleDate);
+const barChartIDs = [5, 8, 10, 12];
 
-  const [startDate, setStartDate] = useState(exampleDate);
-  const [endDate, setEndDate] = useState(exampleDate);
+const chartOptions = [
+  {
+    value: "edit",
+    label: "Edit chart",
+  },
+  { value: "download_png", label: "Download PNG" },
+];
 
-  const [startTime, setStartTime] = useState("00:00:00");
-  const [endTime, setEndTime] = useState("00:11:00");
+export const SensorChart = ({ dataInfo }) => {
+  const id = dataInfo.data_identifier;
+  const [customTimeModalIsOpen, setCustomTimeModalIsOpen] = useState(false);
+  const [granularity, setGranularity] = useSessionStorage(id+'granularity', 'measured');//useState("measured");
 
-  const [startDateTime, setStartDateTime] = useState(startDate + startTime);
-  const [endDateTime, setEndDateTime] = useState(endDate + endTime);
+  const closeCustomTimeModal = () => setCustomTimeModalIsOpen(false);
+
+  const [startDate, setStartDate] = useState(exampleDate)//useSessionStorage('startDate', exampleDate);
+  const [endDate, setEndDate] = useState(exampleDate)//useSessionStorage('endDate', exampleDate);
+
+  const [startTime, setStartTime] = useState(exampleStartTime);
+  const [endTime, setEndTime] = useState(exampleEndTime);
+
+  const [startDateTime, setStartDateTime] = useSessionStorage(id+'start',  startDate + startTime); //useState(startDate + startTime)  //
+  const [endDateTime, setEndDateTime] = useSessionStorage(id+'end',  endDate + endTime); //useState(endDate + endTime) //
+
+  const componentRef = useRef();
 
   // Fetch sensor data and data info
-  const sensorData = useSensorData(id, startDateTime, endDateTime);
+  const sensorData = useSensorData(id, startDateTime, endDateTime, granularity);
+  //const sensorData = useSessionStorage(id, id + startDateTime + endDateTime + granularity);
 
-  const timeOptions = [
-    {
-      value: "custom",
-      label: "Custom",
-    },
-  ];
+  // Handle change of time frame
+  const handleClick = (chartOption) => {
+    if (chartOption.value === "edit") {
+      setCustomTimeModalIsOpen(true);
+    }
+    if (chartOption.value === "download_png") {
+      handleDownloadPNG();
+    }
+  };
 
-  const handleClick = () => {
+  // Handle confirm custom time frame from modal
+  const handleConfirm = (
+    startTimeFromInput,
+    endTimeFromInput,
+    startDateFromInput,
+    endDateFromInput,
+    granularity
+  ) => {
     setStartTime(startTimeFromInput);
     setEndTime(endTimeFromInput);
     setStartDate(startDateFromInput);
     setEndDate(endDateFromInput);
+    setGranularity(granularity);
 
     // Check for correct time format when using Chrome
     if (startTimeFromInput.length < 6) {
@@ -56,95 +91,54 @@ export const SensorChart = ({ id, dataInfo }) => {
     }
   };
 
-  const CustomTimeframe = () => {
-    return (
-      <>
-        <div className="date-picker">
-          <div className="from">
-            <label>From:</label>
-            <input
-              type="date"
-              value={startDateFromInput}
-              onChange={(e) => setStartDateFromInput(e.target.value)}
-            />
-            <input
-              type="time"
-              value={startTimeFromInput}
-              onChange={(e) => setStartTimeFromInput(e.target.value)}
-              step="1"
-            />
-          </div>
-          <div className="until">
-            <label>Until:</label>
-            <input
-              type="date"
-              value={endDateFromInput}
-              onChange={(e) => setEndDateFromInput(e.target.value)}
-            />
-            <input
-              type="time"
-              value={endTimeFromInput}
-              onChange={(e) => setEndTimeFromInput(e.target.value)}
-              step="1"
-            />
-          </div>
-        </div>
-        <Button
-          text="Fetch data"
-          className="fetch-data"
-          onClick={handleClick}
-        />
-      </>
-    );
+  const handleDownloadPNG = () => {
+    exportComponentAsPNG(componentRef, {
+      fileName:
+        dataInfo.title + "_from_" + startDateTime + "_to_" + endDateTime,
+    });
   };
 
   return (
     <div className="sensor-chart">
-      {/**
-      <div className="date-picker">
-        <label>From:</label>
-        <input
-          type="date"
-          value={startDateFromInput}
-          onChange={(e) => setStartDateFromInput(e.target.value)}
+      <h3 className="section-title">{dataInfo.title}</h3>
+      <div className="more">
+        <Select
+          className="more-select-container"
+          classNamePrefix="more-select"
+          options={chartOptions}
+          icon={moreIcon}
+          onChange={handleClick}
         />
-        <input
-          type="time"
-          value={startTimeFromInput}
-          onChange={(e) => setStartTimeFromInput(e.target.value)}
-          step="1"
-        />
-        <label>Until:</label>
-        <input
-          type="date"
-          value={endDateFromInput}
-          onChange={(e) => setEndDateFromInput(e.target.value)}
-        />
-        <input
-          type="time"
-          value={endTimeFromInput}
-          onChange={(e) => setEndTimeFromInput(e.target.value)}
-          step="1"
-        />
-      </div> 
-      <button type="button" onClick={handleClick}>
-        Fetch data
-      </button>*/}
+      </div>
+      <CustomTimeModal
+        sensor={dataInfo}
+        isOpen={customTimeModalIsOpen}
+        handleConfirm={handleConfirm}
+        closeModal={closeCustomTimeModal}
+      />
 
-      <>
-        <h3 className="section-title">{dataInfo.description}</h3>
-        <div className="select-time">
-          <p>Time frame:</p>
-          <CustomTimeframe />
-          {/*<Select options={timeOptions} />*/}
-        </div>
-        {(!sensorData || !sensorData[0]) && (
-          <p className="loading">Loading ...</p>
-        )}
-        {sensorData && sensorData[0] && (
-          <LineChart data={sensorData} dataInfo={dataInfo} />
-        )}
-      </>
+      {(!sensorData || !sensorData[0]) && (
+        <p className="loading">Loading ...</p>
+      )}
+      {sensorData && sensorData[0] && (
+        <>
+          {barChartIDs.includes(id) && (
+            <BarChart
+              data={sensorData}
+              dataInfo={dataInfo}
+              ref={componentRef}
+            />
+          )}
+          {!barChartIDs.includes(id) && (
+            <LineChart
+              data={sensorData}
+              dataInfo={dataInfo}
+              ref={componentRef}
+            />
+          )}
+        </>
+      )}
+      <ExportCSV data={sensorData} dataInfo={dataInfo} />
     </div>
   );
 };

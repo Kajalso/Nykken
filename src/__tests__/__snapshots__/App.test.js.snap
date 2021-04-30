@@ -14,10 +14,24 @@ Object {
           <h2>
             Risvollan measurement station
           </h2>
+          <div
+            class="buttons"
+          >
+            <button
+              class="button undefined"
+            >
+              <img
+                alt="Button icon"
+                src="group.svg"
+              />
+              Add chart group
+            </button>
+          </div>
           <p
             class="small"
           >
-            Last data update: 05.03.21 06:02
+            Last data update: 
+            05.03.21 06:02
           </p>
         </div>
         <div
@@ -68,10 +82,24 @@ Object {
         <h2>
           Risvollan measurement station
         </h2>
+        <div
+          class="buttons"
+        >
+          <button
+            class="button undefined"
+          >
+            <img
+              alt="Button icon"
+              src="group.svg"
+            />
+            Add chart group
+          </button>
+        </div>
         <p
           class="small"
         >
-          Last data update: 05.03.21 06:02
+          Last data update: 
+          05.03.21 06:02
         </p>
       </div>
       <div
