@@ -12,8 +12,8 @@ import { useLocalStorage } from "../../storage/useLocalStorage";
 
 export const SensorMeasurements = () => {
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
-  const [sensors, setSensors] = useLocalStorage("sensors", []);
-  const [sensorID, setSensorID] = useLocalStorage("sensor ID: ", []);
+  const [sensors, setSensors] = useLocalStorage("ChosenSensors", []);
+  const [sensorID, setSensorID] = useLocalStorage("ChosenSensorID: ", []);
 
   const closeEditModal = () => setEditModalIsOpen(false);
 

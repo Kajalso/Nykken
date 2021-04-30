@@ -29,7 +29,10 @@ const chartOptions = [
     value: "edit",
     label: "Edit chart",
   },
-  { value: "download_png", label: "Download PNG" },
+  { 
+    value: "download_png", 
+    label: "Download PNG" 
+  },
 ];
 
 export const SensorChart = ({ dataInfo }) => {

@@ -29,10 +29,12 @@ const granularityOptions = [
 
 export const CustomTimeModal = ({
   sensor,
+  chartGroup,
   handleConfirm,
   isOpen,
   closeModal,
 }) => {
+  const [groupName, setGroupName] = useState(chartGroup);
   const [startTimeFromInput, setStartTimeFromInput] = useState("00:00:00");
   const [endTimeFromInput, setEndTimeFromInput] = useState("00:11:00");
   const [startDateFromInput, setStartDateFromInput] = useState(exampleDate);
@@ -122,7 +124,15 @@ export const CustomTimeModal = ({
         <div className="modal-content">
           <div className="modal-title">
             <h3>Select time frame and granularity</h3>
-            <p className="small">{sensor.title}</p>
+            {(!sensor || !chartGroup) && (
+              <p className="small">{''}</p>
+            )}
+            {sensor && !chartGroup && (
+              <p className="small">{sensor.title}</p>   
+            )}
+            {!sensor && chartGroup && (
+              <p className="small">{groupName}</p> 
+            )}
           </div>
           <div className="selects">
             <div className="select-time">
