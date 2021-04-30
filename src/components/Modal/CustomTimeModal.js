@@ -34,7 +34,7 @@ export const CustomTimeModal = ({
   isOpen,
   closeModal,
 }) => {
-  const [title, setTitle] = useState();
+  const [groupName, setGroupName] = useState(chartGroup);
   const [startTimeFromInput, setStartTimeFromInput] = useState("00:00:00");
   const [endTimeFromInput, setEndTimeFromInput] = useState("00:11:00");
   const [startDateFromInput, setStartDateFromInput] = useState(exampleDate);
@@ -131,13 +131,7 @@ export const CustomTimeModal = ({
               <p className="small">{sensor.title}</p>   
             )}
             {!sensor && chartGroup && (
-              <p className="small">{chartGroup}</p> 
-/*               <div>
-              <form>
-                 <p>Change group name:</p>
-                 <input ></input>
-              </form>  
-              </ div> */
+              <p className="small">{groupName}</p> 
             )}
           </div>
           <div className="selects">

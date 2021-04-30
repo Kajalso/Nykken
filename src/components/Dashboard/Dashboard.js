@@ -21,6 +21,7 @@ export const Dashboard = () => {
       {groups &&
       groups.map((group) => (
         <SensorGroups
+          groupName={group.groupName}
           group={group}
           key={group.id}
         />  

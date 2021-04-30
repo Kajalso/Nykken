@@ -20,7 +20,8 @@ export const CreateGroupModal = ({
   const allDataInfo = useAllDataInfo();
   const [groupedSensors, setGroupedSensors] = useState([]);
   const [newGroup, setNewGroup] = useState([]);
-  const [infoText, setInfoText] = useState('Select multiple sensors to see in the same time frame')
+  const [groupName, setGroupName]=useState('');
+  const [infoText, setInfoText] = useState('Select multiple sensors to see in the same time frame');
   
   
   const handleChange = (currentSensor)  => {
@@ -41,7 +42,7 @@ export const CreateGroupModal = ({
      return null;
    }
    else {
-    dispatch({ type: 'ADD_GROUP', group: { newGroup }});
+    dispatch({ type: 'ADD_GROUP', group: { groupName, newGroup }});
    }
   }, [newGroup]);
   
@@ -72,7 +73,7 @@ export const CreateGroupModal = ({
             </p>
           </div>
 
-          <form className="sensor-select">
+          <form className="sensor-select" onSubmit={handleAddGroup}>
             {allDataInfo &&
               allDataInfo.map((sensor, i) => (
                 <div key={i} className="sensor-option">
@@ -87,6 +88,8 @@ export const CreateGroupModal = ({
                   </label>
                 </div>
               ))}
+              <input type="text" placeholder="Group Name" value={groupName}
+              onChange={(e) => setGroupName(e.target.value)} required /> 
           </form>
           <Button text="Add group" onClick={handleAddGroup} />
         </div>

@@ -17,7 +17,7 @@ const exampleEndTime = "00:11:00";
 const chartOptions = [
     {
       value: "edit",
-      label: "Edit group",
+      label: "Edit time frame",
     },
     {
         value: "delete",
@@ -29,6 +29,7 @@ export const SensorGroups = ({group}) => {
     const { dispatch } = useContext(GroupsContext);
 
     const sensors =  group.sensors;
+    const groupName = group.groupName;
 
     const [customTimeModalIsOpen, setCustomTimeModalIsOpen] = useState(false);
     const [granularity, setGranularity] = useSessionStorage('granularity', 'measured');
@@ -83,7 +84,7 @@ export const SensorGroups = ({group}) => {
 
     return (
         <div className="sensor-chart">
-        <h2 className="section-title">{'Group'}</h2>
+        <h2 className="section-title">{groupName}</h2>
         <div className="more">
             <Select
             className="more-select-container"
@@ -94,7 +95,7 @@ export const SensorGroups = ({group}) => {
             />
         </div>
         <CustomTimeModal
-            chartGroup={'My Group'}
+            chartGroup={groupName}
             isOpen={customTimeModalIsOpen}
             handleConfirm={handleConfirm}
             closeModal={closeCustomTimeModal}
