@@ -5,13 +5,12 @@ export const Marks = ({
   dataInfo,
   xScale,
   yScale,
-  yScalePos,
   yScaleNeg,
   xValue,
   yValue,
   xFormat,
-  centerPadding,
   innerHeight,
+  isUpsideDown,
 }) => {
   const colors = useColors();
 
@@ -23,6 +22,12 @@ export const Marks = ({
       {data.map((d, i) => {
         let value = yValue(d);
         let zeroLine = yScale(0);
+        let positiveY = isUpsideDown ? zeroLine : yScale(value);
+        let negativeY = isUpsideDown ? 0 : zeroLine;
+        let positiveHeight = isUpsideDown
+          ? yScale(value) - zeroLine
+          : zeroLine - yScale(value);
+        let negativeHeight = isUpsideDown ? zeroLine : yScaleNeg(value);
 
         if (value < 0) {
           return (
@@ -31,10 +36,10 @@ export const Marks = ({
               fill={colorRed}
               stroke={colorRed}
               key={i}
-              y={zeroLine}
+              y={negativeY}
               x={xScale(xValue(d))}
               width={xScale.bandwidth()}
-              height={yScaleNeg(yValue(d))}
+              height={negativeHeight}
             >
               <title>
                 {xFormat(xValue(d)) + ": " + yValue(d) + " " + dataInfo.unit}
@@ -48,10 +53,10 @@ export const Marks = ({
               fill={colorDarkBlue}
               stroke={colorDarkBlue}
               key={i}
-              y={yScale(yValue(d))}
+              y={positiveY}
               x={xScale(xValue(d))}
               width={xScale.bandwidth()}
-              height={zeroLine - yScale(yValue(d))}
+              height={positiveHeight}
             >
               <title>
                 {xFormat(xValue(d)) + ": " + yValue(d) + " " + dataInfo.unit}

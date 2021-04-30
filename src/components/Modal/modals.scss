@@ -2,6 +2,7 @@ $secondaryText: #79807c;
 $strokeColor: #e3e4e1;
 $primaryBackground: #fafbf9;
 
+// General modal
 .modal-background {
   position: fixed;
   top: 0;
@@ -50,9 +51,9 @@ $primaryBackground: #fafbf9;
   }
 }
 
-// Sensor select modal
+// Sensor select
 .sensor-select {
-  padding-left: 0.5em;
+  margin-left: 0.5em;
   display: grid;
   grid-template-columns: auto auto;
   grid-gap: 12px;
@@ -89,6 +90,12 @@ $primaryBackground: #fafbf9;
   }
 }
 
+.sensors {
+  h6 {
+    margin: 0 0 0.5em 0;
+  }
+}
+
 // Custom time frame modal
 .date-picker {
   display: grid;
@@ -106,7 +113,29 @@ $primaryBackground: #fafbf9;
   }
 }
 
+// Custom chart modal
+.custom-chart-modal {
+  .chart-content-options {
+    grid-gap: 1em;
+  }
+
+  .modal-title {
+    margin-bottom: 0;
+  }
+
+  .chart-title {
+    margin-top: 0;
+  }
+
+  .modal-content .chart-content-options {
+    display: grid;
+    grid-template-columns: auto;
+  }
+}
+
+// Media queries
 @media only screen and (min-width: 768px) {
+  // General modal
   .modal-background {
     .modal {
       width: 600px;
@@ -123,12 +152,33 @@ $primaryBackground: #fafbf9;
     }
   }
 
+  // Sensor select
+
   .sensor-select {
     grid-template-columns: auto auto auto;
   }
 
-  .date-picker {
-    padding-top: 1em;
-    grid-template-columns: auto auto;
+  // Custom chart modal
+  .modal.custom-chart-modal {
+    width: 650px;
+
+    .chart-content-options {
+      display: grid;
+      grid-template-columns: auto;
+    }
+
+    .modal-content .chart-content-options {
+      .sensor-select {
+        grid-template-columns: auto auto auto;
+        grid-gap: 0.25em;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  // Custom chart modal
+  .modal.custom-chart-modal {
+    width: 800px;
   }
 }

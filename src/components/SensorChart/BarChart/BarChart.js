@@ -9,7 +9,7 @@ import { useChartProps } from "../../../styles/useChartStyles";
 
 export const BarChart = React.forwardRef(
   ({ data = [], dataInfo = {} }, ref) => {
-    let [
+    let {
       width,
       height,
       margin,
@@ -24,14 +24,11 @@ export const BarChart = React.forwardRef(
       yAxisLabel,
       yAxisLabelOffset,
       dateFormat,
-    ] = useChartProps();
+    } = useChartProps();
 
     if (!data || !dataInfo) {
       return <pre>Loading chart...</pre>;
     }
-
-    // Y axis label
-    yAxisLabel = dataInfo.title;
 
     // Linear scale for x values
     const xScale = scaleBand().domain(data.map(xValue)).range([0, innerWidth]);
@@ -44,11 +41,6 @@ export const BarChart = React.forwardRef(
 
     // Linear scale for y values
     const yScale = scaleLinear().domain(domainY).range([innerHeight, 0]);
-
-    // Linear scale for positive y values
-    const yScalePos = scaleLinear()
-      .domain([0, maxY])
-      .range([0, innerHeight - yScale(0)]); // From top of chart to zero-line
 
     // Linear scale for negative y values
     const yScaleNeg = scaleLinear()
@@ -72,14 +64,12 @@ export const BarChart = React.forwardRef(
               data={data}
               dataInfo={dataInfo}
               xScale={xScale}
-              yScalePos={yScalePos}
               yScaleNeg={yScaleNeg}
               yScale={yScale}
               xValue={xValue}
               yValue={yValue}
               xFormat={xAxisTickFormat}
               innerHeight={innerHeight}
-              centerPadding={xScale.bandwidth() * 0.15}
             />
             <text
               x={innerWidth - yAxisLabelOffset}
@@ -100,7 +90,7 @@ export const BarChart = React.forwardRef(
               transform={`translate(${-yAxisLabelOffset},
                 ${innerHeight / 2}) rotate(-90)`}
             >
-              {yAxisLabel + " (" + dataInfo.unit + ")"}
+              {yAxisLabel(dataInfo) + " (" + dataInfo.unit + ")"}
             </text>
           </g>
         </svg>
