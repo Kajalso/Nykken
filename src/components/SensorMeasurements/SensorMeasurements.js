@@ -7,6 +7,7 @@ import { EditSensorsModal } from "../Modal/EditSensorsModal";
 
 import editIcon from "../../icons/edit.svg";
 import "./sensorMeasurements.scss";
+
 import { useLocalStorage } from "../../storage/useLocalStorage";
 
 export const SensorMeasurements = () => {

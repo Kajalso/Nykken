@@ -13,7 +13,7 @@ const circleRadius = 2;
 
 export const LineChart = React.forwardRef(
   ({ data = [], dataInfo = {} }, ref) => {
-    let [
+    let {
       width,
       height,
       margin,
@@ -28,14 +28,11 @@ export const LineChart = React.forwardRef(
       yAxisLabel,
       yAxisLabelOffset,
       dateFormat,
-    ] = useChartProps();
+    } = useChartProps();
 
     if (!data || !dataInfo) {
       return <pre>Loading chart...</pre>;
     }
-
-    // Y axis label
-    yAxisLabel = dataInfo.title;
 
     // Linear scale for x values
     const xScale = scaleTime()
@@ -91,7 +88,7 @@ export const LineChart = React.forwardRef(
               transform={`translate(${-yAxisLabelOffset},
                 ${innerHeight / 2}) rotate(-90)`}
             >
-              {yAxisLabel + " (" + dataInfo.unit + ")"}
+              {yAxisLabel(dataInfo) + " (" + dataInfo.unit + ")"}
             </text>
           </g>
         </svg>

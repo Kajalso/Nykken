@@ -17,11 +17,11 @@ export const Marks = ({
   const id = dataInfo.data_identifier;
   const colors = useColors();
 
-  let markColor = colors.blue;
+  let markColor = colors.purple;
 
   // Set color to purple for Radiation, Humidity and Wind Speed
-  if (id === 3 || id === 4 || id === 6) {
-    markColor = colors.purple;
+  if (!(id === 3 || id === 4 || id === 6)) {
+    markColor = colors.blue;
   }
 
   // Set area fill for Snow Melting Tank and Waste Water
