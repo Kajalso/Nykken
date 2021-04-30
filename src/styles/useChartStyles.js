@@ -19,7 +19,7 @@ export const useColors = () => {
 
 // General chart properties
 export const useChartProps = () => {
-  const width = 500;
+  const width = 800;
   const height = 300;
 
   const margin = { top: 10, right: 50, bottom: 50, left: 60 };

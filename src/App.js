@@ -4,12 +4,14 @@ import { Dashboard } from "./components/Dashboard/Dashboard";
 import GroupsContextProvider from "./context/GroupsContext";
 
 function App() {
+  console.log("width: " + document.body.clientWidth);
+  console.log("height " + document.body.clientHeight);
 
   return (
     <div className="App">
       <GroupsContextProvider>
-      <Header />
-      <Dashboard />
+        <Header />
+        <Dashboard />
       </GroupsContextProvider>
     </div>
   );

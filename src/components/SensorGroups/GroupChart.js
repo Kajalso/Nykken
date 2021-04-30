@@ -4,7 +4,7 @@ import { LineChart } from "../SensorChart/LineChart/LineChart";
 import { BarChart } from "../SensorChart/BarChart/BarChart";
 
 import { useSensorData } from "../../api/useSensorData";
-import { useBarChartIDs } from "../../styles/useChartStyles";
+import { useCustomProps, useBarChartIDs } from "../../styles/useChartStyles";
 
 export const GroupChart = ({
   dataInfo,

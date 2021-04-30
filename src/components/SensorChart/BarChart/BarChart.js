@@ -5,7 +5,7 @@ import { AxisBottom } from "./Axes/AxisBottom";
 import { AxisLeft } from "./Axes/AxisLeft";
 import { Marks } from "./Marks";
 
-import { useChartProps } from "../../../styles/useChartStyles";
+import { useChartProps, useGroupProps } from "../../../styles/useChartStyles";
 
 export const BarChart = React.forwardRef(
   ({ data = [], dataInfo = {} }, ref) => {
