@@ -147,9 +147,6 @@ export const CustomChart = ({ sensors }) => {
                 <>
                   {isBarChart(sensor) && (
                     <>
-                      {console.log(
-                        "Barchart id: " + sensor.dataInfo.data_identifier
-                      )}
                       <BarMarks
                         data={sensor.data}
                         dataInfo={sensor.dataInfo}
@@ -166,9 +163,6 @@ export const CustomChart = ({ sensors }) => {
                   )}
                   {!barChartIDs.includes(sensor.dataInfo.data_identifier) && (
                     <>
-                      {console.log(
-                        "Linechart id: " + sensor.dataInfo.data_identifier
-                      )}
                       <LineMarks
                         data={sensor.data}
                         dataInfo={sensor.dataInfo}

@@ -30,8 +30,6 @@ export const Marks = ({
         let negativeHeight = isUpsideDown ? zeroLine : yScaleNeg(value);
 
         if (value < 0) {
-          console.log("Negative bar");
-          console.log(yScale(value));
           return (
             <rect
               className="mark-bar"
@@ -49,8 +47,6 @@ export const Marks = ({
             </rect>
           );
         } else {
-          console.log("Positive bar");
-          console.log(yScale(value));
           return (
             <rect
               className="mark-bar"
