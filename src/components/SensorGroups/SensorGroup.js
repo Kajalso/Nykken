@@ -1,23 +1,13 @@
-import React, { useState, useRef } from "react";
-
-import { exportComponentAsPNG } from "react-component-export-image";
-
+import React, { useContext, useState } from "react";
 import { ReactSelect as Select } from "../Select/Select";
-
-import { ExportCSV } from "./ExportCSV";
-
-import { LineChart } from "./LineChart/LineChart";
-import { BarChart } from "./BarChart/BarChart";
-
 import { CustomTimeModal } from "../Modal/CustomTimeModal";
 
-import { useSensorData } from "../../api/useSensorData";
 import { useSessionStorage } from "../../storage/useSessionStorage";
-import { useBarChartIDs } from "../../styles/useChartStyles";
+
+import { GroupChart as Chart } from "./GroupChart";
 
 import moreIcon from "../../icons/more.svg";
-
-import "./sensorChart.scss";
+import { GroupsContext } from "../../context/GroupsContext";
 
 const exampleDate = "2021-03-01";
 const exampleStartTime = "00:00:00";
@@ -26,55 +16,50 @@ const exampleEndTime = "00:11:00";
 const chartOptions = [
   {
     value: "edit",
-    label: "Edit chart",
+    label: "Edit time frame",
   },
   {
-    value: "download_png",
-    label: "Download PNG",
+    value: "delete",
+    label: "Delete group",
   },
 ];
 
-export const SensorChart = ({ dataInfo }) => {
-  const id = dataInfo.data_identifier;
+export const SensorGroup = ({ group }) => {
+  const { dispatch } = useContext(GroupsContext);
+
+  const sensors = group.sensors;
+  const groupName = group.groupName;
+
   const [customTimeModalIsOpen, setCustomTimeModalIsOpen] = useState(false);
   const [granularity, setGranularity] = useSessionStorage(
-    id + "granularity",
+    "granularity",
     "measured"
-  ); //useState("measured");
+  );
 
   const closeCustomTimeModal = () => setCustomTimeModalIsOpen(false);
 
-  const [startDate, setStartDate] = useState(exampleDate); //useSessionStorage('startDate', exampleDate);
-  const [endDate, setEndDate] = useState(exampleDate); //useSessionStorage('endDate', exampleDate);
+  const [startDate, setStartDate] = useState(exampleDate);
+  const [endDate, setEndDate] = useState(exampleDate);
 
   const [startTime, setStartTime] = useState(exampleStartTime);
   const [endTime, setEndTime] = useState(exampleEndTime);
 
   const [startDateTime, setStartDateTime] = useSessionStorage(
-    id + "start",
+    "start",
     startDate + startTime
-  ); //useState(startDate + startTime)  //
+  );
   const [endDateTime, setEndDateTime] = useSessionStorage(
-    id + "end",
+    "end",
     endDate + endTime
-  ); //useState(endDate + endTime) //
-
-  const componentRef = useRef();
-
-  // Bar chart IDs
-  const barChartIDs = useBarChartIDs();
-
-  // Fetch sensor data and data info
-  const sensorData = useSensorData(id, startDateTime, endDateTime, granularity);
-  //const sensorData = useSessionStorage(id, id + startDateTime + endDateTime + granularity);
+  );
 
   // Handle change of time frame
   const handleClick = (chartOption) => {
     if (chartOption.value === "edit") {
       setCustomTimeModalIsOpen(true);
     }
-    if (chartOption.value === "download_png") {
-      handleDownloadPNG();
+    if (chartOption.value === "delete") {
+      dispatch({ type: "REMOVE_GROUP", id: group.id });
     }
   };
 
@@ -105,16 +90,9 @@ export const SensorChart = ({ dataInfo }) => {
     }
   };
 
-  const handleDownloadPNG = () => {
-    exportComponentAsPNG(componentRef, {
-      fileName:
-        dataInfo.title + "_from_" + startDateTime + "_to_" + endDateTime,
-    });
-  };
-
   return (
     <div className="sensor-chart">
-      <h3 className="section-title">{dataInfo.title}</h3>
+      <h2 className="section-title">{groupName}</h2>
       <div className="more">
         <Select
           className="more-select-container"
@@ -125,34 +103,26 @@ export const SensorChart = ({ dataInfo }) => {
         />
       </div>
       <CustomTimeModal
-        sensor={dataInfo}
+        chartGroup={groupName}
         isOpen={customTimeModalIsOpen}
         handleConfirm={handleConfirm}
         closeModal={closeCustomTimeModal}
       />
 
-      {(!sensorData || !sensorData[0]) && (
-        <p className="loading">Loading ...</p>
-      )}
-      {sensorData && sensorData[0] && (
-        <>
-          {barChartIDs.includes(id) && (
-            <BarChart
-              data={sensorData}
-              dataInfo={dataInfo}
-              ref={componentRef}
+      <div className="sensor-grid">
+        {sensors.length === 0 && <p>No sensors chosen</p>}
+        {sensors &&
+          sensors.map((sensor, i) => (
+            <Chart
+              key={i}
+              id={sensor.data_identifier}
+              dataInfo={sensor}
+              startDateTime={startDateTime}
+              endDateTime={endDateTime}
+              granularity={granularity}
             />
-          )}
-          {!barChartIDs.includes(id) && (
-            <LineChart
-              data={sensorData}
-              dataInfo={dataInfo}
-              ref={componentRef}
-            />
-          )}
-        </>
-      )}
-      <ExportCSV data={sensorData} dataInfo={dataInfo} />
+          ))}
+      </div>
     </div>
   );
 };

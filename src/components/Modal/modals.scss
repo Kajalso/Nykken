@@ -133,6 +133,18 @@ $primaryBackground: #fafbf9;
   }
 }
 
+// Greate group modal
+.modal.group-modal {
+  .group-name {
+    display: inline-block;
+    margin: 1.5em 0.5em 0;
+
+    label {
+      margin-right: 0.5em;
+    }
+  }
+}
+
 // Media queries
 @media only screen and (min-width: 768px) {
   // General modal

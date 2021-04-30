@@ -30,8 +30,6 @@ export const CustomChart = ({ sensors }) => {
   let {
     xValue,
     xAxisLabel,
-    xAxisLabelOffset,
-    xAxisDateOffset,
     xAxisTickFormat,
     yValue,
     yAxisLabel,
@@ -39,7 +37,14 @@ export const CustomChart = ({ sensors }) => {
     dateFormat,
   } = useChartProps();
 
-  let { width, height, margin, innerWidth, innerHeight } = useCustomProps();
+  let {
+    width,
+    height,
+    margin,
+    innerWidth,
+    innerHeight,
+    xAxisLabelOffset,
+  } = useCustomProps();
 
   const chartColor = (id) => {
     let chartColor = colors.purple;
@@ -135,7 +140,7 @@ export const CustomChart = ({ sensors }) => {
               ))}
             <text
               x={innerWidth - yAxisLabelOffset}
-              y={innerHeight + xAxisLabelOffset}
+              y={innerHeight + 30}
               className={"axis-label x tiny"}
             >
               {xAxisLabel + " (min)"}

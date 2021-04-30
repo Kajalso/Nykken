@@ -4,12 +4,11 @@ import { Dashboard } from "./components/Dashboard/Dashboard";
 import GroupsContextProvider from "./context/GroupsContext";
 
 function App() {
-
   return (
     <div className="App">
       <GroupsContextProvider>
-      <Header />
-      <Dashboard />
+        <Header />
+        <Dashboard />
       </GroupsContextProvider>
     </div>
   );

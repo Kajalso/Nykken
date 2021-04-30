@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { scaleTime, scaleLinear, extent, curveMonotoneX } from "d3";
 
 import { AxisBottom } from "./Axes/AxisBottom";
@@ -29,6 +29,28 @@ export const LineChart = React.forwardRef(
       yAxisLabelOffset,
       dateFormat,
     } = useChartProps();
+
+    /*
+    const [chartWidth, setChartWidth] = useState(width);
+    let tempChartWidth = width;
+
+     window.addEventListener("resize", () => {
+      if (document.body.clientWidth > 1025) {
+        console.log("Large screen.");
+        tempChartWidth = 800;
+      }
+      if (document.body.clientWidth > 768) {
+        console.log("Medium screen.");
+        tempChartWidth = 600;
+      } else {
+        console.log("Small screen");
+        tempChartWidth = 400;
+      }
+    });
+
+    useEffect(() => {
+      setChartWidth(tempChartWidth);
+    }, [chartWidth]); */
 
     if (!data || !dataInfo) {
       return <pre>Loading chart...</pre>;
