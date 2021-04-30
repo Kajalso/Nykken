@@ -2,7 +2,6 @@ import React from "react";
 import {
   scaleTime,
   min,
-  max,
   scaleLinear,
   scaleBand,
   extent,
@@ -69,13 +68,6 @@ export const CustomChart = ({ sensors }) => {
     return data[0] ? min(data, yValue) : 0;
   };
 
-  let maxY = (data) => {
-    return data[0] ? max(data, yValue) : 0;
-  };
-
-  const domainY = (data) =>
-    minY(data) < 0 ? extent(data, yValue) : [0, maxY(data)];
-
   // Linear scale for x values
   const xScaleBar = (data) =>
     scaleBand().domain(data.map(xValue)).range([0, innerWidth]);
@@ -94,6 +86,9 @@ export const CustomChart = ({ sensors }) => {
           .range(range)
       : 0;
   };
+
+  const isBarChart = (sensor) =>
+    barChartIDs.includes(sensor.dataInfo.data_identifier);
 
   return (
     <div className="custom-chart">
@@ -115,7 +110,11 @@ export const CustomChart = ({ sensors }) => {
                 <>
                   {chosenSensors.indexOf(sensor) % 2 === 0 && (
                     <AxisLeft
-                      yScale={yScaleLine(sensor.data)}
+                      yScale={
+                        isBarChart(sensor)
+                          ? yScaleBar(sensor.data)
+                          : yScaleLine(sensor.data)
+                      }
                       innerHeight={innerHeight}
                       innerWidth={innerWidth}
                       tickOffset={10 + chosenSensors.indexOf(sensor) * 15}
@@ -123,7 +122,11 @@ export const CustomChart = ({ sensors }) => {
                   )}
                   {chosenSensors.indexOf(sensor) % 2 !== 0 && (
                     <AxisRight
-                      yScale={yScaleLine(sensor.data)}
+                      yScale={
+                        isBarChart(sensor)
+                          ? yScaleBar(sensor.data)
+                          : yScaleLine(sensor.data)
+                      }
                       innerWidth={innerWidth}
                       tickOffset={chosenSensors.indexOf(sensor) * 15}
                     />
@@ -142,7 +145,7 @@ export const CustomChart = ({ sensors }) => {
               chosenSensors[0] &&
               chosenSensors.map((sensor, i) => (
                 <>
-                  {barChartIDs.includes(sensor.dataInfo.data_identifier) && (
+                  {isBarChart(sensor) && (
                     <>
                       {console.log(
                         "Barchart id: " + sensor.dataInfo.data_identifier
