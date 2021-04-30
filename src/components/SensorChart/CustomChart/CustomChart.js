@@ -65,8 +65,13 @@ export const CustomChart = ({ sensors }) => {
 
   // Bar chart
   // Y values
-  const minY = (data) => min(data, yValue);
-  const maxY = (data) => max(data, yValue);
+  let minY = (data) => {
+    return data[0] ? min(data, yValue) : 0;
+  };
+
+  let maxY = (data) => {
+    return data[0] ? max(data, yValue) : 600;
+  };
 
   const domainY = (data) =>
     minY(data) < 0 ? extent(data, yValue) : [0, maxY(data)];
@@ -79,17 +84,14 @@ export const CustomChart = ({ sensors }) => {
   const yScaleBar = (data) =>
     scaleLinear().domain(domainY(data)).range([innerHeight, 0]);
 
-  // Linear scale for positive y values
-  const yScalePos = (data) =>
-    scaleLinear()
-      .domain([0, maxY(data)])
-      .range([0, innerHeight - yScaleBar(0)]); // From top of chart to zero-line
-
   // Linear scale for negative y values
-  const yScaleNeg = (data) =>
-    scaleLinear()
+  const yScaleNeg = (data) => {
+    console.log(data);
+
+    return scaleLinear()
       .domain([minY(data), 0])
-      .range([innerHeight - yScaleBar(0), innerHeight]); // From zero-line to bottom of chart
+      .range([innerHeight - yScaleBar(0), innerHeight]);
+  }; // From zero-line to bottom of chart
 
   return (
     <div className="custom-chart">
@@ -147,14 +149,12 @@ export const CustomChart = ({ sensors }) => {
                         data={sensor.data}
                         dataInfo={sensor.dataInfo}
                         xScale={xScaleBar(sensor.data)}
-                        yScalePos={yScalePos(sensor.data)}
                         yScaleNeg={yScaleNeg(sensor.data)}
                         yScale={yScaleBar(sensor.data)}
                         xValue={xValue}
                         yValue={yValue}
                         xFormat={xAxisTickFormat}
                         innerHeight={innerHeight}
-                        centerPadding={xScaleBar.bandwidth() * 0.15}
                       />
                     </>
                   )}

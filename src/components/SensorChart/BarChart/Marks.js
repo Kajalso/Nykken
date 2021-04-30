@@ -5,12 +5,10 @@ export const Marks = ({
   dataInfo,
   xScale,
   yScale,
-  yScalePos,
   yScaleNeg,
   xValue,
   yValue,
   xFormat,
-  centerPadding,
   innerHeight,
 }) => {
   const colors = useColors();

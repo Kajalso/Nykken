@@ -42,11 +42,6 @@ export const BarChart = React.forwardRef(
     // Linear scale for y values
     const yScale = scaleLinear().domain(domainY).range([innerHeight, 0]);
 
-    // Linear scale for positive y values
-    const yScalePos = scaleLinear()
-      .domain([0, maxY])
-      .range([0, innerHeight - yScale(0)]); // From top of chart to zero-line
-
     // Linear scale for negative y values
     const yScaleNeg = scaleLinear()
       .domain([minY, 0])
@@ -69,14 +64,12 @@ export const BarChart = React.forwardRef(
               data={data}
               dataInfo={dataInfo}
               xScale={xScale}
-              yScalePos={yScalePos}
               yScaleNeg={yScaleNeg}
               yScale={yScale}
               xValue={xValue}
               yValue={yValue}
               xFormat={xAxisTickFormat}
               innerHeight={innerHeight}
-              centerPadding={xScale.bandwidth() * 0.15}
             />
             <text
               x={innerWidth - yAxisLabelOffset}
