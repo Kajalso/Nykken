@@ -4,8 +4,7 @@ import { LineChart } from "../SensorChart/LineChart/LineChart";
 import { BarChart } from "../SensorChart/BarChart/BarChart";
 
 import { useSensorData } from "../../api/useSensorData";
-
-const barChartIDs = [5, 8, 10, 12];
+import { useBarChartIDs } from "../../styles/useChartStyles";
 
 export const GroupChart = ({
   dataInfo,
@@ -17,6 +16,9 @@ export const GroupChart = ({
 
   // Fetch sensor data and data info
   const sensorData = useSensorData(id, startDateTime, endDateTime, granularity);
+
+  // Bar chart IDs
+  const barChartIDs = useBarChartIDs();
 
   return (
     <div className="sensor-chart">

@@ -12,7 +12,8 @@ import { BarChart } from "./BarChart/BarChart";
 import { CustomTimeModal } from "../Modal/CustomTimeModal";
 
 import { useSensorData } from "../../api/useSensorData";
-import { useSessionStorage } from '../../storage/useSessionStorage';
+import { useSessionStorage } from "../../storage/useSessionStorage";
+import { useBarChartIDs } from "../../styles/useChartStyles";
 
 import moreIcon from "../../icons/more.svg";
 
@@ -22,36 +23,46 @@ const exampleDate = "2021-03-01";
 const exampleStartTime = "00:00:00";
 const exampleEndTime = "00:11:00";
 
-const barChartIDs = [5, 8, 10, 12];
-
 const chartOptions = [
   {
     value: "edit",
     label: "Edit chart",
   },
-  { 
-    value: "download_png", 
-    label: "Download PNG" 
+  {
+    value: "download_png",
+    label: "Download PNG",
   },
 ];
 
 export const SensorChart = ({ dataInfo }) => {
   const id = dataInfo.data_identifier;
   const [customTimeModalIsOpen, setCustomTimeModalIsOpen] = useState(false);
-  const [granularity, setGranularity] = useSessionStorage(id+'granularity', 'measured');//useState("measured");
+  const [granularity, setGranularity] = useSessionStorage(
+    id + "granularity",
+    "measured"
+  ); //useState("measured");
 
   const closeCustomTimeModal = () => setCustomTimeModalIsOpen(false);
 
-  const [startDate, setStartDate] = useState(exampleDate)//useSessionStorage('startDate', exampleDate);
-  const [endDate, setEndDate] = useState(exampleDate)//useSessionStorage('endDate', exampleDate);
+  const [startDate, setStartDate] = useState(exampleDate); //useSessionStorage('startDate', exampleDate);
+  const [endDate, setEndDate] = useState(exampleDate); //useSessionStorage('endDate', exampleDate);
 
   const [startTime, setStartTime] = useState(exampleStartTime);
   const [endTime, setEndTime] = useState(exampleEndTime);
 
-  const [startDateTime, setStartDateTime] = useSessionStorage(id+'start',  startDate + startTime); //useState(startDate + startTime)  //
-  const [endDateTime, setEndDateTime] = useSessionStorage(id+'end',  endDate + endTime); //useState(endDate + endTime) //
+  const [startDateTime, setStartDateTime] = useSessionStorage(
+    id + "start",
+    startDate + startTime
+  ); //useState(startDate + startTime)  //
+  const [endDateTime, setEndDateTime] = useSessionStorage(
+    id + "end",
+    endDate + endTime
+  ); //useState(endDate + endTime) //
 
   const componentRef = useRef();
+
+  // Bar chart IDs
+  const barChartIDs = useBarChartIDs();
 
   // Fetch sensor data and data info
   const sensorData = useSensorData(id, startDateTime, endDateTime, granularity);

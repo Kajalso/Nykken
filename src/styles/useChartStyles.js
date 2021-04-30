@@ -1,6 +1,6 @@
 import { timeFormat, utcFormat } from "d3";
 
-// Return the chart colors
+// Chart colors
 export const useColors = () => {
   const colorRed = "#FF5252";
   const colorBlue = "#59B9FF";
@@ -17,6 +17,7 @@ export const useColors = () => {
   return colors;
 };
 
+// General chart properties
 export const useChartProps = () => {
   const width = 500;
   const height = 300;
@@ -60,6 +61,7 @@ export const useChartProps = () => {
   };
 };
 
+// Custom chart properties
 export const useCustomProps = () => {
   const width = 500;
   const height = 300;
@@ -78,6 +80,7 @@ export const useCustomProps = () => {
   };
 };
 
+// Group properties
 export const useGroupProps = () => {
   const width = 700;
   const height = 300;
@@ -95,3 +98,6 @@ export const useGroupProps = () => {
     innerWidth,
   };
 };
+
+// Bar chart IDs
+export const useBarChartIDs = () => [5, 8, 10, 12];
