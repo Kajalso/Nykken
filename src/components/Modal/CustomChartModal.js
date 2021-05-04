@@ -45,7 +45,8 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
     return (
       <div className="legend">
         <svg width={10} height={10}>
-          <circle r={5} cx={5} cy={5} fill={markColor} />
+          {id !== 5 && <circle r={5} cx={5} cy={5} fill={markColor} />}
+          {id === 5 && <rect width={9} height={9} fill={markColor} />}
         </svg>
         <p className="small">{sensor.title}</p>
       </div>
@@ -65,22 +66,22 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
     exampleDate + exampleStartTime,
     exampleDate + exampleEndTime
   );
-  const dataInfo3 = useDataInfo(6);
+  const dataInfo3 = useDataInfo(2);
   const data3 = useSensorData(
-    6,
+    2,
     exampleDate + exampleStartTime,
     exampleDate + exampleEndTime
   );
-  const dataInfo4 = useDataInfo(7);
+  const dataInfo4 = useDataInfo(3);
   const data4 = useSensorData(
-    7,
+    3,
     exampleDate + exampleStartTime,
     exampleDate + exampleEndTime
   );
 
   const sensors = [
-    { data: data1, dataInfo: dataInfo1 },
-    { data: data2, dataInfo: dataInfo2 },
+    { data: data3, dataInfo: dataInfo3 },
+    { data: data4, dataInfo: dataInfo4 },
   ];
 
   const handleChange = (currentSensor) => {
