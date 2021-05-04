@@ -85,20 +85,20 @@ export const useCustomProps = () => {
 
 // Group properties
 export const useGroupProps = () => {
-  const width = 700;
-  const height = 300;
+  const groupWidth = 700;
+  const groupHeight = 300;
 
-  const margin = { top: 5, right: 30, bottom: 25, left: 30 };
+  const groupMargin = { top: 10, right: 50, bottom: 50, left: 60 };
 
-  const innerHeight = height - margin.top - margin.bottom;
-  const innerWidth = width - margin.right - margin.left;
+  const groupInnerHeight = groupHeight - groupMargin.top - groupMargin.bottom;
+  const groupInnerWidth = groupWidth - groupMargin.right - groupMargin.left;
 
   return {
-    width,
-    height,
-    margin,
-    innerHeight,
-    innerWidth,
+    groupWidth,
+    groupHeight,
+    groupMargin,
+    groupInnerHeight,
+    groupInnerWidth,
   };
 };
 

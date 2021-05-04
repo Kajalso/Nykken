@@ -8,7 +8,7 @@ import { Marks } from "./Marks";
 import { useChartProps, useGroupProps } from "../../../styles/useChartStyles";
 
 export const BarChart = React.forwardRef(
-  ({ data = [], dataInfo = {} }, ref, inGroup) => {
+  ({ data = [], dataInfo = {}, inGroup }, ref) => {
     let {
       width,
       height,

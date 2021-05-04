@@ -21,7 +21,7 @@ export const GroupChart = ({
   const barChartIDs = useBarChartIDs();
 
   return (
-    <div className="sensor-chart">
+    <div className="sensor-chart group-chart">
       <h3 className="section-title">{dataInfo.title}</h3>
 
       {(!sensorData || !sensorData[0]) && (

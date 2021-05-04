@@ -3,6 +3,8 @@ import React, { useContext } from "react";
 import { GroupsContext } from "..//../context/GroupsContext";
 import { SensorGroup } from "./SensorGroup";
 
+import "./sensorGroups.scss";
+
 export const SensorGroups = () => {
   const { groups } = useContext(GroupsContext);
 
