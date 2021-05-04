@@ -63,8 +63,8 @@ export const useChartProps = () => {
 
 // Custom chart properties
 export const useCustomProps = () => {
-  const width = 320;
-  const height = 220;
+  const width = 500;
+  const height = 300;
 
   const xAxisLabelOffset = 20;
 
@@ -85,8 +85,8 @@ export const useCustomProps = () => {
 
 // Group properties
 export const useGroupProps = () => {
-  const groupWidth = 700;
-  const groupHeight = 300;
+  const groupWidth = 900;
+  const groupHeight = 200;
 
   const groupMargin = { top: 10, right: 50, bottom: 50, left: 60 };
 

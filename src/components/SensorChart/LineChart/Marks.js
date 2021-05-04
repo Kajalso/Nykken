@@ -19,7 +19,7 @@ export const Marks = ({
 
   let markColor = colors.purple;
 
-  // Set color to purple for Radiation, Humidity and Wind Speed
+  // Set color to blue for everything minus these IDs
   if (!(id === 3 || id === 4 || id === 6)) {
     markColor = colors.blue;
   }

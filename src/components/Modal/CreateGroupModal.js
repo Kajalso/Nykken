@@ -115,7 +115,7 @@ export const CreateGroupModal = ({ isOpen, closeModal }) => {
           >
             {errorMessage}
           </p>
-          <Button text="Add group" onClick={handleAddGroup} />
+          <Button className="add" text="Add group" onClick={handleAddGroup} />
         </div>
         <Button className="close" icon={plusIcon} onClick={closeModal} />
       </div>

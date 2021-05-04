@@ -97,7 +97,6 @@ export const CustomChart = ({ sensors }) => {
 
   return (
     <div className="custom-chart">
-      <h5 className="chart-title">My custom chart</h5>
       <div className="chart">
         <svg width={width} height={height}>
           <g transform={`translate(${margin.left}, ${margin.top})`}>
