@@ -92,7 +92,7 @@ export const SensorGroup = ({ group }) => {
 
   return (
     <div className="sensor-chart">
-      <h2 className="section-title">{groupName}</h2>
+      <h3 className="section-title">{groupName}</h3>
       <div className="more">
         <Select
           className="more-select-container"
