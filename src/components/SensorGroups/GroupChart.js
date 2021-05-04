@@ -22,7 +22,7 @@ export const GroupChart = ({
 
   return (
     <div className="sensor-chart group-chart">
-      <h3 className="section-title">{dataInfo.title}</h3>
+      <h5 className="section-title">{dataInfo.title}</h5>
 
       {(!sensorData || !sensorData[0]) && (
         <p className="loading">Loading ...</p>
