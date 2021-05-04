@@ -8,7 +8,7 @@ export const SensorGroups = () => {
 
   return (
     <>
-      <h2 className="title">My Groups</h2>
+      <h2 className="title">Groups</h2>
       {groups.length === 0 && <p>No groups to show</p>}
       {groups &&
         groups.map((group) => (
