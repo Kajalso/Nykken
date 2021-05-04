@@ -4,7 +4,7 @@ import { LineChart } from "../SensorChart/LineChart/LineChart";
 import { BarChart } from "../SensorChart/BarChart/BarChart";
 
 import { useSensorData } from "../../api/useSensorData";
-import { useCustomProps, useBarChartIDs } from "../../styles/useChartStyles";
+import { useGroupProps, useBarChartIDs } from "../../styles/useChartStyles";
 
 export const GroupChart = ({
   dataInfo,
@@ -30,10 +30,10 @@ export const GroupChart = ({
       {sensorData && sensorData[0] && (
         <>
           {barChartIDs.includes(id) && (
-            <BarChart data={sensorData} dataInfo={dataInfo} />
+            <BarChart data={sensorData} dataInfo={dataInfo} inGroup />
           )}
           {!barChartIDs.includes(id) && (
-            <LineChart data={sensorData} dataInfo={dataInfo} />
+            <LineChart data={sensorData} dataInfo={dataInfo} inGroup />
           )}
         </>
       )}

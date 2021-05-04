@@ -5,14 +5,14 @@ import { AxisBottom } from "./Axes/AxisBottom";
 import { AxisLeft } from "./Axes/AxisLeft";
 import { Marks } from "./Marks";
 
-import { useChartProps } from "../../../styles/useChartStyles";
+import { useChartProps, useGroupProps } from "../../../styles/useChartStyles";
 
 import "../chart.scss";
 
 const circleRadius = 2;
 
 export const LineChart = React.forwardRef(
-  ({ data = [], dataInfo = {} }, ref) => {
+  ({ data = [], dataInfo = {} }, ref, inGroup) => {
     let {
       width,
       height,
@@ -51,6 +51,23 @@ export const LineChart = React.forwardRef(
     useEffect(() => {
       setChartWidth(tempChartWidth);
     }, [chartWidth]); */
+
+    // Group props
+    let {
+      groupWidth,
+      groupHeight,
+      groupMargin,
+      groupInnerHeight,
+      groupInnerWidth,
+    } = useGroupProps();
+
+    if (inGroup) {
+      width = groupWidth;
+      height = groupHeight;
+      margin = groupMargin;
+      innerWidth = groupInnerWidth;
+      innerHeight = groupInnerHeight;
+    }
 
     if (!data || !dataInfo) {
       return <pre>Loading chart...</pre>;

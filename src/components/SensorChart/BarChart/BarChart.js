@@ -8,7 +8,7 @@ import { Marks } from "./Marks";
 import { useChartProps, useGroupProps } from "../../../styles/useChartStyles";
 
 export const BarChart = React.forwardRef(
-  ({ data = [], dataInfo = {} }, ref) => {
+  ({ data = [], dataInfo = {} }, ref, inGroup) => {
     let {
       width,
       height,
@@ -25,6 +25,23 @@ export const BarChart = React.forwardRef(
       yAxisLabelOffset,
       dateFormat,
     } = useChartProps();
+
+    // Group props
+    let {
+      groupWidth,
+      groupHeight,
+      groupMargin,
+      groupInnerHeight,
+      groupInnerWidth,
+    } = useGroupProps();
+
+    if (inGroup) {
+      width = groupWidth;
+      height = groupHeight;
+      margin = groupMargin;
+      innerWidth = groupInnerWidth;
+      innerHeight = groupInnerHeight;
+    }
 
     if (!data || !dataInfo) {
       return <pre>Loading chart...</pre>;
