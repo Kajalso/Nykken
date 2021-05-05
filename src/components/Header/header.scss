@@ -3,18 +3,31 @@ $secondaryBackground: #f0f2eb;
 .header {
   background-color: $secondaryBackground;
   padding: 0.5em 1em;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
 
-  h2,
+  .logo {
+    width: 60px;
+    margin: 0 0.5em 0.5em 0;
+  }
+
+  .station-name,
   p {
     display: inline-block;
   }
 
-  h2 {
-    margin-right: 2em;
+  .station-name {
+    margin: 0 2em 0 1em;
+  }
+
+  p {
+    align-self: flex-end;
   }
 
   .buttons {
     display: inline-flex;
+    margin-right: 1em;
 
     > * {
       margin-right: 1.5em;
@@ -29,12 +42,6 @@ $secondaryBackground: #f0f2eb;
 @media only screen and (min-width: 768px) {
   .header {
     position: relative;
-
-    p {
-      position: absolute;
-      right: 1em;
-      bottom: 0em;
-    }
 
     .btn-custom-chart {
       display: block;

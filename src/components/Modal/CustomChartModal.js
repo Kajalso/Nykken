@@ -13,9 +13,6 @@ import { useSensorData } from "../../api/useSensorData";
 import { useColors } from "../../styles/useChartStyles";
 
 import plusIcon from "../../icons/plus.svg";
-import circleLegend from "../../icons/colorLegends/cl_circle.svg";
-import lineLegend from "../../icons/colorLegends/cl_line.svg";
-import rectLegend from "../../icons/colorLegends/cl_rect.svg";
 
 import "./modals.scss";
 
