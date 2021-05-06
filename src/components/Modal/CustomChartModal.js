@@ -23,6 +23,7 @@ const exampleEndTime = "00:11:00";
 export const CustomChartModal = ({ isOpen, closeModal }) => {
   const [chartName, setChartName] = useState("");
   const [chosenSensors, setChosenSensors] = useState([]);
+  const [chartSensors, setChartSensors] = useState([]);
   const colors = useColors();
 
   const ColorLegend = ({ sensor }) => {
@@ -51,35 +52,26 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
   };
 
   const allDataInfo = useAllDataInfo();
-  const dataInfo1 = useDataInfo(3);
+
+  const dataInfo1 = useDataInfo(2);
   const data1 = useSensorData(
-    3,
-    exampleDate + exampleStartTime,
-    exampleDate + exampleEndTime
-  );
-  const dataInfo2 = useDataInfo(5);
-  const data2 = useSensorData(
-    5,
-    exampleDate + exampleStartTime,
-    exampleDate + exampleEndTime
-  );
-  const dataInfo3 = useDataInfo(2);
-  const data3 = useSensorData(
     2,
     exampleDate + exampleStartTime,
     exampleDate + exampleEndTime
   );
-  const dataInfo4 = useDataInfo(3);
-  const data4 = useSensorData(
+  const dataInfo2 = useDataInfo(3);
+  const data2 = useSensorData(
     3,
     exampleDate + exampleStartTime,
     exampleDate + exampleEndTime
   );
 
-  const sensors = [
-    { data: data3, dataInfo: dataInfo3 },
-    { data: data4, dataInfo: dataInfo4 },
+  let sensors = [
+    { data: data1, dataInfo: dataInfo1 },
+    { data: data2, dataInfo: dataInfo2 },
   ];
+
+  console.log(chartSensors);
 
   const handleChange = (currentSensor) => {
     if (chosenSensors.includes(currentSensor)) {
@@ -88,8 +80,32 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
           (sensor) => sensor.data_identifier !== currentSensor.data_identifier
         )
       );
+      if (
+        chartSensors.some(
+          (sensor) => sensor.dataInfo === sensors[0].dataInfo
+        ) ||
+        chartSensors.some((sensor) => sensor.dataInfo === sensors[1].dataInfo)
+      ) {
+        console.log("Remove");
+        setChartSensors(
+          chartSensors.filter(
+            (sensor) =>
+              sensor.dataInfo.data_identifier !== currentSensor.data_identifier
+          )
+        );
+      }
     } else {
       setChosenSensors((chosenSensors) => [...chosenSensors, currentSensor]);
+      if (
+        currentSensor.data_identifier === sensors[0].dataInfo.data_identifier
+      ) {
+        setChartSensors((chartSensors) => [...chartSensors, sensors[0]]);
+      }
+      if (
+        currentSensor.data_identifier === sensors[1].dataInfo.data_identifier
+      ) {
+        setChartSensors((chartSensors) => [...chartSensors, sensors[1]]);
+      }
     }
   };
 
@@ -107,7 +123,7 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
           </div>
 
           <div className="chart-content-options">
-            <CustomChart sensors={sensors} />
+            <CustomChart sensors={chartSensors} />
             <div className="sensors">
               <h6>Sensors</h6>
               <form className="sensor-select">

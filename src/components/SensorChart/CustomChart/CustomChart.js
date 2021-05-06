@@ -33,6 +33,7 @@ export const CustomChart = ({ sensors }) => {
     xAxisTickFormat,
     yValue,
     yAxisLabel,
+    xAxisDateOffset,
     yAxisLabelOffset,
     dateFormat,
   } = useChartProps();
@@ -99,91 +100,122 @@ export const CustomChart = ({ sensors }) => {
     <div className="custom-chart">
       <div className="chart">
         <svg width={width} height={height}>
-          <g transform={`translate(${margin.left}, ${margin.top})`}>
-            <AxisBottom
-              xScale={xScaleLine(chosenSensors[0].data)}
-              innerHeight={innerHeight}
-              tickFormat={xAxisTickFormat}
-              tickOffset={10}
-              tickAmount={3}
-            />
+          {chosenSensors && chosenSensors[0] && (
+            <g transform={`translate(${margin.left}, ${margin.top})`}>
+              <AxisBottom
+                xScale={xScaleLine(chosenSensors[0].data)}
+                innerHeight={innerHeight}
+                tickFormat={xAxisTickFormat}
+                tickOffset={10}
+                tickAmount={3}
+              />
 
-            {chosenSensors &&
-              chosenSensors[0] &&
-              chosenSensors.map((sensor, i) => (
+              {chosenSensors.map((sensor, i) => (
                 <>
                   {chosenSensors.indexOf(sensor) % 2 === 0 && (
-                    <AxisLeft
-                      yScale={
-                        isBarChart(sensor)
-                          ? yScaleBar(sensor.data)
-                          : yScaleLine(sensor.data)
-                      }
-                      innerHeight={innerHeight}
-                      innerWidth={innerWidth}
-                      tickOffset={10 + chosenSensors.indexOf(sensor) * 15}
-                    />
+                    <>
+                      <AxisLeft
+                        yScale={
+                          isBarChart(sensor)
+                            ? yScaleBar(sensor.data)
+                            : yScaleLine(sensor.data)
+                        }
+                        innerHeight={innerHeight}
+                        innerWidth={innerWidth}
+                        tickOffset={10 + chosenSensors.indexOf(sensor) * 15}
+                      />
+                      <text
+                        className={"axis-label y small"}
+                        transform={`translate(${-yAxisLabelOffset},
+                ${innerHeight / 2}) rotate(-90)`}
+                      >
+                        {yAxisLabel(sensor.dataInfo) +
+                          " (" +
+                          sensor.dataInfo.unit +
+                          ")"}
+                      </text>
+                    </>
                   )}
                   {chosenSensors.indexOf(sensor) % 2 !== 0 && (
-                    <AxisRight
-                      yScale={
-                        isBarChart(sensor)
-                          ? yScaleBar(sensor.data)
-                          : yScaleLine(sensor.data)
-                      }
-                      innerWidth={innerWidth}
-                      tickOffset={chosenSensors.indexOf(sensor) * 15}
-                    />
+                    <>
+                      <AxisRight
+                        yScale={
+                          isBarChart(sensor)
+                            ? yScaleBar(sensor.data)
+                            : yScaleLine(sensor.data)
+                        }
+                        innerWidth={innerWidth}
+                        tickOffset={chosenSensors.indexOf(sensor) * 15}
+                      />
+                      <text
+                        className={"axis-label y small"}
+                        transform={`translate(${innerWidth + yAxisLabelOffset},
+                ${innerHeight / 2}) rotate(90)`}
+                      >
+                        {yAxisLabel(sensor.dataInfo) +
+                          " (" +
+                          sensor.dataInfo.unit +
+                          ")"}
+                      </text>
+                    </>
                   )}
                 </>
               ))}
-            <text
-              x={innerWidth - yAxisLabelOffset}
-              y={innerHeight + 30}
-              className={"axis-label x tiny"}
-            >
-              {xAxisLabel + " (min)"}
-            </text>
+              <text
+                x={innerWidth - yAxisLabelOffset}
+                y={innerHeight + 30}
+                className={"axis-label x tiny"}
+              >
+                {xAxisLabel}
+              </text>
+              <text
+                x={innerWidth / 2}
+                y={innerHeight + xAxisDateOffset}
+                className={"axis-date"}
+              >
+                {dateFormat(chosenSensors[0].data[0])}
+              </text>
 
-            {chosenSensors &&
-              chosenSensors[0] &&
-              chosenSensors.map((sensor, i) => (
-                <>
-                  {isBarChart(sensor) && (
-                    <>
-                      <BarMarks
-                        data={sensor.data}
-                        dataInfo={sensor.dataInfo}
-                        xScale={xScaleBar(sensor.data)}
-                        yScaleNeg={yScaleNeg(sensor.data)}
-                        yScale={yScaleBar(sensor.data)}
-                        xValue={xValue}
-                        yValue={yValue}
-                        xFormat={xAxisTickFormat}
-                        innerHeight={innerHeight}
-                        isUpsideDown
-                      />
-                    </>
-                  )}
-                  {!barChartIDs.includes(sensor.dataInfo.data_identifier) && (
-                    <>
-                      <LineMarks
-                        data={sensor.data}
-                        dataInfo={sensor.dataInfo}
-                        xScale={xScaleLine(sensor.data)}
-                        yScale={yScaleLine(sensor.data)}
-                        xValue={xValue}
-                        yValue={yValue}
-                        xFormat={xAxisTickFormat}
-                        circleRadius={circleRadius}
-                        curveStyle={curveMonotoneX}
-                        innerHeight={innerHeight}
-                      />
-                    </>
-                  )}
-                </>
-              ))}
-          </g>
+              {chosenSensors &&
+                chosenSensors[0] &&
+                chosenSensors.map((sensor, i) => (
+                  <>
+                    {isBarChart(sensor) && (
+                      <>
+                        <BarMarks
+                          data={sensor.data}
+                          dataInfo={sensor.dataInfo}
+                          xScale={xScaleBar(sensor.data)}
+                          yScaleNeg={yScaleNeg(sensor.data)}
+                          yScale={yScaleBar(sensor.data)}
+                          xValue={xValue}
+                          yValue={yValue}
+                          xFormat={xAxisTickFormat}
+                          innerHeight={innerHeight}
+                          isUpsideDown
+                        />
+                      </>
+                    )}
+                    {!barChartIDs.includes(sensor.dataInfo.data_identifier) && (
+                      <>
+                        <LineMarks
+                          data={sensor.data}
+                          dataInfo={sensor.dataInfo}
+                          xScale={xScaleLine(sensor.data)}
+                          yScale={yScaleLine(sensor.data)}
+                          xValue={xValue}
+                          yValue={yValue}
+                          xFormat={xAxisTickFormat}
+                          circleRadius={circleRadius}
+                          curveStyle={curveMonotoneX}
+                          innerHeight={innerHeight}
+                        />
+                      </>
+                    )}
+                  </>
+                ))}
+            </g>
+          )}
         </svg>
       </div>
     </div>
