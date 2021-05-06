@@ -7,7 +7,7 @@ import { CreateGroupModal } from "../Modal/CreateGroupModal";
 
 import groupIcon from "../../icons/group.svg";
 import customChartIcon from "../../icons/custom_chart.svg";
-import logo from "../../icons/Nykken_logo_expanded.svg";
+import logo from "../../icons/Nykken_extended.svg";
 
 import "./header.scss";
 import { CustomChartModal } from "../Modal/CustomChartModal";
