@@ -9,7 +9,6 @@ import plusIcon from "../../icons/plus.svg";
 
 import "./modals.scss";
 
-
 export const EditSensorsModal = ({
   sensorID,
   sensors,
@@ -96,7 +95,7 @@ export const EditSensorsModal = ({
                 </div>
               ))}
           </form>
-          <Button text="Save changes" onClick={handleClick} />
+          <Button className="save" text="Save changes" onClick={handleClick} />
         </div>
         <Button className="close" icon={plusIcon} onClick={closeModal} />
       </div>

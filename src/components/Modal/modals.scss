@@ -31,8 +31,7 @@ $primaryBackground: #fafbf9;
     position: absolute;
     top: 40%;
     left: 50%;
-    transform: translate(-50%, -50%);
-
+    transform: translate(-50%, -40%);
     border: 1px solid $strokeColor;
     background-color: #fff;
     overflow: visible;
@@ -43,8 +42,8 @@ $primaryBackground: #fafbf9;
     .modal-content {
       padding: 20px;
 
-      button.add {
-        margin-top: 1em;
+      button.add,
+      button.save {
         margin-left: auto;
       }
     }
@@ -197,7 +196,8 @@ $primaryBackground: #fafbf9;
       margin: 1em 0 0;
     }
 
-    button.add {
+    button.add,
+    button.save {
       margin-top: 0;
     }
   }
