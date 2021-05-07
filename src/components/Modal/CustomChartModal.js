@@ -46,7 +46,10 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
           {id !== 5 && <circle r={5} cx={5} cy={5} fill={markColor} />}
           {id === 5 && <rect width={9} height={9} fill={markColor} />}
         </svg>
-        <p className="small">{sensor.title}</p>
+        <p className="small">
+          {sensor.title}
+          {id !== 2 && id !== 3 && " (no data)"}
+        </p>
       </div>
     );
   };
@@ -70,8 +73,6 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
     { data: data1, dataInfo: dataInfo1 },
     { data: data2, dataInfo: dataInfo2 },
   ];
-
-  console.log(chartSensors);
 
   const handleChange = (currentSensor) => {
     if (chosenSensors.includes(currentSensor)) {

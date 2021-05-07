@@ -5,6 +5,8 @@ export const useAllDataInfo = () => {
   const [allDataInfo, setAllDataInfo] = useState([]);
   const [id, setId] = useState(1);
 
+  console.log(allDataInfo);
+
   useEffect(() => {
     /* for (let i = id; i <= 12; i++) {
       axios
@@ -25,8 +27,10 @@ export const useAllDataInfo = () => {
           setAllDataInfo((allDataInfo) => [...allDataInfo, response.data]);
           setId(id + 1);
         } else if (id === 13) {
-          setAllDataInfo((allDataInfo) => [...allDataInfo, response.data]);
-          console.log("Added sensor with id " + id);
+          if (allDataInfo.length < 13) {
+            setAllDataInfo((allDataInfo) => [...allDataInfo, response.data]);
+            console.log("Added all data info");
+          }
         }
       })
       .catch((error) => {

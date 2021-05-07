@@ -124,15 +124,9 @@ export const CustomTimeModal = ({
         <div className="modal-content">
           <div className="modal-title">
             <h3>Select time frame and granularity</h3>
-            {(!sensor || !chartGroup) && (
-              <p className="small">{''}</p>
-            )}
-            {sensor && !chartGroup && (
-              <p className="small">{sensor.title}</p>   
-            )}
-            {!sensor && chartGroup && (
-              <p className="small">{groupName}</p> 
-            )}
+            {(!sensor || !chartGroup) && <p className="small">{""}</p>}
+            {sensor && !chartGroup && <p className="small">{sensor.title}</p>}
+            {!sensor && chartGroup && <p className="small">{groupName}</p>}
           </div>
           <div className="selects">
             <div className="select-time">
@@ -180,7 +174,7 @@ export const CustomTimeModal = ({
               </div>
             </div>
           )}
-          <Button text="Confirm" onClick={handleClick} />
+          <Button className="save" text="Confirm" onClick={handleClick} />
         </div>
         <Button className="close" icon={plusIcon} onClick={closeModal} />
       </div>
