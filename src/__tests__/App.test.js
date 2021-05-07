@@ -4,7 +4,7 @@ import { render } from '@testing-library/react'
 import App from '../App';
 
 
-//Surpressing warning as suggested by:
+//Suppressing warning as suggested by:
 const originalError = global.console.error;
 beforeAll(() => {
 	global.console.error = jest.fn((...args) => {

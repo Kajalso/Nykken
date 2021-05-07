@@ -1,8 +1,21 @@
 $secondaryText: #79807c;
 $strokeColor: #e3e4e1;
 
-.select-time {
+.selects {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sensor-chart {
+  a {
+    font-size: 12px;
+  }
+}
+
+.select-time,
+.select-granularity {
   position: relative;
+  margin-right: 1.5em;
   > * {
     display: inline-block;
   }
@@ -10,29 +23,10 @@ $strokeColor: #e3e4e1;
   p {
     margin-right: 1em;
   }
-
-  .from,
-  .until {
-    margin-bottom: 0.3em;
-  }
-
-  .fetch-data {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-  }
-
-  .date-picker {
-    display: block;
-
-    label {
-      margin-right: 1em;
-    }
-  }
 }
 
 h3.section-title {
-  margin-bottom: 0.5em;
+  margin: 0;
 }
 
 @media only screen and (min-width: 768px) {

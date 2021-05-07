@@ -1,25 +1,35 @@
-$colorBlue: rgb(156, 204, 248);
-$colorRed: rgb(250, 143, 143);
-$colorPurple: rgb(214, 106, 241);
+$strokeColor: #e3e4e1;
 
 /* Chart styling */
 .chart {
+  background-color: white;
+  padding: 0.5em 0 0.5em 1em;
+  border: 1px solid $strokeColor;
+  border-radius: 8px;
+  display: inline-block;
+
   svg {
     overflow: visible;
+    display: block;
+    margin: auto;
   }
 }
 
 /* Marks styling */
-.mark-circle {
-  fill: $colorPurple;
-}
-
 .mark-temp-line {
   fill: none;
-  stroke: $colorPurple;
   stroke-width: 3;
   stroke-linejoin: round;
   stroke-linecap: round;
+}
+
+.mark-bar {
+  stroke-width: 1.5;
+  fill-opacity: 0.8;
+}
+
+.mark-temp-area {
+  fill-opacity: 0.5;
 }
 
 .axis-label {
@@ -27,13 +37,14 @@ $colorPurple: rgb(214, 106, 241);
   fill: #635f5d;
 }
 
-.axis-label.y {
+.axis-label.y,
+.custom-axis-label.y {
   text-anchor: middle;
 }
 
 .axis-date {
   text-anchor: middle;
-  font-size: small;
+  font-size: 12px;
   font-weight: 500;
   fill: #635f5d;
 }
@@ -41,12 +52,12 @@ $colorPurple: rgb(214, 106, 241);
 /* Axes styling */
 
 .tick-line {
-  stroke: #c0c0bb;
+  stroke: #c0c0bb3f;
 }
 
 .tick-text-x {
   text-anchor: middle;
-  font-size: x-small;
+  font-size: 10px;
   fill: #635f5d;
 }
 
@@ -54,4 +65,8 @@ $colorPurple: rgb(214, 106, 241);
   text-anchor: end;
   font-size: x-small;
   fill: #635f5d;
+}
+
+.tick-text-y.right {
+  text-anchor: start;
 }

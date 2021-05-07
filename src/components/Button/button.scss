@@ -36,3 +36,14 @@ $smallButtonBackground: $secondaryBackground;
     transform: rotate(45deg);
   }
 }
+
+.button.chart-options {
+  background: none;
+  padding: 0.5em 0;
+
+  > img {
+    width: 1.5em;
+    height: 1.5em;
+    transform: rotate(90deg);
+  }
+}

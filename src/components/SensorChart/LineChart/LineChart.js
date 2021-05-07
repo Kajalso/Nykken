@@ -1,62 +1,94 @@
-import React from "react";
-import {
-  scaleTime,
-  scaleLinear,
-  extent,
-  timeFormat,
-  utcFormat,
-  curveMonotoneX,
-} from "d3";
+import React, { useState, useEffect } from "react";
+import { scaleTime, scaleLinear, extent, curveMonotoneX } from "d3";
 
-import { AxisBottom } from "./AxisBottom";
-import { AxisLeft } from "./AxisLeft";
+import { AxisBottom } from "./Axes/AxisBottom";
+import { AxisLeft } from "./Axes/AxisLeft";
 import { Marks } from "./Marks";
 
-import "./chart.scss";
+import { useChartProps, useGroupProps } from "../../../styles/useChartStyles";
 
-const width = 700;
-const height = 400;
-const margin = { top: 10, right: 50, bottom: 50, left: 60 };
+import "../chart.scss";
+
 const circleRadius = 2;
 
-const innerHeight = height - margin.top - margin.bottom;
-const innerWidth = width - margin.right - margin.left;
+export const LineChart = React.forwardRef(
+  ({ data = [], dataInfo = {}, inGroup }, ref) => {
+    let {
+      width,
+      height,
+      margin,
+      innerHeight,
+      innerWidth,
+      xValue,
+      xAxisLabel,
+      xAxisLabelOffset,
+      xAxisDateOffset,
+      xAxisTickFormat,
+      yValue,
+      yAxisLabel,
+      yAxisLabelOffset,
+      dateFormat,
+    } = useChartProps();
 
-// X values
-const xValue = (d) => new Date(d.time_stamp_utc);
-let xAxisLabel = "Time";
-const xAxisLabelOffset = 40;
-const xAxisDateOffset = 50;
+    /*
+    const [chartWidth, setChartWidth] = useState(width);
+    let tempChartWidth = width;
 
-// Y values
-const yValue = (d) => +d.measurement;
-let yAxisLabel = "Measurement";
-const yAxisLabelOffset = 50;
+     window.addEventListener("resize", () => {
+      if (document.body.clientWidth > 1025) {
+        console.log("Large screen.");
+        tempChartWidth = 800;
+      }
+      if (document.body.clientWidth > 768) {
+        console.log("Medium screen.");
+        tempChartWidth = 600;
+      } else {
+        console.log("Small screen");
+        tempChartWidth = 400;
+      }
+    });
 
-// Axis formats
-const xAxisTickFormat = utcFormat("%H:%M");
-const dateFormat = (d) => timeFormat("%A %d %B %Y")(new Date(d.time_stamp_utc));
+    useEffect(() => {
+      setChartWidth(tempChartWidth);
+    }, [chartWidth]); */
 
-export const LineChart = ({ data = [], dataInfo = {} }) => {
-  if (!data || !dataInfo) {
-    return <pre>Loading chart...</pre>;
-  }
+    // Group props
+    let {
+      groupWidth,
+      groupHeight,
+      groupMargin,
+      groupInnerHeight,
+      groupInnerWidth,
+    } = useGroupProps();
 
-  // Linear scale for x values
-  const xScale = scaleTime()
-    .domain(extent(data, xValue)) // Extent-function replaces min, max
-    .range([0, innerWidth])
-    .nice(); // Adjusts the axis to prevent overlap
+    if (inGroup) {
+      console.log("This chart is in a group");
+      width = groupWidth;
+      height = groupHeight;
+      margin = groupMargin;
+      innerWidth = groupInnerWidth;
+      innerHeight = groupInnerHeight;
+      console.log(width);
+    }
 
-  // Linear scale for y values
-  const yScale = scaleLinear()
-    .domain(extent(data, yValue))
-    .range([innerHeight, 0])
-    .nice();
+    if (!data || !dataInfo) {
+      return <pre>Loading chart...</pre>;
+    }
 
-  return (
-    <div className="chart">
-      <div className="data">
+    // Linear scale for x values
+    const xScale = scaleTime()
+      .domain(extent(data, xValue)) // Extent-function replaces min, max
+      .range([0, innerWidth])
+      .nice(); // Adjusts the axis to prevent overlap
+
+    // Linear scale for y values
+    const yScale = scaleLinear()
+      .domain(extent(data, yValue))
+      .range([innerHeight, 0])
+      .nice();
+
+    return (
+      <div className="chart" ref={ref}>
         <svg width={width} height={height}>
           <g transform={`translate(${margin.left}, ${margin.top})`}>
             <AxisBottom
@@ -76,13 +108,14 @@ export const LineChart = ({ data = [], dataInfo = {} }) => {
               xFormat={xAxisTickFormat}
               circleRadius={circleRadius}
               curveStyle={curveMonotoneX}
+              innerHeight={innerHeight}
             />
             <text
               x={innerWidth - yAxisLabelOffset}
               y={innerHeight + xAxisLabelOffset}
               className={"axis-label x small"}
             >
-              {xAxisLabel + " (min)"}
+              {xAxisLabel}
             </text>
             <text
               x={innerWidth / 2}
@@ -96,11 +129,11 @@ export const LineChart = ({ data = [], dataInfo = {} }) => {
               transform={`translate(${-yAxisLabelOffset},
                 ${innerHeight / 2}) rotate(-90)`}
             >
-              {yAxisLabel + " (" + dataInfo.unit + ")"}
+              {yAxisLabel(dataInfo) + " (" + dataInfo.unit + ")"}
             </text>
           </g>
         </svg>
       </div>
-    </div>
-  );
-};
+    );
+  }
+);

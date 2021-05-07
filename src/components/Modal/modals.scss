@@ -2,6 +2,7 @@ $secondaryText: #79807c;
 $strokeColor: #e3e4e1;
 $primaryBackground: #fafbf9;
 
+// General modal
 .modal-background {
   position: fixed;
   top: 0;
@@ -25,13 +26,12 @@ $primaryBackground: #fafbf9;
   }
 
   .modal {
-    min-height: 250px;
+    min-height: 200px;
     width: 400px;
     position: absolute;
     top: 40%;
     left: 50%;
-    transform: translate(-50%, -50%);
-
+    transform: translate(-50%, -40%);
     border: 1px solid $strokeColor;
     background-color: #fff;
     overflow: visible;
@@ -42,16 +42,17 @@ $primaryBackground: #fafbf9;
     .modal-content {
       padding: 20px;
 
-      button {
-        margin-top: 1em;
+      button.add,
+      button.save {
         margin-left: auto;
       }
     }
   }
 }
 
+// Sensor select
 .sensor-select {
-  padding-left: 0.5em;
+  margin-left: 0.5em;
   display: grid;
   grid-template-columns: auto auto;
   grid-gap: 12px;
@@ -88,7 +89,75 @@ $primaryBackground: #fafbf9;
   }
 }
 
+.sensors {
+  h6 {
+    margin: 0 0 0.5em 0;
+  }
+}
+
+// Custom time frame modal
+.date-picker {
+  display: grid;
+
+  .from,
+  .until {
+    display: block;
+    margin-bottom: 0.5em;
+  }
+
+  .fetch-data {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+  }
+}
+
+// Custom chart modal
+.custom-chart-modal {
+  .chart-content-options {
+    grid-gap: 1em;
+  }
+
+  .modal-title {
+    margin-bottom: 0;
+  }
+
+  .chart-title {
+    margin-top: 0;
+  }
+
+  .modal-content .chart-content-options {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    align-content: flex-end;
+  }
+
+  .chart-name {
+    display: inline-block;
+    margin: 0;
+
+    label {
+      margin-right: 0.5em;
+    }
+  }
+}
+
+// Greate group modal
+.modal.group-modal {
+  .group-name {
+    display: inline-block;
+    margin: 1.5em 0.5em 0;
+
+    label {
+      margin-right: 0.5em;
+    }
+  }
+}
+
+// Media queries
 @media only screen and (min-width: 768px) {
+  // General modal
   .modal-background {
     .modal {
       width: 600px;
@@ -105,7 +174,49 @@ $primaryBackground: #fafbf9;
     }
   }
 
+  // Sensor select
+
   .sensor-select {
     grid-template-columns: auto auto auto;
+  }
+
+  // Custom chart modal
+  .modal.custom-chart-modal {
+    width: 700px;
+
+    .chart-content-options {
+      .sensor-select {
+        grid-template-columns: auto auto auto;
+        grid-gap: 0.25em;
+      }
+    }
+
+    .chart-name {
+      display: inline-block;
+      margin: 1em 0 0;
+    }
+
+    button.add,
+    button.save {
+      margin-top: 0;
+    }
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  // Custom chart modal
+  .modal.custom-chart-modal {
+    width: 800px;
+
+    .chart-content-options {
+      grid-template-columns: auto auto;
+    }
+
+    .modal-content .chart-content-options {
+      .sensor-select {
+        grid-template-columns: auto;
+        grid-gap: 0.25em;
+      }
+    }
   }
 }
