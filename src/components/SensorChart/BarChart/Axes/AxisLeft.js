@@ -1,6 +1,8 @@
+import React from "react";
+
 export const AxisLeft = ({ yScale, innerWidth }) => {
-  return yScale.ticks().map((tickValue) => (
-    <>
+  return yScale.ticks().map((tickValue, i) => (
+    <React.Fragment key={i}>
       <line
         y1={yScale(tickValue)}
         y2={yScale(tickValue)}
@@ -11,6 +13,6 @@ export const AxisLeft = ({ yScale, innerWidth }) => {
       <text className={"tick-text-y"} x={-5} y={yScale(tickValue)} dy={".5em"}>
         {tickValue}
       </text>
-    </>
+    </React.Fragment>
   ));
 };

@@ -87,7 +87,6 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
         ) ||
         chartSensors.some((sensor) => sensor.dataInfo === sensors[1].dataInfo)
       ) {
-        console.log("Remove");
         setChartSensors(
           chartSensors.filter(
             (sensor) =>

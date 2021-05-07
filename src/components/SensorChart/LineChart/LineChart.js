@@ -62,13 +62,11 @@ export const LineChart = React.forwardRef(
     } = useGroupProps();
 
     if (inGroup) {
-      console.log("This chart is in a group");
       width = groupWidth;
       height = groupHeight;
       margin = groupMargin;
       innerWidth = groupInnerWidth;
       innerHeight = groupInnerHeight;
-      console.log(width);
     }
 
     if (!data || !dataInfo) {

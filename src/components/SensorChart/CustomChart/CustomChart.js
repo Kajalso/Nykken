@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import {
   scaleTime,
   min,
@@ -10,10 +10,14 @@ import {
 
 import { useChartProps, useCustomProps } from "../../../styles/useChartStyles";
 import { useColors } from "../../../styles/useChartStyles";
+import { exportComponentAsPNG } from "react-component-export-image";
 
 import { AxisBottom } from "./Axes/AxisBottom";
 import { AxisLeft } from "./Axes/AxisLeft";
 import { AxisRight } from "./Axes/AxisRight";
+
+import { ChartOptions } from "../../SensorChart/ChartOptions";
+import { useSessionStorage } from "../../../storage/useSessionStorage";
 
 import { Marks as LineMarks } from "../LineChart/Marks";
 import { Marks as BarMarks } from "../BarChart/Marks";
@@ -23,9 +27,72 @@ import "./customChart.scss";
 const circleRadius = 2;
 const barChartIDs = [5, 8, 10, 12];
 
+const exampleDate = "2021-03-01";
+const exampleStartTime = "00:00:00";
+const exampleEndTime = "00:11:00";
+
 export const CustomChart = ({ sensors }) => {
+  let id = 1;
   const chosenSensors = sensors;
   const colors = useColors();
+  const componentRef = useRef();
+  const [granularity, setGranularity] = useSessionStorage(
+    id + "granularity",
+    "measured"
+  );
+
+  if (sensors && sensors[0]) {
+    id = sensors[0].dataInfo.data_identifier;
+  }
+
+  const [startDate, setStartDate] = useState(exampleDate); //useSessionStorage('startDate', exampleDate);
+  const [endDate, setEndDate] = useState(exampleDate); //useSessionStorage('endDate', exampleDate);
+
+  const [startTime, setStartTime] = useState(exampleStartTime);
+  const [endTime, setEndTime] = useState(exampleEndTime);
+
+  const [startDateTime, setStartDateTime] = useSessionStorage(
+    id + "start",
+    startDate + startTime
+  ); //useState(startDate + startTime)
+  const [endDateTime, setEndDateTime] = useSessionStorage(
+    id + "end",
+    endDate + endTime
+  ); //useState(endDate + endTime)
+
+  // Handle confirm custom time frame from modal
+  const handleConfirm = (
+    startTimeFromInput,
+    endTimeFromInput,
+    startDateFromInput,
+    endDateFromInput,
+    granularity
+  ) => {
+    setStartTime(startTimeFromInput);
+    setEndTime(endTimeFromInput);
+    setStartDate(startDateFromInput);
+    setEndDate(endDateFromInput);
+    setGranularity(granularity);
+
+    // Check for correct time format when using Chrome
+    if (startTimeFromInput.length < 6) {
+      setStartDateTime(startDateFromInput + startTimeFromInput + ":00");
+    } else {
+      setStartDateTime(startDateFromInput + startTimeFromInput);
+    }
+    if (endTimeFromInput.length < 6) {
+      setEndDateTime(endDateFromInput + endTimeFromInput + ":00");
+    } else {
+      setEndDateTime(endDateFromInput + endTimeFromInput);
+    }
+  };
+
+  const handleDownloadPNG = () => {
+    exportComponentAsPNG(componentRef, {
+      fileName:
+        "combined_chart" + "_from_" + startDateTime + "_to_" + endDateTime,
+    });
+  };
 
   let {
     xValue,
@@ -98,7 +165,14 @@ export const CustomChart = ({ sensors }) => {
 
   return (
     <div className="custom-chart">
-      <div className="chart">
+      {chosenSensors && chosenSensors[0] && (
+        <ChartOptions
+          sensors={chosenSensors}
+          handleConfirm={handleConfirm}
+          handleDownloadPNG={handleDownloadPNG}
+        />
+      )}
+      <div className="chart" ref={componentRef}>
         <svg width={width} height={height}>
           {chosenSensors && chosenSensors[0] && (
             <g transform={`translate(${margin.left}, ${margin.top})`}>
@@ -111,7 +185,7 @@ export const CustomChart = ({ sensors }) => {
               />
 
               {chosenSensors.map((sensor, i) => (
-                <>
+                <React.Fragment key={i}>
                   {chosenSensors.indexOf(sensor) % 2 === 0 && (
                     <>
                       <AxisLeft
@@ -159,7 +233,7 @@ export const CustomChart = ({ sensors }) => {
                       </text>
                     </>
                   )}
-                </>
+                </React.Fragment>
               ))}
               <text
                 x={innerWidth - yAxisLabelOffset}
