@@ -5,8 +5,6 @@ export const useAllDataInfo = () => {
   const [allDataInfo, setAllDataInfo] = useState([]);
   const [id, setId] = useState(1);
 
-  console.log(allDataInfo);
-
   useEffect(() => {
     /* for (let i = id; i <= 12; i++) {
       axios
