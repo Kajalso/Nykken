@@ -128,7 +128,11 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
 
   useEffect(() => {
     console.log("Sensors changed.");
-  }, [sensors]);
+    if (chartSensors && chartSensors[0]) {
+      setChartSensors(sensors);
+    }
+    console.log(sensors);
+  }, [data1, data2]);
 
   const handleChange = (currentSensor) => {
     if (chosenSensors.includes(currentSensor)) {
