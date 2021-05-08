@@ -27,12 +27,17 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
   const [chartName, setChartName] = useState("");
   const [chosenSensors, setChosenSensors] = useState([]);
   const [chartSensors, setChartSensors] = useState([]);
+  const [newChart, setNewChart] = useState([]);
   const componentRef = useRef();
   let id = 1;
   const [granularity, setGranularity] = useSessionStorage(
     id + "granularity",
     "measured"
   );
+  const [errorMessage, setErrorMessage] = useState(
+    "Please select more than one sensor in chart"
+  );
+  const [displayError, setDisplayError] = useState("none");
 
   // Time frame for chart
   const [startDate, setStartDate] = useState(exampleDate); //useSessionStorage('startDate', exampleDate);
@@ -134,6 +139,34 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
     console.log(sensors);
   }, [data1, data2]);
 
+  const handleAddChart = () => {
+    // Check if the chart has a name and more than one sensor
+
+    if (chosenSensors.length <= 1) {
+      setErrorMessage("Please choose more than one sensor");
+      setDisplayError("");
+    } else if (chartName === "" && chosenSensors.length > 1) {
+      setErrorMessage("Please give your chart a name");
+      setDisplayError();
+    } else {
+      setNewChart(chosenSensors);
+      setChosenSensors([]);
+      closeModal();
+      setDisplayError("none");
+    }
+
+    for (let sensor of chosenSensors) {
+      console.log(sensor);
+      if (
+        sensor.data_identifier !== sensors[0].dataInfo.data_identifier &&
+        sensor.data_identifier !== sensors[1].dataInfo.data_identifier
+      ) {
+        setErrorMessage("Please only choose sensors with data");
+        setDisplayError("");
+      }
+    }
+  };
+
   const handleChange = (currentSensor) => {
     if (chosenSensors.includes(currentSensor)) {
       setChosenSensors(
@@ -230,7 +263,13 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
               required
             />
           </div>
-          <Button className="add" text="Add chart" />
+          <p
+            className="error small"
+            style={{ color: `${colors.red}`, display: displayError }}
+          >
+            {errorMessage}
+          </p>
+          <Button className="add" text="Add chart" onClick={handleAddChart} />
         </div>
         <Button className="close" icon={plusIcon} onClick={closeModal} />
       </div>
