@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 import Modal from "react-modal";
 
@@ -11,6 +11,9 @@ import { useAllDataInfo } from "../../api/useAllDataInfo";
 import { useDataInfo } from "../../api/useDataInfo";
 import { useSensorData } from "../../api/useSensorData";
 import { useColors } from "../../styles/useChartStyles";
+import { useSessionStorage } from "../../storage/useSessionStorage";
+
+import { exportComponentAsPNG } from "react-component-export-image";
 
 import plusIcon from "../../icons/plus.svg";
 
@@ -24,11 +27,68 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
   const [chartName, setChartName] = useState("");
   const [chosenSensors, setChosenSensors] = useState([]);
   const [chartSensors, setChartSensors] = useState([]);
+  const componentRef = useRef();
+  let id = 1;
+  const [granularity, setGranularity] = useSessionStorage(
+    id + "granularity",
+    "measured"
+  );
+
+  // Time frame for chart
+  const [startDate, setStartDate] = useState(exampleDate); //useSessionStorage('startDate', exampleDate);
+  const [endDate, setEndDate] = useState(exampleDate); //useSessionStorage('endDate', exampleDate);
+
+  const [startTime, setStartTime] = useState(exampleStartTime);
+  const [endTime, setEndTime] = useState(exampleEndTime);
+
+  const [startDateTime, setStartDateTime] = useSessionStorage(
+    id + "start",
+    startDate + startTime
+  ); //useState(startDate + startTime)
+  const [endDateTime, setEndDateTime] = useSessionStorage(
+    id + "end",
+    endDate + endTime
+  ); //useState(endDate + endTime)
+
   const colors = useColors();
 
+  // Handle confirm custom time frame from modal
+  const handleConfirm = (
+    startTimeFromInput,
+    endTimeFromInput,
+    startDateFromInput,
+    endDateFromInput,
+    granularity
+  ) => {
+    setStartTime(startTimeFromInput);
+    setEndTime(endTimeFromInput);
+    setStartDate(startDateFromInput);
+    setEndDate(endDateFromInput);
+    setGranularity(granularity);
+
+    // Check for correct time format when using Chrome
+    if (startTimeFromInput.length < 6) {
+      setStartDateTime(startDateFromInput + startTimeFromInput + ":00");
+    } else {
+      setStartDateTime(startDateFromInput + startTimeFromInput);
+    }
+    if (endTimeFromInput.length < 6) {
+      setEndDateTime(endDateFromInput + endTimeFromInput + ":00");
+    } else {
+      setEndDateTime(endDateFromInput + endTimeFromInput);
+    }
+  };
+
+  const handleDownloadPNG = () => {
+    exportComponentAsPNG(componentRef, {
+      fileName:
+        "combined_chart" + "_from_" + startDateTime + "_to_" + endDateTime,
+    });
+  };
+
   const ColorLegend = ({ sensor }) => {
-    const id = sensor.data_identifier;
     let markColor = colors.purple;
+    const id = sensor.data_identifier;
 
     // Set color to blue for everything minus these IDs
     if (!(id === 3 || id === 4 || id === 6)) {
@@ -57,22 +117,18 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
   const allDataInfo = useAllDataInfo();
 
   const dataInfo1 = useDataInfo(2);
-  const data1 = useSensorData(
-    2,
-    exampleDate + exampleStartTime,
-    exampleDate + exampleEndTime
-  );
+  const data1 = useSensorData(2, startDateTime, endDateTime, granularity);
   const dataInfo2 = useDataInfo(3);
-  const data2 = useSensorData(
-    3,
-    exampleDate + exampleStartTime,
-    exampleDate + exampleEndTime
-  );
+  const data2 = useSensorData(3, startDateTime, endDateTime, granularity);
 
   let sensors = [
     { data: data1, dataInfo: dataInfo1 },
     { data: data2, dataInfo: dataInfo2 },
   ];
+
+  useEffect(() => {
+    console.log("Sensors changed.");
+  }, [sensors]);
 
   const handleChange = (currentSensor) => {
     if (chosenSensors.includes(currentSensor)) {
@@ -123,7 +179,11 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
           </div>
 
           <div className="chart-content-options">
-            <CustomChart sensors={chartSensors} />
+            <CustomChart
+              sensors={chartSensors}
+              handleDownloadPNG={handleDownloadPNG}
+              handleConfirm={handleConfirm}
+            />
             <div className="sensors">
               <h6>Sensors</h6>
               <form className="sensor-select">
