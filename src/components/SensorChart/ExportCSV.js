@@ -26,7 +26,7 @@ export const ExportCSV = ({ data = [], dataInfo = {} }) => {
 
   return (
     <div>
-      <CSVLink {...csvReport}> Download as CSV </CSVLink>
+      <CSVLink {...csvReport}>Download as CSV</CSVLink>
     </div>
   );
 };

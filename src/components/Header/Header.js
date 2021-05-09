@@ -13,7 +13,7 @@ import "./header.scss";
 import { CustomChartModal } from "../Modal/CustomChartModal";
 
 // const dateFormat = (d) => timeFormat("%d.%m.%y %H:%M")(new Date());
-const latestDate = "05.03.21 06:02";
+const latestDate = "07.05.21 03:00";
 
 export const Header = () => {
   const [groupModalIsOpen, setGroupModalIsOpen] = useState(false);

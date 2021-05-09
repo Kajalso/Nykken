@@ -30,16 +30,17 @@ export const Marks = ({
   return (
     <>
       <path
-        className="mark-temp-line"
+        className="mark-line"
         stroke={markColor}
         d={line()
           .x((d) => xScale(xValue(d)))
           .y((d) => yScale(yValue(d)))
           .curve(curveStyle)(data)}
       />
+
       {areaChart && (
         <path
-          className="mark-temp-area"
+          className="mark-area"
           fill={markColor}
           d={area()
             .x((d) => xScale(xValue(d)))

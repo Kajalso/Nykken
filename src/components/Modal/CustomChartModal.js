@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 
 import Modal from "react-modal";
 
 import { Button } from "../Button/Button";
 
-import { SensorChart } from "../SensorChart/SensorChart";
-import { CustomChart } from "../SensorChart/CustomChart/CustomChart";
+import { ModalCustomChart as CustomChart } from "../CustomCharts/CustomChart/ModalCustomChart";
+import { CustomChartsContext } from "../../context/CustomChartsContext";
 
 import { useAllDataInfo } from "../../api/useAllDataInfo";
 import { useDataInfo } from "../../api/useDataInfo";
 import { useSensorData } from "../../api/useSensorData";
 import { useColors } from "../../styles/useChartStyles";
+import { useSessionStorage } from "../../storage/useSessionStorage";
 
 import plusIcon from "../../icons/plus.svg";
 
@@ -21,14 +22,69 @@ const exampleStartTime = "00:00:00";
 const exampleEndTime = "00:11:00";
 
 export const CustomChartModal = ({ isOpen, closeModal }) => {
+  const { dispatch } = useContext(CustomChartsContext);
   const [chartName, setChartName] = useState("");
   const [chosenSensors, setChosenSensors] = useState([]);
   const [chartSensors, setChartSensors] = useState([]);
+  const [newChart, setNewChart] = useState([]);
+  let id = 1;
+  const [granularity, setGranularity] = useSessionStorage(
+    id + "granularity",
+    "measured"
+  );
+  const [errorMessage, setErrorMessage] = useState(
+    "Please select more than one sensor in chart"
+  );
+  const [displayError, setDisplayError] = useState("none");
+
+  // Time frame for chart
+  const [startDate, setStartDate] = useState(exampleDate); //useSessionStorage('startDate', exampleDate);
+  const [endDate, setEndDate] = useState(exampleDate); //useSessionStorage('endDate', exampleDate);
+
+  const [startTime, setStartTime] = useState(exampleStartTime);
+  const [endTime, setEndTime] = useState(exampleEndTime);
+
+  const [startDateTime, setStartDateTime] = useSessionStorage(
+    id + "start",
+    startDate + startTime
+  ); //useState(startDate + startTime)
+  const [endDateTime, setEndDateTime] = useSessionStorage(
+    id + "end",
+    endDate + endTime
+  ); //useState(endDate + endTime)
+
   const colors = useColors();
 
+  // Handle confirm custom time frame from modal
+  const handleConfirm = (
+    startTimeFromInput,
+    endTimeFromInput,
+    startDateFromInput,
+    endDateFromInput,
+    granularity
+  ) => {
+    setStartTime(startTimeFromInput);
+    setEndTime(endTimeFromInput);
+    setStartDate(startDateFromInput);
+    setEndDate(endDateFromInput);
+    setGranularity(granularity);
+
+    // Check for correct time format when using Chrome
+    if (startTimeFromInput.length < 6) {
+      setStartDateTime(startDateFromInput + startTimeFromInput + ":00");
+    } else {
+      setStartDateTime(startDateFromInput + startTimeFromInput);
+    }
+    if (endTimeFromInput.length < 6) {
+      setEndDateTime(endDateFromInput + endTimeFromInput + ":00");
+    } else {
+      setEndDateTime(endDateFromInput + endTimeFromInput);
+    }
+  };
+
   const ColorLegend = ({ sensor }) => {
-    const id = sensor.data_identifier;
     let markColor = colors.purple;
+    const id = sensor.data_identifier;
 
     // Set color to blue for everything minus these IDs
     if (!(id === 3 || id === 4 || id === 6)) {
@@ -57,22 +113,61 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
   const allDataInfo = useAllDataInfo();
 
   const dataInfo1 = useDataInfo(2);
-  const data1 = useSensorData(
-    2,
-    exampleDate + exampleStartTime,
-    exampleDate + exampleEndTime
-  );
+  const data1 = useSensorData(2, startDateTime, endDateTime, granularity);
   const dataInfo2 = useDataInfo(3);
-  const data2 = useSensorData(
-    3,
-    exampleDate + exampleStartTime,
-    exampleDate + exampleEndTime
-  );
+  const data2 = useSensorData(3, startDateTime, endDateTime, granularity);
 
   let sensors = [
     { data: data1, dataInfo: dataInfo1 },
     { data: data2, dataInfo: dataInfo2 },
   ];
+
+  useEffect(() => {
+    if (newChart.length === 0 || newChart.length === 1) {
+      return null;
+    } else {
+      dispatch({
+        type: "ADD_CUSTOM_CHART",
+        customChart: { chartName, newChart },
+      });
+    }
+  }, [newChart]);
+
+  useEffect(() => {
+    console.log("Sensors changed.");
+    if (chartSensors && chartSensors[0]) {
+      setChartSensors(sensors);
+    }
+    console.log(sensors);
+  }, [data1, data2]);
+
+  const handleAddChart = () => {
+    // Check if the chart has a name and more than one sensor
+
+    if (chosenSensors.length <= 1) {
+      setErrorMessage("Please choose more than one sensor");
+      setDisplayError("");
+    } else if (chartName === "" && chosenSensors.length > 1) {
+      setErrorMessage("Please give your chart a name");
+      setDisplayError();
+    } else {
+      setNewChart(chartSensors);
+      setChosenSensors([]);
+      closeModal();
+      setDisplayError("none");
+    }
+
+    for (let sensor of chosenSensors) {
+      console.log(sensor);
+      if (
+        sensor.data_identifier !== sensors[0].dataInfo.data_identifier &&
+        sensor.data_identifier !== sensors[1].dataInfo.data_identifier
+      ) {
+        setErrorMessage("Please only choose sensors with data");
+        setDisplayError("");
+      }
+    }
+  };
 
   const handleChange = (currentSensor) => {
     if (chosenSensors.includes(currentSensor)) {
@@ -87,7 +182,6 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
         ) ||
         chartSensors.some((sensor) => sensor.dataInfo === sensors[1].dataInfo)
       ) {
-        console.log("Remove");
         setChartSensors(
           chartSensors.filter(
             (sensor) =>
@@ -124,7 +218,12 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
           </div>
 
           <div className="chart-content-options">
-            <CustomChart sensors={chartSensors} />
+            <CustomChart
+              chartSensors={chartSensors}
+              startDateTime={startDateTime}
+              endDateTime={endDateTime}
+              handleConfirm={handleConfirm}
+            />
             <div className="sensors">
               <h6>Sensors</h6>
               <form className="sensor-select">
@@ -167,7 +266,13 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
               required
             />
           </div>
-          <Button className="add" text="Add chart" />
+          <p
+            className="error small"
+            style={{ color: `${colors.red}`, display: displayError }}
+          >
+            {errorMessage}
+          </p>
+          <Button className="add" text="Add chart" onClick={handleAddChart} />
         </div>
         <Button className="close" icon={plusIcon} onClick={closeModal} />
       </div>

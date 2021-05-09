@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useContext } from "react";
 import {
   scaleTime,
   min,
@@ -11,21 +11,39 @@ import {
 import { useChartProps, useCustomProps } from "../../../styles/useChartStyles";
 import { useColors } from "../../../styles/useChartStyles";
 
+import { CustomChartsContext } from "../../../context/CustomChartsContext";
+
 import { AxisBottom } from "./Axes/AxisBottom";
 import { AxisLeft } from "./Axes/AxisLeft";
 import { AxisRight } from "./Axes/AxisRight";
 
-import { Marks as LineMarks } from "../LineChart/Marks";
-import { Marks as BarMarks } from "../BarChart/Marks";
+import { ChartOptions } from "../../SensorChart/ChartOptions";
+
+import { Marks as LineMarks } from "../../SensorChart/LineChart/Marks";
+import { Marks as BarMarks } from "../../SensorChart/BarChart/Marks";
 
 import "./customChart.scss";
 
 const circleRadius = 2;
 const barChartIDs = [5, 8, 10, 12];
 
-export const CustomChart = ({ sensors }) => {
-  const chosenSensors = sensors;
+export const CustomChart = ({
+  customChart,
+  chartSensors,
+  handleDownloadPNG,
+  handleConfirm,
+}) => {
+  const { dispatch } = useContext(CustomChartsContext);
+  const chosenSensors = customChart.sensors;
+  const chartName = customChart.chartName;
+  const sensors = chartSensors;
   const colors = useColors();
+  const componentRef = useRef();
+  let id = 1;
+
+  if (sensors && sensors[0]) {
+    id = sensors[0].dataInfo.data_identifier;
+  }
 
   let {
     xValue,
@@ -38,14 +56,7 @@ export const CustomChart = ({ sensors }) => {
     dateFormat,
   } = useChartProps();
 
-  let {
-    width,
-    height,
-    margin,
-    innerWidth,
-    innerHeight,
-    xAxisLabelOffset,
-  } = useCustomProps();
+  let { width, height, margin, innerWidth, innerHeight } = useCustomProps();
 
   const chartColor = (id) => {
     let chartColor = colors.purple;
@@ -98,7 +109,14 @@ export const CustomChart = ({ sensors }) => {
 
   return (
     <div className="custom-chart">
-      <div className="chart">
+      {/* {chosenSensors && chosenSensors[0] && (
+        <ChartOptions
+          sensors={chosenSensors}
+          handleConfirm={handleConfirm}
+          handleDownloadPNG={handleDownloadPNG}
+        />
+      )} */}
+      <div className="chart" ref={componentRef}>
         <svg width={width} height={height}>
           {chosenSensors && chosenSensors[0] && (
             <g transform={`translate(${margin.left}, ${margin.top})`}>
@@ -111,7 +129,7 @@ export const CustomChart = ({ sensors }) => {
               />
 
               {chosenSensors.map((sensor, i) => (
-                <>
+                <React.Fragment key={i}>
                   {chosenSensors.indexOf(sensor) % 2 === 0 && (
                     <>
                       <AxisLeft
@@ -159,7 +177,7 @@ export const CustomChart = ({ sensors }) => {
                       </text>
                     </>
                   )}
-                </>
+                </React.Fragment>
               ))}
               <text
                 x={innerWidth - yAxisLabelOffset}
@@ -221,18 +239,3 @@ export const CustomChart = ({ sensors }) => {
     </div>
   );
 };
-
-/* <>
-                <LineMarks
-                  data={sensor.data}
-                  dataInfo={sensor.dataInfo}
-                  xScale={xScale(sensor.data)}
-                  yScale={yScale(sensor.data)}
-                  xValue={xValue}
-                  yValue={yValue}
-                  xFormat={xAxisTickFormat}
-                  circleRadius={circleRadius}
-                  curveStyle={curveMonotoneX}
-                  innerHeight={innerHeight}
-                />
-              </> */

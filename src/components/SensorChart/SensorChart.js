@@ -40,7 +40,7 @@ export const SensorChart = ({ dataInfo }) => {
   const [granularity, setGranularity] = useSessionStorage(
     id + "granularity",
     "measured"
-  ); //useState("measured");
+  );
 
   const closeCustomTimeModal = () => setCustomTimeModalIsOpen(false);
 

@@ -19,9 +19,6 @@ export const CreateGroupModal = ({ isOpen, closeModal }) => {
   const [groupedSensors, setGroupedSensors] = useState([]);
   const [newGroup, setNewGroup] = useState([]);
   const [groupName, setGroupName] = useState("");
-  const [infoText, setInfoText] = useState(
-    "Select multiple sensors to see in the same time frame"
-  );
 
   const colors = useColors();
   const [errorMessage, setErrorMessage] = useState(

@@ -1,8 +1,8 @@
 import React from "react";
 
 import Modal from "react-modal";
+import { CustomCharts } from "../CustomCharts/CustomCharts";
 import { SensorGroups } from "../SensorGroups/SensorGroups";
-
 import { SensorMeasurements } from "../SensorMeasurements/SensorMeasurements";
 
 import "./dashboard.scss";
@@ -14,6 +14,7 @@ export const Dashboard = () => {
     <div className="dashboard">
       <SensorMeasurements />
       <SensorGroups />
+      <CustomCharts />
     </div>
   );
 };
