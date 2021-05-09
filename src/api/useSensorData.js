@@ -19,7 +19,7 @@ export const useSensorData = (
     console.log("Data with ID " + id + " is fetching...");
     axios
       .get(
-        `https://ibmrisvol.ibm.ntnu.no/data?granularity=${granularity}&from=${startDate}T${startTime.slice(
+        `http://ibmrisvol.ibm.ntnu.no/data?granularity=${granularity}&from=${startDate}T${startTime.slice(
           0,
           2
         )}%3A${startTime.slice(3, 5)}%3A${startTime.slice(
