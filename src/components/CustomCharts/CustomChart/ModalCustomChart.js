@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useContext } from "react";
 import {
   scaleTime,
   min,
@@ -25,14 +25,18 @@ import "./customChart.scss";
 const circleRadius = 2;
 const barChartIDs = [5, 8, 10, 12];
 
-export const CustomChart = ({ sensors, handleDownloadPNG, handleConfirm }) => {
-  const chosenSensors = sensors;
+export const ModalCustomChart = ({
+  chartSensors,
+  handleDownloadPNG,
+  handleConfirm,
+}) => {
+  const chosenSensors = chartSensors;
   const colors = useColors();
   const componentRef = useRef();
   let id = 1;
 
-  if (sensors && sensors[0]) {
-    id = sensors[0].dataInfo.data_identifier;
+  if (chartSensors && chartSensors[0]) {
+    id = chartSensors[0].dataInfo.data_identifier;
   }
 
   let {

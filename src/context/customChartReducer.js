@@ -6,16 +6,13 @@ export const customChartReducer = (state, action) => {
       return [
         ...state,
         {
-          customChartName: action.customChart.chartName,
+          chartName: action.customChart.chartName,
           sensors: action.customChart.newChart,
           id: uuidv4(),
         },
       ];
     case "REMOVE_CUSTOM_CHART":
       return state.filter((customChart) => customChart.id !== action.id);
-
-    case "CHANGE_CUSTOM_CHART_NAME":
-      return { ...state, title: action.value };
 
     default:
       return state;

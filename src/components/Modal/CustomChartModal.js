@@ -1,11 +1,11 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 
 import Modal from "react-modal";
 
 import { Button } from "../Button/Button";
 
-import { SensorChart } from "../SensorChart/SensorChart";
-import { CustomChart } from "../SensorChart/CustomChart/CustomChart";
+import { ModalCustomChart as CustomChart } from "../CustomCharts/CustomChart/ModalCustomChart";
+import { CustomChartsContext } from "../../context/CustomChartsContext";
 
 import { useAllDataInfo } from "../../api/useAllDataInfo";
 import { useDataInfo } from "../../api/useDataInfo";
@@ -24,6 +24,7 @@ const exampleStartTime = "00:00:00";
 const exampleEndTime = "00:11:00";
 
 export const CustomChartModal = ({ isOpen, closeModal }) => {
+  const { dispatch } = useContext(CustomChartsContext);
   const [chartName, setChartName] = useState("");
   const [chosenSensors, setChosenSensors] = useState([]);
   const [chartSensors, setChartSensors] = useState([]);
@@ -132,6 +133,17 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
   ];
 
   useEffect(() => {
+    if (newChart.length === 0 || newChart.length === 1) {
+      return null;
+    } else {
+      dispatch({
+        type: "ADD_CUSTOM_CHART",
+        customChart: { chartName, newChart },
+      });
+    }
+  }, [newChart]);
+
+  useEffect(() => {
     console.log("Sensors changed.");
     if (chartSensors && chartSensors[0]) {
       setChartSensors(sensors);
@@ -149,7 +161,7 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
       setErrorMessage("Please give your chart a name");
       setDisplayError();
     } else {
-      setNewChart(chosenSensors);
+      setNewChart(chartSensors);
       setChosenSensors([]);
       closeModal();
       setDisplayError("none");
@@ -217,7 +229,7 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
 
           <div className="chart-content-options">
             <CustomChart
-              sensors={chartSensors}
+              chartSensors={chartSensors}
               handleDownloadPNG={handleDownloadPNG}
               handleConfirm={handleConfirm}
             />

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 
 import { CustomChartsContext } from "..//../context/CustomChartsContext";
-import { CustomChart } from "./CustomChart/CustomChart";
+import { CustomChart } from "./CustomChart/DashboardCustomChart";
 
 export const CustomCharts = () => {
   const { customCharts } = useContext(CustomChartsContext);
@@ -12,7 +12,14 @@ export const CustomCharts = () => {
       {customCharts.length === 0 && <p>No charts to show</p>}
       {customCharts &&
         customCharts.map((customChart) => (
-          <CustomChart chartName={customChart.chartName} key={customChart.id} />
+          <>
+            <h3>{customChart.chartName}</h3>
+            <CustomChart
+              customChart={customChart}
+              chartName={customChart.chartName}
+              key={customChart.id}
+            />
+          </>
         ))}
     </>
   );
