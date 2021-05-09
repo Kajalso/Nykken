@@ -9,7 +9,6 @@
     "axios": "^0.21.1",
     "d3": "^6.6.0",
     "react": "^17.0.1",
-    "react-component-export-image": "^1.0.5",
     "react-csv": "^2.0.3",
     "react-dom": "^17.0.1",
     "react-modal": "^3.12.1",
@@ -44,6 +43,6 @@
   },
   "devDependencies": {
     "@testing-library/react-hooks": "^5.1.1",
-    "react-component-export-image": "^1.0.5"
+    "react-component-export-image": "^1.0.6"
   }
 }
