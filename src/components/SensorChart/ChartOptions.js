@@ -16,10 +16,6 @@ const chartOptions = [
     value: "download_png",
     label: "Download PNG",
   },
-  {
-    value: "download_csv",
-    label: "Download CSV",
-  },
 ];
 
 export const ChartOptions = ({ sensors, handleConfirm, handleDownloadPNG }) => {
