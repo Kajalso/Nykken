@@ -1,4 +1,4 @@
-import React, { useRef, useContext } from "react";
+import React, { useRef } from "react";
 import {
   scaleTime,
   min,
@@ -7,6 +7,8 @@ import {
   extent,
   curveMonotoneX,
 } from "d3";
+
+import { exportComponentAsPNG } from "react-component-export-image";
 
 import { useChartProps, useCustomProps } from "../../../styles/useChartStyles";
 import { useColors } from "../../../styles/useChartStyles";
@@ -27,7 +29,8 @@ const barChartIDs = [5, 8, 10, 12];
 
 export const ModalCustomChart = ({
   chartSensors,
-  handleDownloadPNG,
+  startDateTime,
+  endDateTime,
   handleConfirm,
 }) => {
   const chosenSensors = chartSensors;
@@ -96,6 +99,13 @@ export const ModalCustomChart = ({
           .domain([minY(data), 0])
           .range(range)
       : 0;
+  };
+
+  const handleDownloadPNG = () => {
+    exportComponentAsPNG(componentRef, {
+      fileName:
+        "combined_chart" + "_from_" + startDateTime + "_to_" + endDateTime,
+    });
   };
 
   const isBarChart = (sensor) =>

@@ -13,8 +13,6 @@ import { useSensorData } from "../../api/useSensorData";
 import { useColors } from "../../styles/useChartStyles";
 import { useSessionStorage } from "../../storage/useSessionStorage";
 
-import { exportComponentAsPNG } from "react-component-export-image";
-
 import plusIcon from "../../icons/plus.svg";
 
 import "./modals.scss";
@@ -29,7 +27,6 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
   const [chosenSensors, setChosenSensors] = useState([]);
   const [chartSensors, setChartSensors] = useState([]);
   const [newChart, setNewChart] = useState([]);
-  const componentRef = useRef();
   let id = 1;
   const [granularity, setGranularity] = useSessionStorage(
     id + "granularity",
@@ -83,13 +80,6 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
     } else {
       setEndDateTime(endDateFromInput + endTimeFromInput);
     }
-  };
-
-  const handleDownloadPNG = () => {
-    exportComponentAsPNG(componentRef, {
-      fileName:
-        "combined_chart" + "_from_" + startDateTime + "_to_" + endDateTime,
-    });
   };
 
   const ColorLegend = ({ sensor }) => {
@@ -230,7 +220,8 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
           <div className="chart-content-options">
             <CustomChart
               chartSensors={chartSensors}
-              handleDownloadPNG={handleDownloadPNG}
+              startDateTime={startDateTime}
+              endDateTime={endDateTime}
               handleConfirm={handleConfirm}
             />
             <div className="sensors">

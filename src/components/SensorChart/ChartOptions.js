@@ -3,15 +3,7 @@ import React, { useState, useRef } from "react";
 import { ReactSelect as Select } from "../Select/Select";
 
 import { ExportCSV } from "./ExportCSV";
-
-import { LineChart } from "./LineChart/LineChart";
-import { BarChart } from "./BarChart/BarChart";
-
 import { CustomTimeModal } from "../Modal/CustomTimeModal";
-
-import { useSensorData } from "../../api/useSensorData";
-import { useSessionStorage } from "../../storage/useSessionStorage";
-import { useBarChartIDs } from "../../styles/useChartStyles";
 
 import moreIcon from "../../icons/more.svg";
 
@@ -23,6 +15,10 @@ const chartOptions = [
   {
     value: "download_png",
     label: "Download PNG",
+  },
+  {
+    value: "download_csv",
+    label: "Download CSV",
   },
 ];
 
