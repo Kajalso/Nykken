@@ -6,7 +6,7 @@ export const useDataInfo = (id) => {
 
   useEffect(() => {
     axios
-      .get(`http://ibmrisvol.ibm.ntnu.no/data/info?id=${id}`)
+      .get(`https://ibmrisvol.ibm.ntnu.no/data/info?id=${id}`)
       .then((response) => {
         setDataInfo(response.data);
       })

@@ -7,7 +7,7 @@ export const useAllDataInfo = () => {
 
   useEffect(() => {
     axios
-      .get(`http://ibmrisvol.ibm.ntnu.no/data/info?id=${id}`)
+      .get(`https://ibmrisvol.ibm.ntnu.no/data/info?id=${id}`)
       .then((response) => {
         if (id <= 12) {
           setAllDataInfo((allDataInfo) => [...allDataInfo, response.data]);
