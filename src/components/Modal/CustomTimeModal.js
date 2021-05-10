@@ -9,7 +9,9 @@ import plusIcon from "../../icons/plus.svg";
 
 import "./modals.scss";
 
-const exampleDate = "2021-03-01";
+const exampleDate = "2021-05-06";
+const exampleStartTime = "00:00:00";
+const exampleEndTime = "00:30:00";
 
 const timeOptions = [
   {
@@ -35,8 +37,10 @@ export const CustomTimeModal = ({
   closeModal,
 }) => {
   const [groupName, setGroupName] = useState(chartGroup);
-  const [startTimeFromInput, setStartTimeFromInput] = useState("00:00:00");
-  const [endTimeFromInput, setEndTimeFromInput] = useState("00:11:00");
+  const [startTimeFromInput, setStartTimeFromInput] = useState(
+    exampleStartTime
+  );
+  const [endTimeFromInput, setEndTimeFromInput] = useState(exampleEndTime);
   const [startDateFromInput, setStartDateFromInput] = useState(exampleDate);
   const [endDateFromInput, setEndDateFromInput] = useState(exampleDate);
 

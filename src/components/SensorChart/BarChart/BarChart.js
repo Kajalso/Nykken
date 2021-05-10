@@ -100,7 +100,7 @@ export const BarChart = React.forwardRef(
               y={innerHeight + xAxisDateOffset}
               className={"axis-date"}
             >
-              {dateFormat(data[0])}
+              Start date: {dateFormat(data[0])}
             </text>
             <text
               className={"axis-label y"}

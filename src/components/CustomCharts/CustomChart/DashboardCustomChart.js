@@ -191,7 +191,7 @@ export const CustomChart = ({
                 y={innerHeight + xAxisDateOffset}
                 className={"axis-date"}
               >
-                {dateFormat(chosenSensors[0].data[0])}
+                Start date: {chosenSensors[0].data[0]}
               </text>
 
               {chosenSensors &&

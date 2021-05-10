@@ -195,7 +195,7 @@ export const ModalCustomChart = ({
                 y={innerHeight + xAxisDateOffset}
                 className={"axis-date"}
               >
-                {dateFormat(chosenSensors[0].data[0])}
+                Start date: {dateFormat(chosenSensors[0].data[0])}
               </text>
 
               {chosenSensors &&

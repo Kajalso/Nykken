@@ -17,9 +17,9 @@ import plusIcon from "../../icons/plus.svg";
 
 import "./modals.scss";
 
-const exampleDate = "2021-03-01";
+const exampleDate = "2021-05-06";
 const exampleStartTime = "00:00:00";
-const exampleEndTime = "00:11:00";
+const exampleEndTime = "00:30:00";
 
 export const CustomChartModal = ({ isOpen, closeModal }) => {
   const { dispatch } = useContext(CustomChartsContext);

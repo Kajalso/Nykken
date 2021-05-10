@@ -9,9 +9,9 @@ import { GroupChart as Chart } from "./GroupChart";
 import moreIcon from "../../icons/more.svg";
 import { GroupsContext } from "../../context/GroupsContext";
 
-const exampleDate = "2021-03-01";
+const exampleDate = "2021-05-06";
 const exampleStartTime = "00:00:00";
-const exampleEndTime = "00:11:00";
+const exampleEndTime = "00:30:00";
 
 const chartOptions = [
   {
