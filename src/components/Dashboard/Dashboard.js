@@ -12,9 +12,9 @@ if (process.env.NODE_ENV !== "test") Modal.setAppElement("#root");
 export const Dashboard = () => {
   return (
     <div className="dashboard">
-      <SensorMeasurements />
-      <SensorGroups />
       <CustomCharts />
+      <SensorGroups />
+      <SensorMeasurements />
     </div>
   );
 };

@@ -10,16 +10,19 @@ export const SensorGroups = () => {
 
   return (
     <>
-      <h2 className="title groups">Groups</h2>
-      {groups.length === 0 && <p>No groups to show</p>}
-      {groups &&
-        groups.map((group) => (
-          <SensorGroup
-            groupName={group.groupName}
-            group={group}
-            key={group.id}
-          />
-        ))}
+      {groups.length === 0 && <div></div>}
+      {groups && groups[0] && (
+        <>
+          <h2 className="title groups">Groups</h2>
+          {groups.map((group) => (
+            <SensorGroup
+              groupName={group.groupName}
+              group={group}
+              key={group.id}
+            />
+          ))}
+        </>
+      )}
     </>
   );
 };
