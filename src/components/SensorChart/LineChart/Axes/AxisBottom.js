@@ -3,8 +3,9 @@ export const AxisBottom = ({
   innerHeight,
   tickFormat,
   tickOffset = 5,
+  tickAmount = 5,
 }) =>
-  xScale.ticks().map((tickValue, i) => (
+  xScale.ticks(tickAmount).map((tickValue, i) => (
     <g
       key={i}
       transform={`translate(${xScale(tickValue)},0)`}

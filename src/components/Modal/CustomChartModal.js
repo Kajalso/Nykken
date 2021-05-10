@@ -224,6 +224,7 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
               chartSensors={chartSensors}
               startDateTime={startDateTime}
               endDateTime={endDateTime}
+              granularity={granularity}
               handleConfirm={handleConfirm}
             />
             <div className="sensors">

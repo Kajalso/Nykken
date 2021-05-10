@@ -1,18 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { scaleTime, scaleLinear, extent, curveMonotoneX } from "d3";
+import { scaleTime, scaleLinear, extent, curveMonotoneX, utcFormat } from "d3";
 
 import { AxisBottom } from "./Axes/AxisBottom";
 import { AxisLeft } from "./Axes/AxisLeft";
 import { Marks } from "./Marks";
 
-import { useChartProps, useGroupProps } from "../../../styles/useChartStyles";
+import {
+  useChartProps,
+  useGroupProps,
+  useXAxisTickFormat,
+} from "../../../styles/useChartStyles";
 
 import "../chart.scss";
 
 const circleRadius = 2;
 
 export const LineChart = React.forwardRef(
-  ({ data = [], dataInfo = {}, inGroup }, ref) => {
+  ({ data = [], dataInfo = {}, granularity, inGroup }, ref) => {
     let {
       width,
       height,
@@ -23,12 +27,16 @@ export const LineChart = React.forwardRef(
       xAxisLabel,
       xAxisLabelOffset,
       xAxisDateOffset,
-      xAxisTickFormat,
       yValue,
       yAxisLabel,
       yAxisLabelOffset,
       dateFormat,
     } = useChartProps();
+
+    const startDateTime = data[0].time_stamp_utc;
+    const endDateTime = data[data.length - 1].time_stamp_utc;
+
+    let xAxisTickFormat = useXAxisTickFormat(granularity);
 
     /*
     const [chartWidth, setChartWidth] = useState(width);
