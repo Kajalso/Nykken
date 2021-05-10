@@ -5,26 +5,27 @@ import { CustomChart } from "./CustomChart/DashboardCustomChart";
 
 export const CustomCharts = () => {
   const { customCharts } = useContext(CustomChartsContext);
+  console.log(customCharts);
 
   return (
     <>
-      {customCharts.length === 0 && <div></div>}
-      {customCharts && (
+      {customCharts.length === 0 && (
         <>
           <h2 className="title">Custom charts</h2>
-
-          {customCharts.map((customChart) => (
-            <>
-              <h3>{customChart.chartName}</h3>
-              <CustomChart
-                customChart={customChart}
-                chartName={customChart.chartName}
-                key={customChart.id}
-              />
-            </>
-          ))}
+          <p>No charts to show</p>
         </>
       )}
+      {customCharts &&
+        customCharts.map((customChart) => (
+          <>
+            <h3>{customChart.chartName}</h3>
+            <CustomChart
+              customChart={customChart}
+              chartName={customChart.chartName}
+              key={customChart.id}
+            />
+          </>
+        ))}
     </>
   );
 };

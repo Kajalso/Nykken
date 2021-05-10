@@ -144,6 +144,8 @@ export const CustomChartModal = ({ isOpen, closeModal }) => {
   const handleAddChart = () => {
     // Check if the chart has a name and more than one sensor
 
+    console.log(chartSensors);
+
     if (chosenSensors.length <= 1) {
       setErrorMessage("Please choose more than one sensor");
       setDisplayError("");

@@ -33,21 +33,21 @@ export const Header = () => {
           onClick={() => setGroupModalIsOpen(true)}
         />
 
-        <Button
+        {/*         <Button
           className="btn-custom-chart"
           icon={customChartIcon}
           text="Create custom chart"
           onClick={() => setChartModalIsOpen(true)}
-        />
+        /> */}
       </div>
       <CreateGroupModal
         isOpen={groupModalIsOpen}
         closeModal={closeGroupModal}
       />
-      <CustomChartModal
+      {/* <CustomChartModal
         isOpen={chartModalIsOpen}
         closeModal={closeChartModal}
-      />
+      /> */}
       <p className="small">Last data update: {latestDate}</p>
     </div>
   );
