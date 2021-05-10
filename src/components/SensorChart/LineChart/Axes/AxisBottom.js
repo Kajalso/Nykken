@@ -3,8 +3,9 @@ export const AxisBottom = ({
   innerHeight,
   tickFormat,
   tickOffset = 5,
+  tickAmount = 5,
 }) =>
-  xScale.ticks().map((tickValue, i) => (
+  xScale.ticks(tickAmount).map((tickValue, i) => (
     <g
       key={i}
       transform={`translate(${xScale(tickValue)},0)`}
@@ -13,6 +14,7 @@ export const AxisBottom = ({
       <line y2={innerHeight} className={"tick-line"} />
       <text className={"tick-text-x"} y={innerHeight + tickOffset} dy={".5em"}>
         {tickFormat(tickValue)}
+        {console.log(tickFormat)}
       </text>
     </g>
   ));

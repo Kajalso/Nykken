@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { scaleTime, scaleLinear, extent, curveMonotoneX } from "d3";
+import { scaleTime, scaleLinear, extent, curveMonotoneX, utcFormat } from "d3";
 
 import { AxisBottom } from "./Axes/AxisBottom";
 import { AxisLeft } from "./Axes/AxisLeft";
@@ -12,7 +12,7 @@ import "../chart.scss";
 const circleRadius = 2;
 
 export const LineChart = React.forwardRef(
-  ({ data = [], dataInfo = {}, inGroup }, ref) => {
+  ({ data = [], dataInfo = {}, granularity, inGroup }, ref) => {
     let {
       width,
       height,
@@ -23,12 +23,33 @@ export const LineChart = React.forwardRef(
       xAxisLabel,
       xAxisLabelOffset,
       xAxisDateOffset,
-      xAxisTickFormat,
       yValue,
       yAxisLabel,
       yAxisLabelOffset,
       dateFormat,
     } = useChartProps();
+
+    const startDateTime = data[0].time_stamp_utc;
+    const endDateTime = data[data.length - 1].time_stamp_utc;
+
+    console.log(startDateTime < endDateTime);
+
+    let xAxisTickFormat = utcFormat("%H:%M");
+
+    if (granularity === "YEARLY") {
+      xAxisTickFormat = utcFormat("%b %Y");
+    } else if (granularity === "MONTHLY") {
+      xAxisTickFormat = utcFormat("%B");
+    } else if (granularity === "WEEKLY") {
+      xAxisTickFormat = utcFormat("%b %d");
+    } else if (granularity === "DAILY") {
+      xAxisTickFormat = utcFormat("%b %d");
+    } else if (granularity === "HOURLY") {
+      xAxisTickFormat = utcFormat("%H:%M");
+    }
+
+    console.log(granularity);
+    console.log(xAxisTickFormat);
 
     /*
     const [chartWidth, setChartWidth] = useState(width);

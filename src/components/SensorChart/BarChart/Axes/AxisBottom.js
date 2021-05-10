@@ -20,5 +20,6 @@ export const AxisBottom = ({
       >
         {tickFormat(tickValue)}
       </text>
+      )
     </g>
   ));

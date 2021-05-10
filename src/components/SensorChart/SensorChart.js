@@ -140,6 +140,7 @@ export const SensorChart = ({ dataInfo }) => {
             <BarChart
               data={sensorData}
               dataInfo={dataInfo}
+              granularity={granularity}
               ref={componentRef}
             />
           )}
@@ -147,6 +148,7 @@ export const SensorChart = ({ dataInfo }) => {
             <LineChart
               data={sensorData}
               dataInfo={dataInfo}
+              granularity={granularity}
               ref={componentRef}
             />
           )}
