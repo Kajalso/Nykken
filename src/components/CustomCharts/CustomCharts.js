@@ -9,7 +9,7 @@ export const CustomCharts = () => {
   return (
     <>
       {customCharts.length === 0 && <div></div>}
-      {customCharts && customCharts[0] && (
+      {customCharts && (
         <>
           <h2 className="title">Custom charts</h2>
 
