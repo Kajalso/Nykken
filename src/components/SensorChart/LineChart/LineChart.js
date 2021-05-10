@@ -5,7 +5,11 @@ import { AxisBottom } from "./Axes/AxisBottom";
 import { AxisLeft } from "./Axes/AxisLeft";
 import { Marks } from "./Marks";
 
-import { useChartProps, useGroupProps } from "../../../styles/useChartStyles";
+import {
+  useChartProps,
+  useGroupProps,
+  useXAxisTickFormat,
+} from "../../../styles/useChartStyles";
 
 import "../chart.scss";
 
@@ -32,24 +36,7 @@ export const LineChart = React.forwardRef(
     const startDateTime = data[0].time_stamp_utc;
     const endDateTime = data[data.length - 1].time_stamp_utc;
 
-    console.log(startDateTime < endDateTime);
-
-    let xAxisTickFormat = utcFormat("%H:%M");
-
-    if (granularity === "YEARLY") {
-      xAxisTickFormat = utcFormat("%b %Y");
-    } else if (granularity === "MONTHLY") {
-      xAxisTickFormat = utcFormat("%B");
-    } else if (granularity === "WEEKLY") {
-      xAxisTickFormat = utcFormat("%b %d");
-    } else if (granularity === "DAILY") {
-      xAxisTickFormat = utcFormat("%b %d");
-    } else if (granularity === "HOURLY") {
-      xAxisTickFormat = utcFormat("%H:%M");
-    }
-
-    console.log(granularity);
-    console.log(xAxisTickFormat);
+    let xAxisTickFormat = useXAxisTickFormat(granularity);
 
     /*
     const [chartWidth, setChartWidth] = useState(width);

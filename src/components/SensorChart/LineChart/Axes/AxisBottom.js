@@ -14,7 +14,6 @@ export const AxisBottom = ({
       <line y2={innerHeight} className={"tick-line"} />
       <text className={"tick-text-x"} y={innerHeight + tickOffset} dy={".5em"}>
         {tickFormat(tickValue)}
-        {console.log(tickFormat)}
       </text>
     </g>
   ));

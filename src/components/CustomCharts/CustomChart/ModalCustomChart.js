@@ -10,7 +10,11 @@ import {
 
 import { exportComponentAsPNG } from "react-component-export-image";
 
-import { useChartProps, useCustomProps } from "../../../styles/useChartStyles";
+import {
+  useChartProps,
+  useCustomProps,
+  useXAxisTickFormat,
+} from "../../../styles/useChartStyles";
 import { useColors } from "../../../styles/useChartStyles";
 
 import { AxisBottom } from "./Axes/AxisBottom";
@@ -31,12 +35,15 @@ export const ModalCustomChart = ({
   chartSensors,
   startDateTime,
   endDateTime,
+  granularity,
   handleConfirm,
 }) => {
   const chosenSensors = chartSensors;
   const colors = useColors();
   const componentRef = useRef();
   let id = 1;
+
+  let xAxisTickFormat = useXAxisTickFormat(granularity);
 
   if (chartSensors && chartSensors[0]) {
     id = chartSensors[0].dataInfo.data_identifier;
@@ -45,7 +52,6 @@ export const ModalCustomChart = ({
   let {
     xValue,
     xAxisLabel,
-    xAxisTickFormat,
     yValue,
     yAxisLabel,
     xAxisDateOffset,

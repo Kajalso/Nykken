@@ -1,14 +1,18 @@
 import React from "react";
-import { scaleBand, scaleLinear, min, max, extent } from "d3";
+import { scaleBand, scaleLinear, min, max, extent, utcFormat } from "d3";
 
 import { AxisBottom } from "./Axes/AxisBottom";
 import { AxisLeft } from "./Axes/AxisLeft";
 import { Marks } from "./Marks";
 
-import { useChartProps, useGroupProps } from "../../../styles/useChartStyles";
+import {
+  useChartProps,
+  useGroupProps,
+  useXAxisTickFormat,
+} from "../../../styles/useChartStyles";
 
 export const BarChart = React.forwardRef(
-  ({ data = [], dataInfo = {}, inGroup }, ref) => {
+  ({ data = [], dataInfo = {}, granularity, inGroup }, ref) => {
     let {
       width,
       height,
@@ -19,12 +23,16 @@ export const BarChart = React.forwardRef(
       xAxisLabel,
       xAxisLabelOffset,
       xAxisDateOffset,
-      xAxisTickFormat,
       yValue,
       yAxisLabel,
       yAxisLabelOffset,
       dateFormat,
     } = useChartProps();
+
+    const startDateTime = data[0].time_stamp_utc;
+    const endDateTime = data[data.length - 1].time_stamp_utc;
+
+    let xAxisTickFormat = useXAxisTickFormat(granularity);
 
     // Group props
     let {

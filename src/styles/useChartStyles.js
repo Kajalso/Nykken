@@ -39,7 +39,6 @@ export const useChartProps = () => {
   const yAxisLabelOffset = 50;
 
   // Axis formats
-  const xAxisTickFormat = utcFormat("%H:%M");
   const dateFormat = (d) =>
     timeFormat("%A %d %B %Y")(new Date(d.time_stamp_utc));
 
@@ -53,12 +52,29 @@ export const useChartProps = () => {
     xAxisLabel,
     xAxisLabelOffset,
     xAxisDateOffset,
-    xAxisTickFormat,
     yValue,
     yAxisLabel,
     yAxisLabelOffset,
     dateFormat,
   };
+};
+
+export const useXAxisTickFormat = (granularity) => {
+  let xAxisTickFormat = utcFormat("%H:%M");
+
+  if (granularity === "YEARLY") {
+    xAxisTickFormat = utcFormat("%b %Y");
+  } else if (granularity === "MONTHLY") {
+    xAxisTickFormat = utcFormat("%B");
+  } else if (granularity === "WEEKLY") {
+    xAxisTickFormat = utcFormat("%b %d");
+  } else if (granularity === "DAILY") {
+    xAxisTickFormat = utcFormat("%b %d");
+  } else if (granularity === "HOURLY") {
+    xAxisTickFormat = utcFormat("%H:%M");
+  }
+
+  return xAxisTickFormat;
 };
 
 // Custom chart properties
