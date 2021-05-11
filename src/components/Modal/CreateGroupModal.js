@@ -58,6 +58,7 @@ export const CreateGroupModal = ({ isOpen, closeModal }) => {
       setNewGroup(groupedSensors);
       setGroupedSensors("");
       closeModal();
+      setErrorMessage("");
       setDisplayError("none");
     }
   };

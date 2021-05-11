@@ -59,18 +59,53 @@ export const useChartProps = () => {
   };
 };
 
-export const useXAxisTickFormat = (granularity) => {
+// Set x-axis depending on granulartiy and start/end-times
+export const useXAxisTickFormat = (granularity, startDateTime, endDateTime) => {
   let xAxisTickFormat = utcFormat("%H:%M");
+  let startDate = startDateTime.slice(0, 10);
+  let endDate = endDateTime.slice(0, 10);
+  let startTime = startDateTime.slice(11, -1);
+  let endTime = endDateTime.slice(11, -1);
 
+  // Set label based on granularity
   if (granularity === "YEARLY") {
     xAxisTickFormat = utcFormat("%b %Y");
   } else if (granularity === "MONTHLY") {
-    xAxisTickFormat = utcFormat("%B");
+    xAxisTickFormat = utcFormat("%b '%y");
   } else if (granularity === "WEEKLY") {
     xAxisTickFormat = utcFormat("%b %d");
   } else if (granularity === "DAILY") {
     xAxisTickFormat = utcFormat("%b %d");
   } else if (granularity === "HOURLY") {
+    xAxisTickFormat = utcFormat("%H:%M");
+  }
+
+  // Set label based on start and end datetime
+  if (startDate.slice(0, 4) !== endDate.slice(0, 4)) {
+    // Different year
+    xAxisTickFormat = utcFormat("%b '%y");
+  }
+  if (startDate.slice(0, 4) === endDate.slice(0, 4)) {
+    // Same year
+    xAxisTickFormat = utcFormat("%b %d");
+  }
+  if (startDate.slice(0, 7) === endDate.slice(0, 7)) {
+    // Same month
+    xAxisTickFormat = utcFormat("%b %d");
+  }
+  if (
+    startDate.slice(0, 7) === endDate.slice(0, 7) &&
+    +endDate.slice(9, 11) - +startDate.slice(9, 11) < 7
+  ) {
+    // Same week
+    xAxisTickFormat = utcFormat("%b %d");
+  }
+  if (startDate === endDate) {
+    //Same day
+    xAxisTickFormat = utcFormat("%H:%M");
+  }
+  if (startDate === endDate && startTime.slice(0, 2) === endTime.slice(0, 2)) {
+    //Same hour
     xAxisTickFormat = utcFormat("%H:%M");
   }
 
@@ -119,4 +154,65 @@ export const useGroupProps = () => {
 };
 
 // Bar chart IDs
-export const useBarChartIDs = () => [5, 8, 10, 12];
+export const useBarChartIDs = () => [
+  5,
+  8,
+  10,
+  12,
+]; /*
+}
+if (startDate === endDate) {
+  /* options = options.filter((option) => option.value !== "YEARLY");
+  options = options.filter((option) => option.value !== "MONTHLY");
+  options = options.filter((option) => option.value !== "WEEKLY");
+  options = options.filter((option) => option.value !== "DAILY"); */ /*
+}
+/* if (startDate === endDate && startTime.slice(0, 2) === endTime.slice(0, 2)) {
+  //options = options.filter((option) => option.value === "MEASURED");
+} */
+/*
+
+let startDate = startDateTime.slice(0, 10);
+let endDate = endDateTime.slice(0, 10);
+
+console.log(startDateTime);
+
+let startTime = startDateTime.slice(11, -1);
+let endTime = endDateTime.slice(11, -1);
+
+// Same day
+if (startDate === endDate) {
+  xAxisTickFormat = utcFormat("%H:%M");
+}
+// Same week
+if (
+  startDate.slice(0, 7) === endDate.slice(0, 7) &&
+  +endDate.slice(9, 11) - +startDate.slice(9, 11) < 7
+) {
+  xAxisTickFormat = utcFormat("%b %d");
+}
+// Same month
+if (startDate.slice(0, 7) === endDate.slice(0, 7)) {
+  xAxisTickFormat = utcFormat("%b %d");
+}
+// Same year
+if (startDate.slice(0, 4) === endDate.slice(0, 4)) {
+  xAxisTickFormat = utcFormat("%B");
+}
+// Different year
+
+if (startDate.slice(0, 4) === endDate.slice(0, 4)) {
+  //options = options.filter((option) => option.value !== "YEARLY");
+}
+if (startDate.slice(0, 7) === endDate.slice(0, 7)) {
+  //options = options.filter((option) => option.value !== "YEARLY");
+  //options = options.filter((option) => option.value !== "MONTHLY");
+}
+
+if (
+  startDate.slice(0, 7) === endDate.slice(0, 7) &&
+  +endDate.slice(9, 11) - +startDate.slice(9, 11) < 7
+) {
+  /* options = options.filter((option) => option.value !== "YEARLY");
+  options = options.filter((option) => option.value !== "MONTHLY");
+  options = options.filter((option) => option.value !== "WEEKLY"); */
