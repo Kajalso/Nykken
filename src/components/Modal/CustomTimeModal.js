@@ -128,7 +128,7 @@ export const CustomTimeModal = ({
   ]);
 
   const handleClick = () => {
-    console.log(startTimeFromInput);
+    console.log(startTimeFromInput.slice(0, 5));
 
     if (startDateFromInput > endDateFromInput) {
       setErrorMessage("Invalid dates: Start time must be before end time.");
@@ -139,6 +139,14 @@ export const CustomTimeModal = ({
     ) {
       setErrorMessage(
         "Invalid dates: Choose a date that has occured and has updated data."
+      );
+      setDisplayError("");
+    } else if (
+      startDateFromInput === endDateFromInput &&
+      startTimeFromInput.slice(0, 5) === endTimeFromInput.slice(0, 5)
+    ) {
+      setErrorMessage(
+        "Invalid dates: Start time and end time cannot be within the same hour and minute."
       );
       setDisplayError("");
     } else {
