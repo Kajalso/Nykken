@@ -4,6 +4,7 @@ import { Button } from "../Button/Button";
 import Modal from "react-modal";
 
 import { ReactSelect as Select } from "../Select/Select";
+import { useColors } from "../../styles/useChartStyles";
 
 import plusIcon from "../../icons/plus.svg";
 
@@ -48,6 +49,12 @@ export const CustomTimeModal = ({
   const [granularity, setGranularity] = useState(granularityOptions[0].value);
   const [showCustomTime, setShowCustomTime] = useState(false);
 
+  const colors = useColors();
+  const [errorMessage, setErrorMessage] = useState(
+    "Invalid timestamps: Start time must be before end time."
+  );
+  const [displayError, setDisplayError] = useState("none");
+
   const [
     granularityOptionsAvailable,
     setGranularityOptionsAvailable,
@@ -55,33 +62,65 @@ export const CustomTimeModal = ({
 
   useEffect(() => {
     let options = granularityOptions;
+    if (startDateFromInput.slice(0, 4) !== endDateFromInput.slice(0, 4)) {
+      // Different year
+      console.log("Different year");
+      options = granularityOptions;
+      options = options.filter((option) => option.value !== "MEASURED"); // Remove measured
+      options = options.filter((option) => option.value !== "HOURLY"); // Remove hourly
+      options = options.filter((option) => option.value !== "WEEKLY"); // Remove weekly
+      options = options.filter((option) => option.value !== "DAILY"); // Remove daily
+    }
     if (startDateFromInput.slice(0, 4) === endDateFromInput.slice(0, 4)) {
-      options = options.filter((option) => option.value !== "YEARLY");
+      // Same year
+      console.log("Same year");
+      options = granularityOptions;
+      options = options.filter((option) => option.value !== "YEARLY"); // Remove yearly
+      options = options.filter((option) => option.value !== "MEASURED"); // Remove measured
+      options = options.filter((option) => option.value !== "HOURLY"); // Remove hourly
     }
     if (startDateFromInput.slice(0, 7) === endDateFromInput.slice(0, 7)) {
-      options = options.filter((option) => option.value !== "YEARLY");
-      options = options.filter((option) => option.value !== "MONTHLY");
+      // Same month
+      console.log("Same month");
+      options = granularityOptions;
+      options = options.filter((option) => option.value !== "YEARLY"); // Remove yearly
+      options = options.filter((option) => option.value !== "MONTHLY"); // Remove monthly
+      options = options.filter((option) => option.value !== "HOURLY"); // Remove hourly
+      options = options.filter((option) => option.value !== "MEASURED"); // Remove measured
     }
 
     if (
-      startDateFromInput.slice(0, 7) === endDateFromInput.slice(0, 7) &&
+      startDateFromInput.slice(0, 7) === endDateFromInput.slice(0, 7) && // Same week
       +endDateFromInput.slice(9, 11) - +startDateFromInput.slice(9, 11) < 7
     ) {
+      console.log("Same week");
+      options = granularityOptions;
       options = options.filter((option) => option.value !== "YEARLY");
       options = options.filter((option) => option.value !== "MONTHLY");
       options = options.filter((option) => option.value !== "WEEKLY");
+      options = options.filter((option) => option.value !== "MEASURED");
     }
     if (startDateFromInput === endDateFromInput) {
-      options = options.filter((option) => option.value !== "YEARLY");
-      options = options.filter((option) => option.value !== "MONTHLY");
-      options = options.filter((option) => option.value !== "WEEKLY");
-      options = options.filter((option) => option.value !== "DAILY");
+      //Same day
+      console.log("Same day");
+      options = granularityOptions;
+      options = options.filter((option) => option.value !== "YEARLY"); // Remove yearly
+      options = options.filter((option) => option.value !== "MONTHLY"); // Remove monthly
+      options = options.filter((option) => option.value !== "WEEKLY"); // Remove weekly
+      options = options.filter((option) => option.value !== "DAILY"); // Remove daily
     }
     if (
       startDateFromInput === endDateFromInput &&
       startTimeFromInput.slice(0, 2) === endTimeFromInput.slice(0, 2)
     ) {
-      options = options.filter((option) => option.value === "MEASURED");
+      //Same hour
+      console.log("Same hour");
+      options = granularityOptions;
+      options = options.filter((option) => option.value !== "YEARLY"); // Remove yearly
+      options = options.filter((option) => option.value !== "MONTHLY"); // Remove monthly
+      options = options.filter((option) => option.value !== "WEEKLY"); // Remove weekly
+      options = options.filter((option) => option.value !== "DAILY"); // Remove daily
+      options = options.filter((option) => option.value !== "HOURLY"); // Remove hourly
     }
 
     setGranularityOptionsAvailable(options);
@@ -93,15 +132,33 @@ export const CustomTimeModal = ({
   ]);
 
   const handleClick = () => {
-    console.log("Confirming chart changes...");
-    handleConfirm(
-      startTimeFromInput,
-      endTimeFromInput,
-      startDateFromInput,
-      endDateFromInput,
-      granularity
-    );
-    closeModal();
+    console.log(startTimeFromInput);
+
+    if (startDateFromInput > endDateFromInput) {
+      setErrorMessage("Invalid dates: Start time must be before end time.");
+      setDisplayError("");
+    } else if (
+      startDateFromInput > exampleDate ||
+      endDateFromInput > exampleDate
+    ) {
+      setErrorMessage(
+        "Invalid dates: Choose a date that has occured and has updated data."
+      );
+      setDisplayError("");
+    } else {
+      console.log("Confirming chart changes...");
+
+      handleConfirm(
+        startTimeFromInput,
+        endTimeFromInput,
+        startDateFromInput,
+        endDateFromInput,
+        granularity
+      );
+      closeModal();
+      setErrorMessage("");
+      setDisplayError("none");
+    }
   };
 
   // Handle change of time frame
@@ -178,6 +235,12 @@ export const CustomTimeModal = ({
               </div>
             </div>
           )}
+          <p
+            className="error small"
+            style={{ color: `${colors.red}`, display: displayError }}
+          >
+            {errorMessage}
+          </p>
           <Button className="save" text="Confirm" onClick={handleClick} />
         </div>
         <Button className="close" icon={plusIcon} onClick={closeModal} />

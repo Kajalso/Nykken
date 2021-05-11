@@ -59,13 +59,14 @@ export const useChartProps = () => {
   };
 };
 
+// Set x-axis depending on granulartiy and start/end-times
 export const useXAxisTickFormat = (granularity, startDateTime, endDateTime) => {
   let xAxisTickFormat = utcFormat("%H:%M");
 
   if (granularity === "YEARLY") {
     xAxisTickFormat = utcFormat("%b %Y");
   } else if (granularity === "MONTHLY") {
-    xAxisTickFormat = utcFormat("%B");
+    xAxisTickFormat = utcFormat("%b '%y");
   } else if (granularity === "WEEKLY") {
     xAxisTickFormat = utcFormat("%b %d");
   } else if (granularity === "DAILY") {
