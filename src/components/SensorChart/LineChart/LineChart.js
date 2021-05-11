@@ -36,7 +36,11 @@ export const LineChart = React.forwardRef(
     const startDateTime = data[0].time_stamp_utc;
     const endDateTime = data[data.length - 1].time_stamp_utc;
 
-    let xAxisTickFormat = useXAxisTickFormat(granularity);
+    let xAxisTickFormat = useXAxisTickFormat(
+      granularity,
+      startDateTime,
+      endDateTime
+    );
 
     /*
     const [chartWidth, setChartWidth] = useState(width);
