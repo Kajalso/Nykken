@@ -107,13 +107,13 @@ export const BarChart = React.forwardRef(
             >
               {xAxisLabel}
             </text>
-            {/*  <text
+            <text
               x={innerWidth / 2}
               y={innerHeight + xAxisDateOffset}
               className={"axis-date"}
             >
               Start date: {dateFormat(data[0])}
-            </text> */}
+            </text>
             <text
               className={"axis-label y"}
               transform={`translate(${-yAxisLabelOffset},
