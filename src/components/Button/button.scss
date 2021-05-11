@@ -1,5 +1,5 @@
 $secondaryBackground: #f0f2eb;
-
+$primaryText: #3b4541;
 $buttonBackground: #d1e3b2;
 $smallButtonBackground: $secondaryBackground;
 
@@ -13,7 +13,8 @@ $smallButtonBackground: $secondaryBackground;
   background-color: $buttonBackground;
 }
 
-.button > img {
+.button > img,
+.csv-link > img {
   height: 1em;
   margin-right: 0.75em;
 }
@@ -46,4 +47,16 @@ $smallButtonBackground: $secondaryBackground;
     height: 1.5em;
     transform: rotate(90deg);
   }
+}
+
+.csv-link {
+  display: inline-block;
+  margin-top: 0.5em;
+  text-decoration: none;
+  color: $primaryText;
+  background-color: $smallButtonBackground;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
 }
