@@ -14,13 +14,6 @@ const exampleDate = "2021-05-06";
 const exampleStartTime = "00:00:00";
 const exampleEndTime = "00:30:00";
 
-const timeOptions = [
-  {
-    value: "custom",
-    label: "Custom",
-  },
-];
-
 const granularityOptions = [
   { value: "MEASURED", label: "As measured" },
   { value: "HOURLY", label: "Hourly" },
@@ -45,9 +38,7 @@ export const CustomTimeModal = ({
   const [startDateFromInput, setStartDateFromInput] = useState(exampleDate);
   const [endDateFromInput, setEndDateFromInput] = useState(exampleDate);
 
-  const [selectedTime, setSelectedTime] = useState(timeOptions[0].value);
-  const [granularity, setGranularity] = useState(granularityOptions[0].value);
-  const [showCustomTime, setShowCustomTime] = useState(false);
+  const [granularity, setGranularity] = useState(null);
 
   const colors = useColors();
   const [errorMessage, setErrorMessage] = useState(
@@ -59,6 +50,8 @@ export const CustomTimeModal = ({
     granularityOptionsAvailable,
     setGranularityOptionsAvailable,
   ] = useState(granularityOptions);
+
+  console.log(granularity);
 
   useEffect(() => {
     let options = granularityOptions;
@@ -128,8 +121,10 @@ export const CustomTimeModal = ({
   ]);
 
   const handleClick = () => {
-    console.log(endDateFromInput < startDateFromInput);
-
+    if (!granularity) {
+      setErrorMessage("Please choose a granularity.");
+      setDisplayError("");
+    }
     if (startDateFromInput > endDateFromInput) {
       setErrorMessage("Invalid dates: Start time must be before end time.");
       setDisplayError("");
@@ -141,14 +136,13 @@ export const CustomTimeModal = ({
         "Invalid dates: Choose a date that has occured and has updated data."
       );
       setDisplayError("");
-    } else if (
-      startDateFromInput === endDateFromInput &&
-      startTimeFromInput.slice(0, 5) === endTimeFromInput.slice(0, 5)
-    ) {
-      setErrorMessage(
-        "Invalid dates: Start time and end time cannot be within the same hour and minute."
-      );
-      setDisplayError("");
+    } else if (startDateFromInput === endDateFromInput) {
+      if (startTimeFromInput.slice(0, 5) === endTimeFromInput.slice(0, 5)) {
+        setErrorMessage(
+          "Invalid dates: Start time and end time cannot be within the same hour and minute."
+        );
+        setDisplayError("");
+      }
     } else {
       console.log("Confirming chart changes...");
 
@@ -163,14 +157,6 @@ export const CustomTimeModal = ({
       setErrorMessage("");
       setDisplayError("none");
     }
-  };
-
-  // Handle change of time frame
-  const handleChangeTime = (selectedTimeOption) => {
-    if (selectedTimeOption.value === "custom") {
-      setShowCustomTime(true);
-    }
-    setSelectedTime(selectedTimeOption);
   };
 
   // Handle change of granularity
@@ -196,7 +182,52 @@ export const CustomTimeModal = ({
           <div className="selects">
             <div className="select-time">
               <p>Time frame:</p>
-              <Select options={timeOptions} onChange={handleChangeTime} />
+              <div className="date-picker">
+                <div className="from">
+                  <label className="from">From:</label>
+                  <input
+                    type="date"
+                    value={startDateFromInput}
+                    onChange={(e) => {
+                      setStartDateFromInput(e.target.value);
+                      console.log("Reset granularity");
+                      setGranularity(null);
+                    }}
+                  />
+                  <input
+                    type="time"
+                    value={startTimeFromInput}
+                    onChange={(e) => {
+                      setStartTimeFromInput(e.target.value);
+                      console.log("Reset granularity");
+                      setGranularity(null);
+                    }}
+                    step="1"
+                  />
+                </div>
+                <div className="until">
+                  <label className="until">Until:</label>
+                  <input
+                    type="date"
+                    value={endDateFromInput}
+                    onChange={(e) => {
+                      setEndDateFromInput(e.target.value);
+                      console.log("Reset gran");
+                      setGranularity(null);
+                    }}
+                  />
+                  <input
+                    type="time"
+                    value={endTimeFromInput}
+                    onChange={(e) => {
+                      setEndTimeFromInput(e.target.value);
+                      console.log("Reset gran");
+                      setGranularity(null);
+                    }}
+                    step="1"
+                  />
+                </div>
+              </div>
             </div>
 
             <div className="select-granularity">
@@ -204,41 +235,18 @@ export const CustomTimeModal = ({
               <Select
                 options={granularityOptionsAvailable}
                 onChange={handleChangeGranularity}
+                value={granularity}
+                placeholder={"Select granularity..."}
+              />
+              <Select
+                options={granularityOptionsAvailable}
+                value={granularity ? granularity : null}
+                isSearchable={true}
+                placeholder={"Select granularity..."}
               />
             </div>
           </div>
-          {showCustomTime && (
-            <div className="date-picker">
-              <div className="from">
-                <label className="from">From:</label>
-                <input
-                  type="date"
-                  value={startDateFromInput}
-                  onChange={(e) => setStartDateFromInput(e.target.value)}
-                />
-                <input
-                  type="time"
-                  value={startTimeFromInput}
-                  onChange={(e) => setStartTimeFromInput(e.target.value)}
-                  step="1"
-                />
-              </div>
-              <div className="until">
-                <label className="until">Until:</label>
-                <input
-                  type="date"
-                  value={endDateFromInput}
-                  onChange={(e) => setEndDateFromInput(e.target.value)}
-                />
-                <input
-                  type="time"
-                  value={endTimeFromInput}
-                  onChange={(e) => setEndTimeFromInput(e.target.value)}
-                  step="1"
-                />
-              </div>
-            </div>
-          )}
+
           <p
             className="error small"
             style={{ color: `${colors.red}`, display: displayError }}

@@ -9,6 +9,7 @@ import {
   useChartProps,
   useGroupProps,
   useXAxisTickFormat,
+  useXAxisTitle,
 } from "../../../styles/useChartStyles";
 
 import "../chart.scss";
@@ -41,6 +42,8 @@ export const LineChart = React.forwardRef(
       startDateTime,
       endDateTime
     );
+
+    let xAxisTitle = useXAxisTitle(startDateTime, endDateTime);
 
     /*
     const [chartWidth, setChartWidth] = useState(width);
@@ -132,7 +135,7 @@ export const LineChart = React.forwardRef(
               y={innerHeight + xAxisDateOffset}
               className={"axis-date"}
             >
-              Start date: {dateFormat(data[0])}
+              {xAxisTitle}
             </text>
             <text
               className={"axis-label y"}
