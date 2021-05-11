@@ -59,6 +59,10 @@ $strokeColor: #e3e4e1;
     right: 0;
   }
 
+  .more-select__placeholder {
+    display: none;
+  }
+
   .more-select__control--is-focused {
     box-shadow: none;
   }
