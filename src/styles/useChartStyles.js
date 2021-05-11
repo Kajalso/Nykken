@@ -36,7 +36,7 @@ export const useChartProps = () => {
   // Y values
   const yValue = (d) => +d.measurement;
   let yAxisLabel = (d) => d.title;
-  const yAxisLabelOffset = 50;
+  const yAxisLabelOffset = 45;
 
   // Axis formats
   const dateFormat = (d) => {

@@ -124,9 +124,9 @@ export const LineChart = React.forwardRef(
               innerHeight={innerHeight}
             />
             <text
-              x={innerWidth - yAxisLabelOffset}
+              x={innerWidth - xAxisLabelOffset / 2}
               y={innerHeight + xAxisLabelOffset}
-              className={"axis-label x small"}
+              className={"axis-label x tiny"}
             >
               {xAxisLabel}
             </text>
