@@ -17,14 +17,13 @@ export const ExportCSV = ({ data = [], dataInfo = {} }) => {
   const csvReport = {
     data: data,
     headers: headers,
-    filename: "sensordata",
-    /*  filename:
+    filename:
       dataInfo.title +
       "_from_" +
       data[0].time_stamp_utc +
       "_to_" +
       data[data.length - 1].time_stamp_utc +
-      ".csv", */
+      ".csv",
   };
 
   return (

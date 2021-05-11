@@ -49,9 +49,11 @@ $smallButtonBackground: $secondaryBackground;
   }
 }
 
+.png-download,
 .csv-link {
   display: inline-block;
-  margin-top: 0.5em;
+  margin: 0.5em 0.75em 0 0;
+  font-size: 12px;
   text-decoration: none;
   color: $primaryText;
   background-color: $smallButtonBackground;
@@ -59,4 +61,36 @@ $smallButtonBackground: $secondaryBackground;
   border: none;
   border-radius: 8px;
   cursor: pointer;
+}
+
+/* .edit-chart {
+  display: inline-block;
+  align-self: flex-end;
+  margin: 0.5em 0.75em 0 0;
+  font-size: 12px;
+  text-decoration: none;
+  color: $primaryText;
+  background-color: $smallButtonBackground;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+} */
+
+.button.edit {
+  position: absolute;
+  top: -1em;
+  right: 0;
+  font-size: 11px;
+  background-color: $smallButtonBackground;
+  /* padding: 0.5em;
+  background: none;
+
+  img {
+    margin: 0;
+  } */
+}
+
+.buttons {
+  display: flex;
 }
