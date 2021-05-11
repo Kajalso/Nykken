@@ -87,7 +87,7 @@ export const useXAxisTickFormat = (granularity, startDateTime, endDateTime) => {
   }
   if (startDate.slice(0, 4) === endDate.slice(0, 4)) {
     // Same year
-    xAxisTickFormat = utcFormat("%b '%y");
+    xAxisTickFormat = utcFormat("%b %d");
   }
   if (startDate.slice(0, 7) === endDate.slice(0, 7)) {
     // Same month

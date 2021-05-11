@@ -128,7 +128,7 @@ export const CustomTimeModal = ({
   ]);
 
   const handleClick = () => {
-    console.log(startTimeFromInput.slice(0, 5));
+    console.log(endDateFromInput < startDateFromInput);
 
     if (startDateFromInput > endDateFromInput) {
       setErrorMessage("Invalid dates: Start time must be before end time.");
