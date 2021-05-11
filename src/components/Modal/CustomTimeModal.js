@@ -51,8 +51,6 @@ export const CustomTimeModal = ({
     setGranularityOptionsAvailable,
   ] = useState(granularityOptions);
 
-  console.log(granularity);
-
   useEffect(() => {
     let options = granularityOptions;
     if (startDateFromInput.slice(0, 4) !== endDateFromInput.slice(0, 4)) {
@@ -121,11 +119,10 @@ export const CustomTimeModal = ({
   ]);
 
   const handleClick = () => {
-    if (!granularity) {
+    if (granularity === null || granularity === undefined) {
       setErrorMessage("Please choose a granularity.");
       setDisplayError("");
-    }
-    if (startDateFromInput > endDateFromInput) {
+    } else if (startDateFromInput > endDateFromInput) {
       setErrorMessage("Invalid dates: Start time must be before end time.");
       setDisplayError("");
     } else if (
@@ -136,13 +133,14 @@ export const CustomTimeModal = ({
         "Invalid dates: Choose a date that has occured and has updated data."
       );
       setDisplayError("");
-    } else if (startDateFromInput === endDateFromInput) {
-      if (startTimeFromInput.slice(0, 5) === endTimeFromInput.slice(0, 5)) {
-        setErrorMessage(
-          "Invalid dates: Start time and end time cannot be within the same hour and minute."
-        );
-        setDisplayError("");
-      }
+    } else if (
+      startDateFromInput === endDateFromInput &&
+      startTimeFromInput.slice(0, 5) === endTimeFromInput.slice(0, 5)
+    ) {
+      setErrorMessage(
+        "Invalid dates: Start time and end time cannot be within the same hour and minute."
+      );
+      setDisplayError("");
     } else {
       console.log("Confirming chart changes...");
 
@@ -190,8 +188,8 @@ export const CustomTimeModal = ({
                     value={startDateFromInput}
                     onChange={(e) => {
                       setStartDateFromInput(e.target.value);
-                      console.log("Reset granularity");
-                      setGranularity(null);
+                      console.log("Reset granularity.");
+                      setGranularity(undefined);
                     }}
                   />
                   <input
@@ -199,8 +197,8 @@ export const CustomTimeModal = ({
                     value={startTimeFromInput}
                     onChange={(e) => {
                       setStartTimeFromInput(e.target.value);
-                      console.log("Reset granularity");
-                      setGranularity(null);
+                      console.log("Reset granularity.");
+                      setGranularity(undefined);
                     }}
                     step="1"
                   />
@@ -212,8 +210,8 @@ export const CustomTimeModal = ({
                     value={endDateFromInput}
                     onChange={(e) => {
                       setEndDateFromInput(e.target.value);
-                      console.log("Reset gran");
-                      setGranularity(null);
+                      console.log("Reset granularity.");
+                      setGranularity(undefined);
                     }}
                   />
                   <input
@@ -221,8 +219,8 @@ export const CustomTimeModal = ({
                     value={endTimeFromInput}
                     onChange={(e) => {
                       setEndTimeFromInput(e.target.value);
-                      console.log("Reset gran");
-                      setGranularity(null);
+                      console.log("Reset granularity.");
+                      setGranularity(undefined);
                     }}
                     step="1"
                   />
@@ -236,13 +234,11 @@ export const CustomTimeModal = ({
                 options={granularityOptionsAvailable}
                 onChange={handleChangeGranularity}
                 value={granularity}
-                placeholder={"Select granularity..."}
-              />
-              <Select
-                options={granularityOptionsAvailable}
-                value={granularity ? granularity : null}
-                isSearchable={true}
-                placeholder={"Select granularity..."}
+                /* value={
+                  granularityOptionsAvailable.find(
+                    (option) => option.value === granularity
+                  ) || 0
+                } */
               />
             </div>
           </div>

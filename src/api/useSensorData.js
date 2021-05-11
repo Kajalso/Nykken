@@ -11,7 +11,7 @@ export const useSensorData = (id, startDateTime, endDateTime, granularity) => {
   const endTime = endDateTime.slice(10, -1);
 
   // If granularity is null, set granularity by chosen dates
-  if (!granularity) {
+  if (granularity === null || granularity === undefined) {
     if (startDate.slice(0, 4) !== endDate.slice(0, 4)) {
       // Different year
       granularity = "YEARLY";

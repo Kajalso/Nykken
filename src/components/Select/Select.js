@@ -55,6 +55,7 @@ export const ReactSelect = ({
   classNamePrefix = "react-select",
   icon,
   menuIsOpen,
+  placeholder,
 }) => {
   return (
     <div className="select">
@@ -63,8 +64,8 @@ export const ReactSelect = ({
         classNamePrefix={classNamePrefix}
         options={options}
         onChange={onChange}
-        defaultValue={options[0]}
         isSearchable={false}
+        placeholder={placeholder}
         theme={theme}
         styles={styles}
         menuIsOpen={menuIsOpen}
