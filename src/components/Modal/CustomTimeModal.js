@@ -64,7 +64,6 @@ export const CustomTimeModal = ({
     let options = granularityOptions;
     if (startDateFromInput.slice(0, 4) !== endDateFromInput.slice(0, 4)) {
       // Different year
-      console.log("Different year");
       options = granularityOptions;
       options = options.filter((option) => option.value !== "MEASURED"); // Remove measured
       options = options.filter((option) => option.value !== "HOURLY"); // Remove hourly
@@ -73,7 +72,6 @@ export const CustomTimeModal = ({
     }
     if (startDateFromInput.slice(0, 4) === endDateFromInput.slice(0, 4)) {
       // Same year
-      console.log("Same year");
       options = granularityOptions;
       options = options.filter((option) => option.value !== "YEARLY"); // Remove yearly
       options = options.filter((option) => option.value !== "MEASURED"); // Remove measured
@@ -81,7 +79,6 @@ export const CustomTimeModal = ({
     }
     if (startDateFromInput.slice(0, 7) === endDateFromInput.slice(0, 7)) {
       // Same month
-      console.log("Same month");
       options = granularityOptions;
       options = options.filter((option) => option.value !== "YEARLY"); // Remove yearly
       options = options.filter((option) => option.value !== "MONTHLY"); // Remove monthly
@@ -90,10 +87,10 @@ export const CustomTimeModal = ({
     }
 
     if (
-      startDateFromInput.slice(0, 7) === endDateFromInput.slice(0, 7) && // Same week
+      startDateFromInput.slice(0, 7) === endDateFromInput.slice(0, 7) &&
       +endDateFromInput.slice(9, 11) - +startDateFromInput.slice(9, 11) < 7
     ) {
-      console.log("Same week");
+      // Same week
       options = granularityOptions;
       options = options.filter((option) => option.value !== "YEARLY");
       options = options.filter((option) => option.value !== "MONTHLY");
@@ -102,7 +99,6 @@ export const CustomTimeModal = ({
     }
     if (startDateFromInput === endDateFromInput) {
       //Same day
-      console.log("Same day");
       options = granularityOptions;
       options = options.filter((option) => option.value !== "YEARLY"); // Remove yearly
       options = options.filter((option) => option.value !== "MONTHLY"); // Remove monthly
