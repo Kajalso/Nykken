@@ -19,7 +19,7 @@ export const useColors = () => {
 
 // General chart properties
 export const useChartProps = () => {
-  const width = 500;
+  const width = 600;
   const height = 300;
 
   const margin = { top: 10, right: 50, bottom: 50, left: 60 };
@@ -36,11 +36,14 @@ export const useChartProps = () => {
   // Y values
   const yValue = (d) => +d.measurement;
   let yAxisLabel = (d) => d.title;
-  const yAxisLabelOffset = 50;
+  const yAxisLabelOffset = 45;
 
   // Axis formats
-  const dateFormat = (d) =>
-    timeFormat("%A %d %B %Y")(new Date(d.time_stamp_utc));
+  const dateFormat = (d) => {
+    let date = new Date(d.time_stamp_utc);
+    console.log(date);
+    return utcFormat("%A %d %B %Y")(date);
+  };
 
   return {
     width,
@@ -59,6 +62,48 @@ export const useChartProps = () => {
   };
 };
 
+// Set x-axis title depending on data in chart
+export const useXAxisTitle = (startDateTime, endDateTime) => {
+  let xAxisTitle = utcFormat("%A %d %B %Y");
+  let startDate = startDateTime.slice(0, 10);
+  let endDate = endDateTime.slice(0, 10);
+  let startTime = startDateTime.slice(11, -1);
+  let endTime = endDateTime.slice(11, -1);
+
+  let date = new Date(startDateTime);
+
+  // Set label based on start and end datetime
+  if (startDate.slice(0, 4) !== endDate.slice(0, 4)) {
+    // Different year
+    xAxisTitle = utcFormat(" ")(date);
+  }
+  if (startDate.slice(0, 4) === endDate.slice(0, 4)) {
+    // Same year
+    xAxisTitle = utcFormat("%Y")(date);
+  }
+  if (startDate.slice(0, 7) === endDate.slice(0, 7)) {
+    // Same month
+    xAxisTitle = utcFormat("%B %Y")(date);
+  }
+  if (
+    startDate.slice(0, 7) === endDate.slice(0, 7) &&
+    +endDate.slice(9, 11) - +startDate.slice(9, 11) < 7
+  ) {
+    // Same week
+    xAxisTitle = utcFormat("%B %Y")(date);
+  }
+  if (startDate === endDate) {
+    //Same day
+    xAxisTitle = utcFormat("%A %d %B %Y")(date);
+  }
+  if (startDate === endDate && startTime.slice(0, 2) === endTime.slice(0, 2)) {
+    //Same hour
+    xAxisTitle = utcFormat("%A %d %B %Y")(date);
+  }
+
+  return xAxisTitle;
+};
+
 // Set x-axis depending on granulartiy and start/end-times
 export const useXAxisTickFormat = (granularity, startDateTime, endDateTime) => {
   let xAxisTickFormat = utcFormat("%H:%M");
@@ -73,9 +118,9 @@ export const useXAxisTickFormat = (granularity, startDateTime, endDateTime) => {
   } else if (granularity === "MONTHLY") {
     xAxisTickFormat = utcFormat("%b '%y");
   } else if (granularity === "WEEKLY") {
-    xAxisTickFormat = utcFormat("%b %d");
+    xAxisTickFormat = utcFormat("Week %W");
   } else if (granularity === "DAILY") {
-    xAxisTickFormat = utcFormat("%b %d");
+    xAxisTickFormat = utcFormat("%d.%m");
   } else if (granularity === "HOURLY") {
     xAxisTickFormat = utcFormat("%H:%M");
   }
@@ -87,18 +132,18 @@ export const useXAxisTickFormat = (granularity, startDateTime, endDateTime) => {
   }
   if (startDate.slice(0, 4) === endDate.slice(0, 4)) {
     // Same year
-    xAxisTickFormat = utcFormat("%b %d");
+    xAxisTickFormat = utcFormat("%d.%m");
   }
   if (startDate.slice(0, 7) === endDate.slice(0, 7)) {
     // Same month
-    xAxisTickFormat = utcFormat("%b %d");
+    xAxisTickFormat = utcFormat("%d.%m");
   }
   if (
     startDate.slice(0, 7) === endDate.slice(0, 7) &&
     +endDate.slice(9, 11) - +startDate.slice(9, 11) < 7
   ) {
     // Same week
-    xAxisTickFormat = utcFormat("%b %d");
+    xAxisTickFormat = utcFormat("%d.%m");
   }
   if (startDate === endDate) {
     //Same day
@@ -108,6 +153,8 @@ export const useXAxisTickFormat = (granularity, startDateTime, endDateTime) => {
     //Same hour
     xAxisTickFormat = utcFormat("%H:%M");
   }
+
+  // Special cases
 
   return xAxisTickFormat;
 };

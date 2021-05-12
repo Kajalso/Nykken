@@ -9,6 +9,7 @@ import {
   useChartProps,
   useGroupProps,
   useXAxisTickFormat,
+  useXAxisTitle,
 } from "../../../styles/useChartStyles";
 
 export const BarChart = React.forwardRef(
@@ -37,6 +38,8 @@ export const BarChart = React.forwardRef(
       startDateTime,
       endDateTime
     );
+
+    let xAxisTitle = useXAxisTitle(startDateTime, endDateTime);
 
     // Group props
     let {
@@ -101,9 +104,9 @@ export const BarChart = React.forwardRef(
               innerHeight={innerHeight}
             />
             <text
-              x={innerWidth - yAxisLabelOffset}
+              x={innerWidth - xAxisLabelOffset / 2}
               y={innerHeight + xAxisLabelOffset}
-              className={"axis-label x small"}
+              className={"axis-label x tiny"}
             >
               {xAxisLabel}
             </text>
@@ -112,7 +115,7 @@ export const BarChart = React.forwardRef(
               y={innerHeight + xAxisDateOffset}
               className={"axis-date"}
             >
-              Start date: {dateFormat(data[0])}
+              {xAxisTitle}
             </text>
             <text
               className={"axis-label y"}

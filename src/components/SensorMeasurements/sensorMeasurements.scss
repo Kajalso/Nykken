@@ -1,6 +1,10 @@
 .sensor-measurements {
   position: relative;
 
+  .title {
+    margin-bottom: 1.5em;
+  }
+
   .button.small {
     position: absolute;
     top: 4em;
