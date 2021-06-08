@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 
 import { CustomChartsContext } from "..//../context/CustomChartsContext";
-import { CustomChart } from "./CustomChart/DashboardCustomChart";
+import { DashboardCustomChart as CustomChart } from "./CustomChart/DashboardCustomChart";
 
 export const CustomCharts = () => {
   const { customCharts } = useContext(CustomChartsContext);
@@ -21,6 +21,7 @@ export const CustomCharts = () => {
             <h3>{customChart.chartName}</h3>
             <CustomChart
               customChart={customChart}
+              granulartiy={"MEASURED"}
               chartName={customChart.chartName}
               key={customChart.id}
             />

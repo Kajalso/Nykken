@@ -1,5 +1,5 @@
 $secondaryBackground: #f0f2eb;
-
+$primaryText: #3b4541;
 $buttonBackground: #d1e3b2;
 $smallButtonBackground: $secondaryBackground;
 
@@ -13,7 +13,8 @@ $smallButtonBackground: $secondaryBackground;
   background-color: $buttonBackground;
 }
 
-.button > img {
+.button > img,
+.csv-link > img {
   height: 1em;
   margin-right: 0.75em;
 }
@@ -27,7 +28,7 @@ $smallButtonBackground: $secondaryBackground;
   top: -0.75em;
   right: -0.75em;
   border-radius: 50%;
-  padding: 8px 3px;
+  padding: 8px 1px;
   background-color: $smallButtonBackground;
 
   > img {
@@ -46,4 +47,50 @@ $smallButtonBackground: $secondaryBackground;
     height: 1.5em;
     transform: rotate(90deg);
   }
+}
+
+.png-download,
+.csv-link {
+  display: inline-block;
+  margin: 0.5em 0.75em 0 0;
+  font-size: 12px;
+  text-decoration: none;
+  color: $primaryText;
+  background-color: $smallButtonBackground;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* .edit-chart {
+  display: inline-block;
+  align-self: flex-end;
+  margin: 0.5em 0.75em 0 0;
+  font-size: 12px;
+  text-decoration: none;
+  color: $primaryText;
+  background-color: $smallButtonBackground;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+} */
+
+.button.edit {
+  position: absolute;
+  top: -1em;
+  right: 0;
+  font-size: 11px;
+  background-color: $smallButtonBackground;
+  /* padding: 0.5em;
+  background: none;
+
+  img {
+    margin: 0;
+  } */
+}
+
+.buttons {
+  display: flex;
 }

@@ -5,6 +5,7 @@ import { exportComponentAsPNG } from "react-component-export-image";
 import { ReactSelect as Select } from "../Select/Select";
 
 import { ExportCSV } from "./ExportCSV";
+import { Button } from "../Button/Button";
 
 import { LineChart } from "./LineChart/LineChart";
 import { BarChart } from "./BarChart/BarChart";
@@ -16,6 +17,8 @@ import { useSessionStorage } from "../../storage/useSessionStorage";
 import { useBarChartIDs } from "../../styles/useChartStyles";
 
 import moreIcon from "../../icons/more.svg";
+import downloadIcon from "../../icons/download.svg";
+import editIcon from "../../icons/edit.svg";
 
 import "./sensorChart.scss";
 
@@ -116,13 +119,19 @@ export const SensorChart = ({ dataInfo }) => {
     <div className="sensor-chart">
       <h3 className="section-title">{dataInfo.title}</h3>
       <div className="more">
-        <Select
+        <Button
+          icon={editIcon}
+          onClick={() => setCustomTimeModalIsOpen(true)}
+          className="edit"
+          text="Edit"
+        />
+        {/* <Select
           className="more-select-container"
           classNamePrefix="more-select"
           options={chartOptions}
           icon={moreIcon}
           onChange={handleClick}
-        />
+        /> */}
       </div>
       <CustomTimeModal
         sensor={dataInfo}
@@ -140,6 +149,7 @@ export const SensorChart = ({ dataInfo }) => {
             <BarChart
               data={sensorData}
               dataInfo={dataInfo}
+              granularity={granularity}
               ref={componentRef}
             />
           )}
@@ -147,12 +157,27 @@ export const SensorChart = ({ dataInfo }) => {
             <LineChart
               data={sensorData}
               dataInfo={dataInfo}
+              granularity={granularity}
               ref={componentRef}
             />
           )}
         </>
       )}
-      <ExportCSV data={sensorData} dataInfo={dataInfo} />
+      <div className="buttons">
+        <ExportCSV data={sensorData} dataInfo={dataInfo} />
+        <Button
+          icon={downloadIcon}
+          onClick={handleDownloadPNG}
+          className="png-download"
+          text="Download as PNG"
+        />
+        {/* <Button
+          icon={editIcon}
+          onClick={handleDownloadPNG}
+          className="edit-chart"
+          text="Edit chart"
+        /> */}
+      </div>
     </div>
   );
 };

@@ -4,6 +4,7 @@ import { Button } from "../Button/Button";
 import Modal from "react-modal";
 
 import { ReactSelect as Select } from "../Select/Select";
+import { useColors } from "../../styles/useChartStyles";
 
 import plusIcon from "../../icons/plus.svg";
 
@@ -12,13 +13,6 @@ import "./modals.scss";
 const exampleDate = "2021-05-06";
 const exampleStartTime = "00:00:00";
 const exampleEndTime = "00:30:00";
-
-const timeOptions = [
-  {
-    value: "custom",
-    label: "Custom",
-  },
-];
 
 const granularityOptions = [
   { value: "MEASURED", label: "As measured" },
@@ -44,9 +38,13 @@ export const CustomTimeModal = ({
   const [startDateFromInput, setStartDateFromInput] = useState(exampleDate);
   const [endDateFromInput, setEndDateFromInput] = useState(exampleDate);
 
-  const [selectedTime, setSelectedTime] = useState(timeOptions[0].value);
-  const [granularity, setGranularity] = useState(granularityOptions[0].value);
-  const [showCustomTime, setShowCustomTime] = useState(false);
+  const [granularity, setGranularity] = useState(null);
+
+  const colors = useColors();
+  const [errorMessage, setErrorMessage] = useState(
+    "Invalid timestamps: Start time must be before end time."
+  );
+  const [displayError, setDisplayError] = useState("none");
 
   const [
     granularityOptionsAvailable,
@@ -55,33 +53,61 @@ export const CustomTimeModal = ({
 
   useEffect(() => {
     let options = granularityOptions;
+    if (startDateFromInput.slice(0, 4) !== endDateFromInput.slice(0, 4)) {
+      // Different year
+      options = granularityOptions;
+      options = options.filter((option) => option.value !== "MEASURED"); // Remove measured
+      options = options.filter((option) => option.value !== "HOURLY"); // Remove hourly
+      options = options.filter((option) => option.value !== "WEEKLY"); // Remove weekly
+      options = options.filter((option) => option.value !== "DAILY"); // Remove daily
+    }
     if (startDateFromInput.slice(0, 4) === endDateFromInput.slice(0, 4)) {
-      options = options.filter((option) => option.value !== "YEARLY");
+      // Same year
+      options = granularityOptions;
+      options = options.filter((option) => option.value !== "YEARLY"); // Remove yearly
+      options = options.filter((option) => option.value !== "MEASURED"); // Remove measured
+      options = options.filter((option) => option.value !== "HOURLY"); // Remove hourly
     }
     if (startDateFromInput.slice(0, 7) === endDateFromInput.slice(0, 7)) {
-      options = options.filter((option) => option.value !== "YEARLY");
-      options = options.filter((option) => option.value !== "MONTHLY");
+      // Same month
+      options = granularityOptions;
+      options = options.filter((option) => option.value !== "YEARLY"); // Remove yearly
+      options = options.filter((option) => option.value !== "MONTHLY"); // Remove monthly
+      options = options.filter((option) => option.value !== "HOURLY"); // Remove hourly
+      options = options.filter((option) => option.value !== "MEASURED"); // Remove measured
     }
 
     if (
       startDateFromInput.slice(0, 7) === endDateFromInput.slice(0, 7) &&
       +endDateFromInput.slice(9, 11) - +startDateFromInput.slice(9, 11) < 7
     ) {
+      // Same week
+      options = granularityOptions;
       options = options.filter((option) => option.value !== "YEARLY");
       options = options.filter((option) => option.value !== "MONTHLY");
       options = options.filter((option) => option.value !== "WEEKLY");
+      options = options.filter((option) => option.value !== "MEASURED");
     }
     if (startDateFromInput === endDateFromInput) {
-      options = options.filter((option) => option.value !== "YEARLY");
-      options = options.filter((option) => option.value !== "MONTHLY");
-      options = options.filter((option) => option.value !== "WEEKLY");
-      options = options.filter((option) => option.value !== "DAILY");
+      //Same day
+      options = granularityOptions;
+      options = options.filter((option) => option.value !== "YEARLY"); // Remove yearly
+      options = options.filter((option) => option.value !== "MONTHLY"); // Remove monthly
+      options = options.filter((option) => option.value !== "WEEKLY"); // Remove weekly
+      options = options.filter((option) => option.value !== "DAILY"); // Remove daily
     }
     if (
       startDateFromInput === endDateFromInput &&
       startTimeFromInput.slice(0, 2) === endTimeFromInput.slice(0, 2)
     ) {
-      options = options.filter((option) => option.value === "MEASURED");
+      //Same hour
+      console.log("Same hour");
+      options = granularityOptions;
+      options = options.filter((option) => option.value !== "YEARLY"); // Remove yearly
+      options = options.filter((option) => option.value !== "MONTHLY"); // Remove monthly
+      options = options.filter((option) => option.value !== "WEEKLY"); // Remove weekly
+      options = options.filter((option) => option.value !== "DAILY"); // Remove daily
+      options = options.filter((option) => option.value !== "HOURLY"); // Remove hourly
     }
 
     setGranularityOptionsAvailable(options);
@@ -93,23 +119,42 @@ export const CustomTimeModal = ({
   ]);
 
   const handleClick = () => {
-    console.log("Confirming chart changes...");
-    handleConfirm(
-      startTimeFromInput,
-      endTimeFromInput,
-      startDateFromInput,
-      endDateFromInput,
-      granularity
-    );
-    closeModal();
-  };
+    if (granularity === null || granularity === undefined) {
+      setErrorMessage("Please choose a granularity.");
+      setDisplayError("");
+    } else if (startDateFromInput > endDateFromInput) {
+      setErrorMessage("Invalid dates: Start time must be before end time.");
+      setDisplayError("");
+    } else if (
+      startDateFromInput > exampleDate ||
+      endDateFromInput > exampleDate
+    ) {
+      setErrorMessage(
+        "Invalid dates: Choose a date that has occured and has updated data."
+      );
+      setDisplayError("");
+    } else if (
+      startDateFromInput === endDateFromInput &&
+      startTimeFromInput.slice(0, 5) === endTimeFromInput.slice(0, 5)
+    ) {
+      setErrorMessage(
+        "Invalid dates: Start time and end time cannot be within the same hour and minute."
+      );
+      setDisplayError("");
+    } else {
+      console.log("Confirming chart changes...");
 
-  // Handle change of time frame
-  const handleChangeTime = (selectedTimeOption) => {
-    if (selectedTimeOption.value === "custom") {
-      setShowCustomTime(true);
+      handleConfirm(
+        startTimeFromInput,
+        endTimeFromInput,
+        startDateFromInput,
+        endDateFromInput,
+        granularity
+      );
+      closeModal();
+      setErrorMessage("");
+      setDisplayError("none");
     }
-    setSelectedTime(selectedTimeOption);
   };
 
   // Handle change of granularity
@@ -135,7 +180,52 @@ export const CustomTimeModal = ({
           <div className="selects">
             <div className="select-time">
               <p>Time frame:</p>
-              <Select options={timeOptions} onChange={handleChangeTime} />
+              <div className="date-picker">
+                <div className="from">
+                  <label className="from">From:</label>
+                  <input
+                    type="date"
+                    value={startDateFromInput}
+                    onChange={(e) => {
+                      setStartDateFromInput(e.target.value);
+                      console.log("Reset granularity.");
+                      setGranularity(undefined);
+                    }}
+                  />
+                  <input
+                    type="time"
+                    value={startTimeFromInput}
+                    onChange={(e) => {
+                      setStartTimeFromInput(e.target.value);
+                      console.log("Reset granularity.");
+                      setGranularity(undefined);
+                    }}
+                    step="1"
+                  />
+                </div>
+                <div className="until">
+                  <label className="until">Until:</label>
+                  <input
+                    type="date"
+                    value={endDateFromInput}
+                    onChange={(e) => {
+                      setEndDateFromInput(e.target.value);
+                      console.log("Reset granularity.");
+                      setGranularity(undefined);
+                    }}
+                  />
+                  <input
+                    type="time"
+                    value={endTimeFromInput}
+                    onChange={(e) => {
+                      setEndTimeFromInput(e.target.value);
+                      console.log("Reset granularity.");
+                      setGranularity(undefined);
+                    }}
+                    step="1"
+                  />
+                </div>
+              </div>
             </div>
 
             <div className="select-granularity">
@@ -143,41 +233,22 @@ export const CustomTimeModal = ({
               <Select
                 options={granularityOptionsAvailable}
                 onChange={handleChangeGranularity}
+                value={granularity}
+                /* value={
+                  granularityOptionsAvailable.find(
+                    (option) => option.value === granularity
+                  ) || 0
+                } */
               />
             </div>
           </div>
-          {showCustomTime && (
-            <div className="date-picker">
-              <div className="from">
-                <label className="from">From:</label>
-                <input
-                  type="date"
-                  value={startDateFromInput}
-                  onChange={(e) => setStartDateFromInput(e.target.value)}
-                />
-                <input
-                  type="time"
-                  value={startTimeFromInput}
-                  onChange={(e) => setStartTimeFromInput(e.target.value)}
-                  step="1"
-                />
-              </div>
-              <div className="until">
-                <label className="until">Until:</label>
-                <input
-                  type="date"
-                  value={endDateFromInput}
-                  onChange={(e) => setEndDateFromInput(e.target.value)}
-                />
-                <input
-                  type="time"
-                  value={endTimeFromInput}
-                  onChange={(e) => setEndTimeFromInput(e.target.value)}
-                  step="1"
-                />
-              </div>
-            </div>
-          )}
+
+          <p
+            className="error small"
+            style={{ color: `${colors.red}`, display: displayError }}
+          >
+            {errorMessage}
+          </p>
           <Button className="save" text="Confirm" onClick={handleClick} />
         </div>
         <Button className="close" icon={plusIcon} onClick={closeModal} />

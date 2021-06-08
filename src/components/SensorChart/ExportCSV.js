@@ -1,6 +1,8 @@
 import React from "react";
 import { CSVLink } from "react-csv";
 
+import downloadIcon from "../../icons/download.svg";
+
 export const ExportCSV = ({ data = [], dataInfo = {} }) => {
   if (!data || !dataInfo) {
     return <pre></pre>;
@@ -26,7 +28,10 @@ export const ExportCSV = ({ data = [], dataInfo = {} }) => {
 
   return (
     <div>
-      <CSVLink {...csvReport}>Download as CSV</CSVLink>
+      <CSVLink className="csv-link" {...csvReport}>
+        {downloadIcon && <img src={downloadIcon} alt="Button icon" />}
+        Download as CSV
+      </CSVLink>
     </div>
   );
 };

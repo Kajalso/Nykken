@@ -28,6 +28,10 @@ $strokeColor: #e3e4e1;
   position: relative;
 }
 
+.more:hover {
+  cursor: pointer;
+}
+
 .css-g1d714-ValueContainer {
   cursor: pointer;
 }
@@ -53,6 +57,10 @@ $strokeColor: #e3e4e1;
     width: 150px;
     top: 1em;
     right: 0;
+  }
+
+  .more-select__placeholder {
+    display: none;
   }
 
   .more-select__control--is-focused {

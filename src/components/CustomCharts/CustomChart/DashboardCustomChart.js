@@ -8,8 +8,12 @@ import {
   curveMonotoneX,
 } from "d3";
 
-import { useChartProps, useCustomProps } from "../../../styles/useChartStyles";
-import { useColors } from "../../../styles/useChartStyles";
+import {
+  useColors,
+  useChartProps,
+  useCustomProps,
+  useXAxisTickFormat,
+} from "../../../styles/useChartStyles";
 
 import { CustomChartsContext } from "../../../context/CustomChartsContext";
 
@@ -27,8 +31,9 @@ import "./customChart.scss";
 const circleRadius = 2;
 const barChartIDs = [5, 8, 10, 12];
 
-export const CustomChart = ({
+export const DashboardCustomChart = ({
   customChart,
+  granularity,
   chartSensors,
   handleDownloadPNG,
   handleConfirm,
@@ -45,10 +50,11 @@ export const CustomChart = ({
     id = sensors[0].dataInfo.data_identifier;
   }
 
+  let xAxisTickFormat = useXAxisTickFormat(granularity);
+
   let {
     xValue,
     xAxisLabel,
-    xAxisTickFormat,
     yValue,
     yAxisLabel,
     xAxisDateOffset,
