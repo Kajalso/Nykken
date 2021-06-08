@@ -6,7 +6,7 @@
 It is developed as part of a master's theses at NTNU.
 
 
-######Get started
+#####Get Started
 You can visit Nykken [here](https://nykken.netlify.app/) or follow these steps:
 
 1. Download node.js
