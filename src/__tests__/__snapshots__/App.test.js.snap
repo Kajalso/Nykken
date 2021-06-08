@@ -28,15 +28,6 @@ Object {
               />
               Add chart group
             </button>
-            <button
-              class="button btn-custom-chart"
-            >
-              <img
-                alt="Button icon"
-                src="custom_chart.svg"
-              />
-              Create custom chart
-            </button>
           </div>
           <p
             class="small"
@@ -48,6 +39,7 @@ Object {
         <div
           class="dashboard"
         >
+          <div />
           <div
             class="sensor-measurements"
           >
@@ -73,20 +65,9 @@ Object {
               </p>
             </div>
           </div>
-          <h2
-            class="title groups"
-          >
-            Groups
-          </h2>
-          <p>
-            No groups to show
-          </p>
         </div>
       </div>
     </div>
-    <div
-      class="ReactModalPortal"
-    />
     <div
       class="ReactModalPortal"
     />
@@ -118,15 +99,6 @@ Object {
             />
             Add chart group
           </button>
-          <button
-            class="button btn-custom-chart"
-          >
-            <img
-              alt="Button icon"
-              src="custom_chart.svg"
-            />
-            Create custom chart
-          </button>
         </div>
         <p
           class="small"
@@ -138,6 +110,7 @@ Object {
       <div
         class="dashboard"
       >
+        <div />
         <div
           class="sensor-measurements"
         >
@@ -163,14 +136,6 @@ Object {
             </p>
           </div>
         </div>
-        <h2
-          class="title groups"
-        >
-          Groups
-        </h2>
-        <p>
-          No groups to show
-        </p>
       </div>
     </div>
   </div>,
