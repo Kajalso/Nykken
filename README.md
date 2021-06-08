@@ -9,8 +9,8 @@ It is developed as part of a master's theses at NTNU.
 ##### Get Started
 You can visit Nykken [here](https://nykken.netlify.app/) or follow these steps:
 
-1. Download node.js
-2. Clone the project using: 
+1. Download [node.js](https://nodejs.org/en/download/)
+2. Clone the project: 
 ```
 git clone https://https://github.com/Kajalso/Nykken.git
 ```
@@ -18,7 +18,7 @@ git clone https://https://github.com/Kajalso/Nykken.git
 ```
 npm install
 ```
-4. Run the project by running the following command:
+4. Run the project:
 ```
 npm start
 ```
